@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/draft/2020-12/schema#",
   "title": "Methodology Taxonomy",
   "description": "A Taxonomy of methodologies with suggested steps and items to follow",
   "definitions": {
@@ -8,7 +8,7 @@
       "properties": {
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9-+()\/,.<]*$"
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$"
         },
         "description": {
           "type": "string"
@@ -28,7 +28,7 @@
         },
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9-+()\/,.<]*$"
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?]*$"
         },
         "description": {
           "type": "string"
@@ -49,7 +49,7 @@
         },
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9-+()\/,.<]*$"
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$"
         },
         "description": {
           "type": "string"
@@ -84,7 +84,7 @@
         "steps": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/steps"
+            "$ref": "#/definitions/step"
           }
         }
       },
