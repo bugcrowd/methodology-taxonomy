@@ -1,4 +1,4 @@
-name: Validate BMTs
+name: Validate BMT
 
 on: [push]
 
