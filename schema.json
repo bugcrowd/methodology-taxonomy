@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft/2020-12/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Methodology Taxonomy",
   "description": "A Taxonomy of methodologies with suggested steps and items to follow",
   "definitions": {
@@ -22,7 +22,12 @@
           "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
           "minLength": 3
         }
-      }
+      },
+      "required": [
+        "title",
+        "description",
+        "release_date"
+      ]
     },
     "item": {
       "type": "object",
