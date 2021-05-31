@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "title": "The outback",
+    "release_date": "2021-05-31T00:00:00+00:00",
+    "description": "The right way to make sure you have the right the animals"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "koala",
+        "title": "Check that you have a Koala",
+        "description": "# does it look like one?\nIt is easy to find out.\n",
+        "items": [
+          {
+            "key": "koala.is_marsupial",
+            "title": "Is it a marsupial?",
+            "description": "here some info about how to check this"
+          },
+          {
+            "key": "koala.diet",
+            "title": "Does it eat eucalyptus?",
+            "description": "here some botanic tips"
+          },
+          {
+            "key": "koala.behavior",
+            "title": "Does it sleep the whole day?",
+            "description": "Usually sleeps on trees"
+          }
+        ]
+      },
+      {
+        "key": "kangaroo",
+        "title": "Make sure now you got a kangaroo",
+        "description": "does it look like one?",
+        "items": [
+          {
+            "key": "kangaroo.is_marsupial",
+            "title": "Is it a marsupial?",
+            "description": "here some info about how to check this"
+          },
+          {
+            "key": "kangaroo.tail",
+            "title": "Does it have a long tail?",
+            "description": "here some tips"
+          },
+          {
+            "key": "kangaroo.jump",
+            "title": "Does it jump around?",
+            "description": "I have checked how it moves and yeah, it jumps"
+          }
+        ]
+      }
+    ]
+  }
+}

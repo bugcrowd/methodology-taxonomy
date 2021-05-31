@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Methodology Taxonomy",
+  "description": "A Taxonomy of methodologies with suggested steps and items to follow",
+  "definitions": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9-+()\/,.<]*$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "release_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z_]*$"
+        },
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9-+()\/,.<]*$"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "description"
+      ]
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z_]*$"
+        },
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9-+()\/,.<]*$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "description",
+        "items"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "metadata",
+    "content"
+  ],
+  "properties": {
+    "metadata": {
+      "$ref": "#/definitions/metadata"
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/steps"
+          }
+        }
+      },
+      "required": [
+        "steps"
+      ]
+    }
+  }
+}
