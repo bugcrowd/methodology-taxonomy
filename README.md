@@ -1,8 +1,4 @@
 # methodology-taxonomy
 The BMT explains the baselines for different types of testing on bugcrowd.com
 
-![validate BMT](https://github.com/bugcrowd/methodology-taxonomy/actions/workflows/validate_btm.yml/badge.svg?branch=bc-16592-add-methodologies-schema-tests)
-
-<p align="center">
-  <img src="https://github.com/bugcrowd/methodology-taxonomy/actions/workflows/validate_btm.yml/badge.svg?branch=main" />
-</p>
+![validate BMT](https://github.com/bugcrowd/methodology-taxonomy/actions/workflows/validate_btm.yml/badge.svg?branch=main)
