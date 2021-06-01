@@ -189,7 +189,8 @@
           {
             "key": "lock_out_mechanism",
             "title": "Testing for Weak lock out mechanism",
-            "description": "OTG-AUTHN-003WAHHM - Test Handling of Access\nVRT Category - Server Security"
+            "description": "OTG-AUTHN-003WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "bypass_schema",
