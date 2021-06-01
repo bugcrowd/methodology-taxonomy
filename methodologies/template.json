@@ -2,7 +2,8 @@
   "metadata": {
     "title": "The outback",
     "release_date": "2021-05-31T00:00:00+00:00",
-    "description": "The right way to make sure you have the right the animals"
+    "description": "The right way to make sure you have the right the animals",
+    "vrt_version": "10.1"
   },
   "content": {
     "steps": [
@@ -14,7 +15,8 @@
           {
             "key": "marsupial",
             "title": "Is it a marsupial?",
-            "description": "here some info about how to check this"
+            "description": "here some info about how to check this",
+            "vrt_category": "insecure_data_storage"
           },
           {
             "key": "diet",

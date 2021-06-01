@@ -16,6 +16,11 @@
         "release_date": {
           "type": "string",
           "format": "date-time"
+        },
+        "vrt_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "minLength": 3
         }
       }
     },
@@ -24,14 +29,20 @@
       "properties": {
         "key": {
           "type": "string",
-          "pattern": "^[a-z_]*$"
+          "pattern": "^[a-z_]*$",
+          "minLength": 3
         },
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?]*$"
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?]*$",
+          "minLength": 3
         },
         "description": {
           "type": "string"
+        },
+        "vrt_category": {
+          "type": "string",
+          "pattern": "^[a-z_]*$"
         }
       },
       "required": [
@@ -45,11 +56,13 @@
       "properties": {
         "key": {
           "type": "string",
-          "pattern": "^[a-z_]*$"
+          "pattern": "^[a-z_]*$",
+          "minLength": 3
         },
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$"
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$",
+          "minLength": 3
         },
         "description": {
           "type": "string"
