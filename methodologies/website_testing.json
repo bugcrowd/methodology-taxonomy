@@ -333,7 +333,8 @@
           {
             "key": "stored_xss",
             "title": "Testing for Stored Cross Site Scripting",
-            "description": "OTG-INPVAL-002WAHHM - Test Handling of Input\nVRT Category - Cross-Site Scripting (XSS)"
+            "description": "OTG-INPVAL-002WAHHM - Test Handling of Input",
+            "vrt_category": "cross_site_scripting_xss"
           },
           {
             "key": "http_verb_tampering",
@@ -586,12 +587,14 @@
           {
             "key": "dom_based_xss",
             "title": "Testing for DOM based Cross Site Scripting",
-            "description": "OTG-CLIENT-001WAHHM -  Miscellaneous Tests\nVRT Category - Cross-Site Scripting (XSS)"
+            "description": "OTG-CLIENT-001WAHHM -  Miscellaneous Tests",
+            "vrt_category": "cross_site_scripting_xss"
           },
           {
             "key": "javascript_execution",
             "title": "Testing for JavaScript Execution",
-            "description": "OTG-CLIENT-002WAHHM - Test Handling of Input\nVRT Category - Cross-Site Scripting (XSS)"
+            "description": "OTG-CLIENT-002WAHHM - Test Handling of Input",
+            "vrt_category": "cross_site_scripting_xss"
           },
           {
             "key": "html_injection",
