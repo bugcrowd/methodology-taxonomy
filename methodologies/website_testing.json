@@ -58,7 +58,7 @@
           {
             "key": "fingerprint_webapp",
             "title": "Fingerprint Web Application",
-            "description": "OTG-INFO-009WAHHM - Recon and Analysis\nVRT Category - Several"
+            "description": "OTG-INFO-009WAHHM - Recon and Analysis"
           },
           {
             "key": "application_architecture",
@@ -129,7 +129,8 @@
           {
             "key": "role_definition",
             "title": "Test Role Definitions",
-            "description": "OTG-IDENT-001WAHHM - Test Handling of Access\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-IDENT-001WAHHM - Test Handling of Access",
+            "vrt_category": "broken_access_control"
           },
           {
             "key": "user_registration",
@@ -240,7 +241,8 @@
           {
             "key": "bypass_schema",
             "title": "Testing for bypassing authorization schema",
-            "description": "OTG-AUTHZ-002WAHHM - Test Handling of Access\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-AUTHZ-002WAHHM - Test Handling of Access",
+            "vrt_category": "broken_access_control"
           },
           {
             "key": "privilege_escalation",
@@ -250,7 +252,8 @@
           {
             "key": "direct_object_reference",
             "title": "Testing for Insecure Direct Object References",
-            "description": "OTG-AUTHZ-004WAHHM - Test Handling of Access\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-AUTHZ-004WAHHM - Test Handling of Access",
+            "vrt_category": "broken_access_control"
           }
         ]
       },
@@ -495,7 +498,8 @@
           {
             "key": "data_validation",
             "title": "Test Business Logic Data Validation",
-            "description": "OTG-BUSLOGIC-001WAHHM - Test for Logic Flaws\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-BUSLOGIC-001WAHHM - Test for Logic Flaws",
+            "vrt_category": "broken_access_control"
           },
           {
             "key": "forge_requests",
@@ -505,7 +509,8 @@
           {
             "key": "integrity_check",
             "title": "Test Integrity Checks",
-            "description": "OTG-BUSLOGIC-003WAHHM - Test for Logic Flaws\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-BUSLOGIC-003WAHHM - Test for Logic Flaws",
+            "vrt_category": "broken_access_control"
           },
           {
             "key": "process_timing",
@@ -515,12 +520,14 @@
           {
             "key": "usage_limits",
             "title": "Test Number of Times a Function Can be Used Limits",
-            "description": "OTG-BUSLOGIC-005WAHHM - Test for Logic Flaws\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-BUSLOGIC-005WAHHM - Test for Logic Flaws",
+            "vrt_category": "broken_access_control"
           },
           {
             "key": "workflow_circumvention",
             "title": "Testing for the Circumvention of Work Flows",
-            "description": "OTG-BUSLOGIC-006WAHHM - Test for Logic Flaws\nVRT Category - Broken Access Control (BAC)"
+            "description": "OTG-BUSLOGIC-006WAHHM - Test for Logic Flaws",
+            "vrt_category": "broken_access_control"
           },
           {
             "key": "application_misuse",
