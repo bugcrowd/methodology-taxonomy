@@ -213,7 +213,8 @@
           {
             "key": "password_policy",
             "title": "Testing for Weak password policy",
-            "description": "OTG-AUTHN-007WAHHM - Test Handling of Access\nVRT Category - Insufficient Security Configurability"
+            "description": "OTG-AUTHN-007WAHHM - Test Handling of Access",
+            "vrt_category": "insufficient_security_configurability"
           },
           {
             "key": "security_question",
@@ -242,7 +243,8 @@
           {
             "key": "directory_traversal_and_file_include",
             "title": "Testing Directory traversal/file include",
-            "description": "OTG-AUTHZ-001WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-AUTHZ-001WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "bypass_schema",
@@ -342,12 +344,14 @@
           {
             "key": "http_param_pollution",
             "title": "Testing for HTTP Parameter pollution",
-            "description": "OTG-INPVAL-004WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-004WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "sql_injection",
             "title": "Testing for SQL Injection",
-            "description": "OTG-INPVAL-005WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-005WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "oracle",
@@ -382,37 +386,44 @@
           {
             "key": "ldap_injection",
             "title": "Testing for LDAP Injection",
-            "description": "OTG-INPVAL-006WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-006WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "orm_injection",
             "title": "Testing for ORM Injection",
-            "description": "OTG-INPVAL-007WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-007WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "xml_injection",
             "title": "Testing for XML Injection",
-            "description": "OTG-INPVAL-008WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-008WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "ssi_injection",
             "title": "Testing for SSI Injection",
-            "description": "OTG-INPVAL-009WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-009WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "xpath_injection",
             "title": "Testing for XPath Injection",
-            "description": "OTG-INPVAL-010WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-010WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "imap_smtp_injection",
             "title": "IMAP/SMTP Injection",
-            "description": "OTG-INPVAL-011WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-011WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "code_injection",
             "title": "Testing for Code Injection",
-            "description": "OTG-INPVAL-012WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-012WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "local_file_inclusion",
@@ -427,12 +438,14 @@
           {
             "key": "command_injection",
             "title": "Testing for Command Injection",
-            "description": "OTG-INPVAL-013WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-013WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "buffer_overflow",
             "title": "Testing for Buffer overflow",
-            "description": "OTG-INPVAL-014WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-014WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "heap_overflow",
@@ -458,7 +471,8 @@
           {
             "key": "http_splitting_and_smuggling",
             "title": "Testing for HTTP Splitting/Smuggling",
-            "description": "OTG-INPVAL-016WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-INPVAL-016WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           }
         ]
       },
@@ -519,7 +533,8 @@
           {
             "key": "forge_requests",
             "title": "Test Ability to Forge Requests",
-            "description": "OTG-BUSLOGIC-002WAHHM - Test for Logic Flaws\nVRT Category - Server-Side Injection"
+            "description": "OTG-BUSLOGIC-002WAHHM - Test for Logic Flaws",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "integrity_check",
@@ -530,7 +545,8 @@
           {
             "key": "process_timing",
             "title": "Test for Process Timing",
-            "description": "OTG-BUSLOGIC-004WAHHM - Test for Logic Flaws\nVRT Category - Server-Side Injection"
+            "description": "OTG-BUSLOGIC-004WAHHM - Test for Logic Flaws",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "usage_limits",
@@ -580,7 +596,8 @@
           {
             "key": "html_injection",
             "title": "Testing for HTML Injection",
-            "description": "OTG-CLIENT-003WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
+            "description": "OTG-CLIENT-003WAHHM - Test Handling of Input",
+            "vrt_category": "server_side_injection"
           },
           {
             "key": "url_redirect",
