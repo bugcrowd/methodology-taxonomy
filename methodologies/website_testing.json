@@ -12,7 +12,7 @@
         "description": "",
         "items": [
           {
-            "key": "search_engine",
+            "key": "search_engine_discovery_and_reconnaissance",
             "title": "Conduct Search Engine Discovery and Reconnaissance for Information Leakage",
             "description": "OTG-INFO-001, WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
           },
@@ -22,7 +22,7 @@
             "description": "OTG-INFO-002WAHHM - Recon and Analysis\nVRT Category - Server Security Misconfiguration"
           },
           {
-            "key": "webserver_meta",
+            "key": "webserver_metafiles",
             "title": "Review Webserver Metafiles for Information Leakage",
             "description": "OTG-INFO-003WAHHM - Recon and Analysis"
           },
@@ -32,12 +32,12 @@
             "description": "if in scope OTG-INFO-004WAHHM - Recon and Analysis"
           },
           {
-            "key": "webpage_meta",
+            "key": "webpage_comments_and_metadata",
             "title": "Review Webpage Comments and Metadata for Information Leakage",
             "description": "OTG-INFO-005WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
           },
           {
-            "key": "entry_points",
+            "key": "application_entry_points",
             "title": "Identify application entry points",
             "description": "OTG-INFO-006WAHHM - Recon and Analysis"
           },
@@ -57,19 +57,19 @@
             "description": "OTG-INFO-009WAHHM - Recon and Analysis\nVRT Category - Several"
           },
           {
-            "key": "map_web_architecture",
+            "key": "application_architecture",
             "title": "Map Application Architecture",
             "description": "OTG-INFO-010WAHHM - Recon and Analysis"
           }
         ]
       },
       {
-        "key": "config_and_deploy",
+        "key": "config_and_deploy_management",
         "title": "Configuration and Deploy Management Testing",
         "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
         "items": [
           {
-            "key": "network_infra",
+            "key": "network_and_infrastructure",
             "title": "Test Network/Infrastructure Configuration",
             "description": "OTG-CONFIG-001WAHHM - Recon and Analysis, Assess Application Hosting\nVRT Category - Server Security Misconfiguration"
           },
@@ -79,7 +79,7 @@
             "description": "OTG-CONFIG-002WAHHM - Recon and Analysis\nVRT Category - Server Security Misconfiguration"
           },
           {
-            "key": "file_extensions",
+            "key": "file_extensions_handling",
             "title": "Test File Extensions Handling for Sensitive Information",
             "description": "OTG-CONFIG-003WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
           },
@@ -99,12 +99,12 @@
             "description": "OTG-CONFIG-006WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
           },
           {
-            "key": "http_security",
+            "key": "http_transport_security",
             "title": "Test HTTP Strict Transport Security",
             "description": "OTG-CONFIG-007WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
           },
           {
-            "key": "cross_domain_policy",
+            "key": "ria_cross_domain_policy",
             "title": "Test RIA cross domain policy",
             "description": "OTG-CONFIG-008WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
           }
@@ -131,7 +131,7 @@
             "description": "OTG-IDENT-003WAHHM - Test Handling of Access"
           },
           {
-            "key": "guessable_accounts",
+            "key": "guessable_user_accounts",
             "title": "Testing for Account Enumeration and Guessable User Account",
             "description": "OTG-IDENT-004WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
           },
@@ -141,19 +141,14 @@
             "description": "OTG-IDENT-005WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
           },
           {
-            "key": "guest_accounts",
+            "key": "guest_accounts_permission",
             "title": "Test Permissions of Guest/Training Accounts",
             "description": "OTG-IDENT-006WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
           },
           {
-            "key": "account_suspension",
+            "key": "account_suspension_resumption",
             "title": "Test Account Suspension/Resumption Process",
             "description": "OTG-IDENT-007WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
-          },
-          {
-            "key": "",
-            "title": "",
-            "description": ""
           }
         ]
       },
@@ -220,7 +215,7 @@
         "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
         "items": [
           {
-            "key": "directory",
+            "key": "directory_traversal_and_file_include",
             "title": "Testing Directory traversal/file include",
             "description": "OTG-AUTHZ-001WAHHM - Test Handling of Input\nVRT Category - Server-Side Injection"
           },
@@ -248,7 +243,7 @@
         "items": [
           {
             "key": "bypass_schema",
-            "title": "Testing for Bypassing Session Management Schema ",
+            "title": "Testing for Bypassing Session Management Schema",
             "description": "OTG-SESS-001WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
           },
           {
