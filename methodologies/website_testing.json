@@ -177,7 +177,8 @@
           {
             "key": "encrypted_credentials",
             "title": "Testing for Credentials Transported over an Encrypted Channel",
-            "description": "OTG-AUTHN-001WAHHM - Miscellaneous Tests\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-AUTHN-001WAHHM - Miscellaneous Tests",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "default_credentials",
@@ -193,12 +194,14 @@
           {
             "key": "bypass_schema",
             "title": "Testing for bypassing authentication schema",
-            "description": "OTG-AUTHN-004WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-AUTHN-004WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "remember_password",
             "title": "Test remember password functionality",
-            "description": "OTG-AUTHN-005WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-AUTHN-005WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "browser_cache",
@@ -214,12 +217,14 @@
           {
             "key": "security_question",
             "title": "Testing for Weak security question/answer",
-            "description": "OTG-AUTHN-008WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-AUTHN-008WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "change_password",
             "title": "Testing for weak password change or reset functionalities",
-            "description": "OTG-AUTHN-009WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-AUTHN-009WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "alternative_channel",
@@ -247,7 +252,8 @@
           {
             "key": "privilege_escalation",
             "title": "Testing for Privilege Escalation",
-            "description": "OTG-AUTHZ-003WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-AUTHZ-003WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "direct_object_reference",
@@ -265,7 +271,8 @@
           {
             "key": "bypass_schema",
             "title": "Testing for Bypassing Session Management Schema",
-            "description": "OTG-SESS-001WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-SESS-001WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "cookies",
@@ -276,12 +283,14 @@
           {
             "key": "fixation",
             "title": "Testing for Session Fixation",
-            "description": "OTG-SESS-003WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-SESS-003WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "exposed_variables",
             "title": "Testing for Exposed Session Variables",
-            "description": "OTG-SESS-004WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-SESS-004WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "csrf",
@@ -291,17 +300,20 @@
           {
             "key": "logout",
             "title": "Testing for logout functionality",
-            "description": "OTG-SESS-006WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-SESS-006WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "timeout",
             "title": "Test Session Timeout",
-            "description": "OTG-SESS-007WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-SESS-007WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "puzzling",
             "title": "Testing for Session puzzling",
-            "description": "OTG-SESS-008WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-SESS-008WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           }
         ]
       },
@@ -481,12 +493,14 @@
           {
             "key": "padding_oracle",
             "title": "Testing for Padding Oracle",
-            "description": "OTG-CRYPST-002WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-CRYPST-002WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "unencrypted_channels",
             "title": "Testing for Sensitive information sent via unencrypted channels",
-            "description": "OTG-CRYPST-003WAHHM - Test Handling of Access\nVRT Category - Broken Authentication and Session Management"
+            "description": "OTG-CRYPST-003WAHHM - Test Handling of Access",
+            "vrt_category": "broken_authentication_and_session_management"
           }
         ]
       },
