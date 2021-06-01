@@ -21,7 +21,8 @@
           {
             "key": "fingerprint",
             "title": "Fingerprint Web Server",
-            "description": "OTG-INFO-002WAHHM - Recon and Analysis\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-INFO-002WAHHM - Recon and Analysis",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "webserver_metafiles",
@@ -74,12 +75,14 @@
           {
             "key": "network_and_infrastructure",
             "title": "Test Network/Infrastructure Configuration",
-            "description": "OTG-CONFIG-001WAHHM - Recon and Analysis, Assess Application Hosting\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CONFIG-001WAHHM - Recon and Analysis, Assess Application Hosting",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "application_platform",
             "title": "Test Application Platform Configuration",
-            "description": "OTG-CONFIG-002WAHHM - Recon and Analysis\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CONFIG-002WAHHM - Recon and Analysis",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "file_extensions_handling",
@@ -101,17 +104,20 @@
           {
             "key": "http_methods",
             "title": "Test HTTP Methods",
-            "description": "OTG-CONFIG-006WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CONFIG-006WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "http_transport_security",
             "title": "Test HTTP Strict Transport Security",
-            "description": "OTG-CONFIG-007WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CONFIG-007WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "ria_cross_domain_policy",
             "title": "Test RIA cross domain policy",
-            "description": "OTG-CONFIG-008WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CONFIG-008WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           }
         ]
       },
@@ -128,7 +134,8 @@
           {
             "key": "user_registration",
             "title": "Test User Registration Process",
-            "description": "OTG-IDENT-002WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-IDENT-002WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "account_provisioning",
@@ -138,22 +145,26 @@
           {
             "key": "guessable_user_accounts",
             "title": "Testing for Account Enumeration and Guessable User Account",
-            "description": "OTG-IDENT-004WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-IDENT-004WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "username_policy",
             "title": "Testing for Weak or unenforced username policy",
-            "description": "OTG-IDENT-005WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-IDENT-005WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "guest_accounts_permission",
             "title": "Test Permissions of Guest/Training Accounts",
-            "description": "OTG-IDENT-006WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-IDENT-006WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "account_suspension_resumption",
             "title": "Test Account Suspension/Resumption Process",
-            "description": "OTG-IDENT-007WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-IDENT-007WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           }
         ]
       },
@@ -170,7 +181,8 @@
           {
             "key": "default_credentials",
             "title": "Testing for default credentials",
-            "description": "OTG-AUTHN-002WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-AUTHN-002WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "lock_out_mechanism",
@@ -190,7 +202,8 @@
           {
             "key": "browser_cache",
             "title": "Testing for Browser cache weakness",
-            "description": "OTG-AUTHN-006WAHHM - Miscellaneous Tests\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-AUTHN-006WAHHM - Miscellaneous Tests",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "password_policy",
@@ -254,7 +267,8 @@
           {
             "key": "cookies",
             "title": "Testing for Cookies attributes",
-            "description": "OTG-SESS-002WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-SESS-002WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "fixation",
@@ -306,7 +320,8 @@
           {
             "key": "http_verb_tampering",
             "title": "Testing for HTTP Verb Tampering",
-            "description": "OTG-INPVAL-003WAHHM - Test Handling of Input\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-INPVAL-003WAHHM - Test Handling of Input",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "http_param_pollution",
@@ -421,7 +436,8 @@
           {
             "key": "incubated_vulnerabilities",
             "title": "Testing for incubated vulnerabilities",
-            "description": "OTG-INPVAL-015WAHHM - Test Handling of Input\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-INPVAL-015WAHHM - Test Handling of Input",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "http_splitting_and_smuggling",
@@ -443,7 +459,8 @@
           {
             "key": "stack_traces",
             "title": "Analysis of Stack Traces",
-            "description": "OTG-ERR-002WAHHM - Recon and Analysis\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-ERR-002WAHHM - Recon and Analysis",
+            "vrt_category": "server_security_misconfiguration"
           }
         ]
       },
@@ -455,7 +472,8 @@
           {
             "key": "transport_layer_protection",
             "title": "Testing for Weak SSL/TSL Ciphers, Insufficient Transport Layer Protection",
-            "description": "OTG-CRYPST-001WAHHM - Test Handling of Access\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CRYPST-001WAHHM - Test Handling of Access",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "padding_oracle",
@@ -517,7 +535,8 @@
           {
             "key": "malicious_files",
             "title": "Test Upload of Malicious Files",
-            "description": "OTG-BUSLOGIC-009WAHHM - Test for Logic Flaws\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-BUSLOGIC-009WAHHM - Test for Logic Flaws",
+            "vrt_category": "server_security_misconfiguration"
           }
         ]
       },
@@ -559,17 +578,20 @@
           {
             "key": "cors",
             "title": "Test Cross Origin Resource Sharing",
-            "description": "OTG-CLIENT-007WAHHM -  Miscellaneous Tests\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CLIENT-007WAHHM -  Miscellaneous Tests",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "cross_site_flashing",
             "title": "Testing for Cross Site Flashing",
-            "description": "OTG-CLIENT-008WAHHM - Test Handling of Input\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CLIENT-008WAHHM - Test Handling of Input",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "clickjacking",
             "title": "Testing for Clickjacking",
-            "description": "OTG-CLIENT-009WAHHM -  Miscellaneous Tests\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CLIENT-009WAHHM -  Miscellaneous Tests",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "web_sockets",
@@ -584,7 +606,8 @@
           {
             "key": "local_storage",
             "title": "Test Local Storage",
-            "description": "OTG-CLIENT-012WAHHM -  Miscellaneous Tests\nVRT Category - Server Security Misconfiguration"
+            "description": "OTG-CLIENT-012WAHHM -  Miscellaneous Tests",
+            "vrt_category": "server_security_misconfiguration"
           }
         ]
       }
