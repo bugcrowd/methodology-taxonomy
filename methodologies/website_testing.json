@@ -298,7 +298,8 @@
           {
             "key": "csrf",
             "title": "Testing for Cross Site Request Forgery",
-            "description": "OTG-SESS-005WAHHM - Test Handling of Access\nVRT Category - Cross-Site Request Forgery (CSRF)"
+            "description": "OTG-SESS-005WAHHM - Test Handling of Access",
+            "vrt_category": "cross_site_request_forgery_csrf"
           },
           {
             "key": "logout",
@@ -485,7 +486,8 @@
           {
             "key": "error_codes",
             "title": "Analysis of Error Codes",
-            "description": "OTG-ERR-001WAHHM - Recon and Analysis\nVRT Category - Server"
+            "description": "OTG-ERR-001WAHHM - Recon and Analysis",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "stack_traces",
@@ -605,17 +607,20 @@
           {
             "key": "url_redirect",
             "title": "Testing for Client Side URL Redirect",
-            "description": "OTG-CLIENT-004WAHHM - Test Handling of Input\nVRT Category - Unvalidated Redirects and Forwards"
+            "description": "OTG-CLIENT-004WAHHM - Test Handling of Input",
+            "vrt_category": "unvalidated_redirects_and_forwards"
           },
           {
             "key": "css_injection",
             "title": "Testing for CSS Injection",
-            "description": "OTG-CLIENT-005WAHHM - Test Handling of Input\nVRT Category - Server"
+            "description": "OTG-CLIENT-005WAHHM - Test Handling of Input",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "resource_manipulation",
             "title": "Testing for Client Side Resource Manipulation",
-            "description": "OTG-CLIENT-006WAHHM - Test Handling of Input\nVRT Category - Server Security"
+            "description": "OTG-CLIENT-006WAHHM - Test Handling of Input",
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "cors",
