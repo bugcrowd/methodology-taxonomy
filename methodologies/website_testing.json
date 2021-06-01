@@ -15,7 +15,8 @@
           {
             "key": "search_engine_discovery_and_reconnaissance",
             "title": "Conduct Search Engine Discovery and Reconnaissance for Information Leakage",
-            "description": "OTG-INFO-001, WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
+            "description": "OTG-INFO-001, WAHHM - Recon and Analysis",
+            "vrt_category": "sensitive_data_exposure"
           },
           {
             "key": "fingerprint",
@@ -35,7 +36,8 @@
           {
             "key": "webpage_comments_and_metadata",
             "title": "Review Webpage Comments and Metadata for Information Leakage",
-            "description": "OTG-INFO-005WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
+            "description": "OTG-INFO-005WAHHM - Recon and Analysis",
+            "vrt_category": "sensitive_data_exposure"
           },
           {
             "key": "application_entry_points",
@@ -82,12 +84,14 @@
           {
             "key": "file_extensions_handling",
             "title": "Test File Extensions Handling for Sensitive Information",
-            "description": "OTG-CONFIG-003WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
+            "description": "OTG-CONFIG-003WAHHM - Recon and Analysis",
+            "vrt_category": "sensitive_data_exposure"
           },
           {
             "key": "backup_and_unreferenced_files",
             "title": "Backup and Unreferenced Files for Sensitive Information",
-            "description": "OTG-CONFIG-004WAHHM - Recon and Analysis\nVRT Category - Sensitive Data Exposure"
+            "description": "OTG-CONFIG-004WAHHM - Recon and Analysis",
+            "vrt_category": "sensitive_data_exposure"
           },
           {
             "key": "admin_interfaces",
