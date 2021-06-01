@@ -2,7 +2,8 @@
   "metadata": {
     "title": "Website Testing",
     "release_date": "2021-05-31T00:00:00+00:00",
-    "description": "Bugcrowd web methodology testing"
+    "description": "Bugcrowd web methodology testing",
+    "vrt_version": "10.0.1"
   },
   "content": {
     "steps": [
