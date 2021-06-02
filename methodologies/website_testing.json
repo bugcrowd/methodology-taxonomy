@@ -70,7 +70,7 @@
       {
         "key": "config_and_deploy_management",
         "title": "Configuration and Deploy Management Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "network_and_infrastructure",
@@ -124,7 +124,7 @@
       {
         "key": "identity_management",
         "title": "Identity Management Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "role_definition",
@@ -172,7 +172,7 @@
       {
         "key": "authentication",
         "title": "Authentication Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "encrypted_credentials",
@@ -238,7 +238,7 @@
       {
         "key": "authorization",
         "title": "Authorization Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "directory_traversal_and_file_include",
@@ -269,7 +269,7 @@
       {
         "key": "session_management",
         "title": "Session Management Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "bypass_schema",
@@ -324,7 +324,7 @@
       {
         "key": "data_validation",
         "title": "Data Validation Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "reflected_xss",
@@ -481,7 +481,7 @@
       {
         "key": "error_handling",
         "title": "Error handling",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "error_codes",
@@ -500,7 +500,7 @@
       {
         "key": "cryptography",
         "title": "Cryptography",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "transport_layer_protection",
@@ -525,7 +525,7 @@
       {
         "key": "business_logic",
         "title": "Business Logic Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "data_validation",
@@ -584,7 +584,7 @@
       {
         "key": "client_side",
         "title": "Client Side Testing",
-        "description": "Please provide an explanation for why a particular piece of the methodology was not completed.",
+        "description": "",
         "items": [
           {
             "key": "dom_based_xss",
