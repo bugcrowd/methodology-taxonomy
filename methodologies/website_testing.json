@@ -15,7 +15,7 @@
           {
             "key": "search_engine_discovery_and_reconnaissance",
             "title": "Conduct Search Engine Discovery and Reconnaissance for Information Leakage",
-            "description": "OTG-INFO-001, , WAHHM - Recon and Analysis",
+            "description": "OTG-INFO-001, WAHHM - Recon and Analysis",
             "vrt_category": "sensitive_data_exposure"
           },
           {
