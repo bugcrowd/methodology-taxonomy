@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "The Outback Animal Checklist",
+    "release_date": "2021-05-31T00:00:00+00:00",
+    "description": "The right way to make sure you have the right Australian animals",
+    "vrt_version": "10.1"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "koala",
+        "title": "Check that you have a Koala",
+        "description": "# Does it look like one?\nIt is easy to find out.\n",
+        "items": [
+          {
+            "key": "marsupial",
+            "title": "Is it a marsupial?",
+            "description": "Marsupials are obviously mammalian and have a pouch on their underside",
+            "vrt_category": "insecure_data_storage"
+          },
+          {
+            "key": "diet",
+            "title": "Make sure it eats eucalyptus",
+            "description": "Almost no other animal can eat eucaluptus leaves, so this is a good diagnostic"
+          },
+          {
+            "key": "behavior",
+            "title": "Does it sleep the whole day?",
+            "description": "Usually sleeps on trees"
+          }
+        ]
+      },
+      {
+        "key": "kangaroo",
+        "title": "Ensure you have a kangaroo",
+        "description": "Does it look like one?",
+        "items": [
+          {
+            "key": "marsupial",
+            "title": "Is it a marsupial?",
+            "description": "Marsupials are obviously mammalian but possess a pouch on their underside"
+          },
+          {
+            "key": "tail",
+            "title": "Does it have a long tail?",
+            "description": "Kangaroos use their thick tail as a balance when jumping, and can use it as a support to rear up on when kicking"
+          },
+          {
+            "key": "jump",
+            "title": "Does it jump around?",
+            "description": "Over very short distances kangaroos will use their forepaws to balance on the ground and swing their legs forward. For longer distance movement, their jumping locomotion is unmistakeable."
+          }
+        ]
+      }
+    ]
+  }
+}

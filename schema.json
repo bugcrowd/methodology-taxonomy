@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema#",
+  "title": "Methodology Taxonomy",
+  "description": "A Taxonomy of methodologies with suggested steps and items to follow",
+  "definitions": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "release_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "vrt_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+          "minLength": 3
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z_]*$",
+          "minLength": 3
+        },
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?]*$",
+          "minLength": 3
+        },
+        "description": {
+          "type": "string"
+        },
+        "vrt_category": {
+          "type": "string",
+          "pattern": "^[a-z_]*$"
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "description"
+      ]
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z_]*$",
+          "minLength": 3
+        },
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$",
+          "minLength": 3
+        },
+        "description": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/item"
+          }
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "description",
+        "items"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "metadata",
+    "content"
+  ],
+  "properties": {
+    "metadata": {
+      "$ref": "#/definitions/metadata"
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/step"
+          }
+        }
+      },
+      "required": [
+        "steps"
+      ]
+    }
+  }
+}
