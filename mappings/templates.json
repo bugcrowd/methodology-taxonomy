@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "title": "Methodology Taxonomy Template Mapping"
+  },
+  "content": [
+    {
+      "methodology": "website_testing",
+      "children": [
+        {
+          "key": "information",
+          "attribute": "notes",
+          "template": "information.md"
+        }
+      ]
+    }
+  ]
+}

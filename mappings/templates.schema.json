@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Methodology Taxonomy Mapping",
+  "description": "Mapping to methodology taxonomy",
+  "definitions": {
+    "MappingMetadata": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$"
+        }
+      },
+      "required": ["title"]
+    },
+    "BMTKey": { "type": "string", "pattern": "^[a-z_]*$" },
+    "Attribute": { "type": "string", "pattern": "^[a-z_]*$" },
+    "Template": { "type": "string", "pattern": "[a-z_.]*$" },
+    "Mapping": {
+      "type": "object",
+      "properties": {
+        "key": { "$ref": "#/definitions/BMTKey" },
+        "attribute": { "$ref": "#/definitions/Attribute" },
+        "template" : { "$ref": "#/definitions/Template" }
+      },
+      "required": ["key", "attribute", "template"],
+      "additionalProperties": false
+    },
+    "MappingParent": {
+      "type": "object",
+      "properties": {
+        "methodology": { "$ref": "#/definitions/BMTKey" },
+        "children": {
+          "type": "array",
+          "items" : {
+            "anyOf": [
+              { "$ref": "#/definitions/Mapping" }
+            ]
+          }
+        }
+      },
+      "required": ["methodology", "children"],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": ["metadata", "content"],
+  "properties": {
+    "metadata": {
+      "$ref": "#/definitions/MappingMetadata"
+    },
+    "content": {
+      "type": "array",
+      "items" : {
+        "anyOf": [
+          { "$ref": "#/definitions/MappingParent" },
+          { "$ref": "#/definitions/Mapping" }
+        ]
+      }
+    }
+  }
+}
