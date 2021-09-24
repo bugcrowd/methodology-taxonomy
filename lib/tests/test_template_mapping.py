@@ -33,12 +33,12 @@ class TestTemplateMapping(unittest.TestCase):
 
   def validate_mapping_data(self, mapping):
       for methodologyData in mapping:
-          self.check_template_exist(methodologyData['methodology'], methodologyData['children'])
+          self.check_template_exists(methodologyData['methodology'], methodologyData['children'])
 
-  def check_template_exist(self, methodology, steps):
+  def check_template_exists(self, methodology, steps):
       """
       Check a template mapping path from templates.json file
-      and check methodology template is exist or not in template repository
+      and check methodology template exists (or not) in template repository
       if the template is not found, it will give an error for template missing
       """
       print("validating methodology : %s" % methodology)
