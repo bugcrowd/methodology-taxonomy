@@ -83,7 +83,7 @@
             "title": "Map Application Architecture",
             "caption": "OTG-INFO-010, WAHHM - Recon and Analysis",
             "description": "Identify application architecture including Web language, WAF, Reverse proxy, Application Server, Backend Database",
-            "tools": "Browser, curl, wget",
+            "tools": "Browser, curl, wget"
           }
         ]
       },
@@ -301,7 +301,7 @@
             "title": "Testing for Weaker authentication in alternative channel",
             "caption": "OTG-AUTHN-010, WAHHM - Test Handling of Access",
             "description": "Understand the primary mechanism and Identify other channels (Mobile App, Call center, SSO)",
-            "tools": "Browser",
+            "tools": "Browser"
           }
         ]
       },
@@ -498,7 +498,7 @@
             "key": "nosql_injection",
             "title": "Testing for NoSQL injection",
             "caption": "",
-            "description": "dentify NoSQL databases, Pass special characters (' \" \ ; { } ), Attack with reserved variable name, operator.",
+            "description": "dentify NoSQL databases, Pass special characters (' \" \\ ; { } ), Attack with reserved variable name, operator.",
             "tools": "NoSQLMap"
           },
           {
@@ -545,7 +545,7 @@
             "key": "imap_smtp_injection",
             "title": "IMAP/SMTP Injection",
             "caption": "OTG-INPVAL-011, WAHHM - Test Handling of Input",
-            "description": "Identifying vulnerable parameters with special characters (i.e.: \, ‘, “, @, #, !, |).\nUnderstanding the data flow and deployment structure of the client\nIMAP/SMTP command injection (Header, Body, Footer)",
+            "description": "Identifying vulnerable parameters with special characters (i.e.: \\, ‘, “, @, #, !, |).\nUnderstanding the data flow and deployment structure of the client\nIMAP/SMTP command injection (Header, Body, Footer)",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "server_side_injection"
           },
@@ -575,7 +575,7 @@
             "key": "command_injection",
             "title": "Testing for Command Injection",
             "caption": "OTG-INPVAL-013, WAHHM - Test Handling of Input",
-            "description": "Understand the application platform, OS, folder structure, relative path and execute OS commands on a Web server.\n%3Bcat%20/etc/passwd\ntest.pdf+|+Dir C:\ ",
+            "description": "Understand the application platform, OS, folder structure, relative path and execute OS commands on a Web server.\n%3Bcat%20/etc/passwd\ntest.pdf+|+Dir C:\\ ",
             "tools": "Burp Proxy, ZAP, Commix",
             "vrt_category": "server_side_injection"
           },

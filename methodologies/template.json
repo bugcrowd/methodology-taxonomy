@@ -25,14 +25,14 @@
             "title": "Make sure it eats eucalyptus",
             "caption": "Almost no other animal can eat eucalyptus leaves, so this is a good diagnostic",
             "description": "Take some eucalyptus branches, remove some leaves and try to feed the alleged koala",
-            "tools": "Leaves and Branches",
+            "tools": "Leaves and Branches"
           },
           {
             "key": "behavior",
             "title": "Does it sleep the whole day?",
             "caption": "Usually sleeps on trees",
             "description": "The alleged Koala should sleep the whole day if provided a tree.",
-            "tools": "Trees, Dawn",
+            "tools": "Trees, Dawn"
           }
         ]
       },
@@ -46,21 +46,21 @@
             "title": "Is it a marsupial?",
             "caption": "Marsupials are obviously mammalian but possess a pouch on their underside",
             "description": "Check for the pouch",
-            "tools": "Eyes",
+            "tools": "Eyes"
           },
           {
             "key": "tail",
             "title": "Does it have a long tail?",
             "caption": "Kangaroos use their thick tail as a balance when jumping, and can use it as a support to rear up on when kicking",
             "description": "Use the meter to measure the tail, it should be pretty long",
-            "tools": "Meter",
+            "tools": "Meter"
           },
           {
             "key": "jump",
             "title": "Does it jump around?",
             "caption": "Over very short distances kangaroos will use their forepaws to balance on the ground and swing their legs forward. For longer distance movement, their jumping locomotion is unmistakeable.",
             "description": "Free the Kangaroo in a field and notice that it will start jumping. Bonus point to use a Trampoline.",
-            "tools": "Field, Trampoline",
+            "tools": "Field, Trampoline"
           }
         ]
       }
