@@ -42,7 +42,13 @@
           "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?]*$",
           "minLength": 3
         },
+        "caption": {
+          "type": "string"
+        },
         "description": {
+          "type": "string"
+        },
+        "tools": {
           "type": "string"
         },
         "vrt_category": {
@@ -53,7 +59,7 @@
       "required": [
         "key",
         "title",
-        "description"
+        "caption"
       ]
     },
     "step": {

@@ -15,18 +15,24 @@
           {
             "key": "marsupial",
             "title": "Is it a marsupial?",
-            "description": "Marsupials are obviously mammalian and have a pouch on their underside",
+            "caption": "Marsupials are obviously mammalian and have a pouch on their underside",
+            "description": "Check for the pouch",
+            "tools": "Eyes",
             "vrt_category": "insecure_data_storage"
           },
           {
             "key": "diet",
             "title": "Make sure it eats eucalyptus",
-            "description": "Almost no other animal can eat eucaluptus leaves, so this is a good diagnostic"
+            "caption": "Almost no other animal can eat eucalyptus leaves, so this is a good diagnostic",
+            "description": "Take some eucalyptus branches, remove some leaves and try to feed the alleged koala",
+            "tools": "Leaves and Branches"
           },
           {
             "key": "behavior",
             "title": "Does it sleep the whole day?",
-            "description": "Usually sleeps on trees"
+            "caption": "Usually sleeps on trees",
+            "description": "The alleged Koala should sleep the whole day if provided a tree.",
+            "tools": "Trees, Dawn"
           }
         ]
       },
@@ -38,17 +44,23 @@
           {
             "key": "marsupial",
             "title": "Is it a marsupial?",
-            "description": "Marsupials are obviously mammalian but possess a pouch on their underside"
+            "caption": "Marsupials are obviously mammalian but possess a pouch on their underside",
+            "description": "Check for the pouch",
+            "tools": "Eyes"
           },
           {
             "key": "tail",
             "title": "Does it have a long tail?",
-            "description": "Kangaroos use their thick tail as a balance when jumping, and can use it as a support to rear up on when kicking"
+            "caption": "Kangaroos use their thick tail as a balance when jumping, and can use it as a support to rear up on when kicking",
+            "description": "Use the meter to measure the tail, it should be pretty long",
+            "tools": "Meter"
           },
           {
             "key": "jump",
             "title": "Does it jump around?",
-            "description": "Over very short distances kangaroos will use their forepaws to balance on the ground and swing their legs forward. For longer distance movement, their jumping locomotion is unmistakeable."
+            "caption": "Over very short distances kangaroos will use their forepaws to balance on the ground and swing their legs forward. For longer distance movement, their jumping locomotion is unmistakeable.",
+            "description": "Free the Kangaroo in a field and notice that it will start jumping. Bonus point to use a Trampoline.",
+            "tools": "Field, Trampoline"
           }
         ]
       }
