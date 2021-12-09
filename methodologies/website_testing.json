@@ -11,6 +11,7 @@
         "key": "information",
         "title": "Information gathering",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "search_engine_discovery_and_reconnaissance",
@@ -91,6 +92,7 @@
         "key": "config_and_deploy_management",
         "title": "Configuration and Deploy Management Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "network_and_infrastructure",
@@ -161,6 +163,7 @@
         "key": "identity_management",
         "title": "Identity Management Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "role_definition",
@@ -223,6 +226,7 @@
         "key": "authentication",
         "title": "Authentication Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "encrypted_credentials",
@@ -309,6 +313,7 @@
         "key": "authorization",
         "title": "Authorization Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "directory_traversal_and_file_include",
@@ -348,6 +353,7 @@
         "key": "session_management",
         "title": "Session Management Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "bypass_schema",
@@ -419,6 +425,7 @@
         "key": "data_validation",
         "title": "Data Validation Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "reflected_xss",
@@ -630,6 +637,7 @@
         "key": "error_handling",
         "title": "Error handling",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "error_codes",
@@ -653,6 +661,7 @@
         "key": "cryptography",
         "title": "Cryptography",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "transport_layer_protection",
@@ -684,6 +693,7 @@
         "key": "business_logic",
         "title": "Business Logic Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "data_validation",
@@ -761,6 +771,7 @@
         "key": "client_side",
         "title": "Client Side Testing",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "key": "dom_based_xss",
@@ -857,6 +868,18 @@
             "tools": "Chrome, Firebug, Burp Proxy, ZAP"
           }
         ]
+      },
+      {
+        "key": "upload_logs",
+        "title": "Upload logs",
+        "description": "This should include all associated traffic associated to the in-scope targets.",
+        "type": "large_upload"
+      },
+      {
+        "key": "executive_summary",
+        "title": "Executive summary",
+        "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+        "type": "executive_summary"
       }
     ]
   }
