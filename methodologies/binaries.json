@@ -19,6 +19,7 @@
             "title": "Assess the application for multi-user environments and ensure it includes functionality for role separation."
           },
           {
+            "description": "",
             "key": "password_recovery_mechanism",
             "title": "Assess password recovery mechanisms and ensure session management is properly maintained/terminated at the remote endpoint."
           }
@@ -149,6 +150,7 @@
             "title": "Ensure all third party components used by the application, such as libraries and frameworks, are identified, and checked for known vulnerabilities."
           },
           {
+            "description": "",
             "key": "assess_hardcoded_sensitive_info",
             "title": "Assess the application for signs of hardcoded sensitive information - e.g. credentials, URLs, API keys, etc."
           },
@@ -168,6 +170,7 @@
             "title": "Assess the application for misconfigured permissions, allowing for the escalation of privileges (e.g. DLL spoofing/hijacking, etc)."
           },
           {
+            "description": "",
             "key": "assess_minimal_permissions",
             "title": "Assess the application to ensure it only uses the minimum set of permissions necessary."
           },
@@ -177,6 +180,7 @@
             "title": "Assess the application for unsafe object deserialization behavior that might lead to command injection."
           },
           {
+            "description": "",
             "key": "assess_compiler_os_exploit_mitigation",
             "title": "Assess the application to ensure Basic OS/compiler exploit mitigation features, such stack protection/exploit mitigation (DEP, ASLR, stack canaries, etc) are activated."
           },
