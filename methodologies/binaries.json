@@ -102,6 +102,7 @@
       {
         "key": "insecure_cloud_interface",
         "title": "B5: Insecure Cloud Interface (where applicable)",
+        "description": "",
         "items": [
           {
             "description": "",
@@ -118,6 +119,7 @@
       {
         "key": "insecure_software_firmware",
         "title": "B6: Insecure Software/Firmware",
+        "description": "",
         "items": [
           {
             "description": "",
