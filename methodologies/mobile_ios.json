@@ -184,7 +184,7 @@
             "title": "The remote endpoint implements a mechanism to protect against the submission of credentials an excessive number of times."
           },
           {
-            "key": "session_invalidated_at_remote_endpoint",,
+            "key": "session_invalidated_at_remote_endpoint",
             "title": "Sessions are invalidated at the remote endpoint after a predefined period of inactivity and access tokens expire."
           },
           {
