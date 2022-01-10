@@ -219,7 +219,7 @@
             "description": "",
             "key": "assess_authentication_bypass",
             "caption": "",
-            "title": "Assess the application for authentication bypasses and backdoors; allowing for access to functions/features outside of intended-use flows."
+            "title": "Assess the application for authentication bypasses and backdoors, allowing for access to functions/features outside of intended-use flows."
           },
           {
             "description": "",
