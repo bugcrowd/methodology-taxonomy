@@ -103,6 +103,7 @@
         "key": "insecure_cloud_interface",
         "title": "B5: Insecure Cloud Interface (where applicable)",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "description": "",
@@ -120,6 +121,7 @@
         "key": "insecure_software_firmware",
         "title": "B6: Insecure Software/Firmware",
         "description": "",
+        "type": "checklist",
         "items": [
           {
             "description": "",
