@@ -9,7 +9,7 @@
     "steps": [
       {
         "key": "insufficient_authentication_authorization",
-        "titile": "B1: Insufficient Authentication/Authorization",
+        "title": "B1: Insufficient Authentication/Authorization",
         "description": "",
         "type": "checklist",
         "items": [
