@@ -1,0 +1,440 @@
+{
+  "metadata": {
+    "title": "Binaries",
+    "release_date": "2022-01-10T00:00:00+00:00",
+    "description": "Bugcrowd iOS testing methodology",
+    "vrt_version": "10.0.1"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "architecture_design_and_threat_modelling",
+        "title": "Architecture, design and threat modelling",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "all_app_components_are_identified_and_known_to_be_needed",
+            "title": "All app components are identified and known to be needed",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "security_controls_client_side",
+            "title": "Security controls are never enforced only on the client side, but on the respective remote endpoints.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "high_level_architecture_for_mobile_app",
+            "title": "A high-level architecture for the mobile app and all connected remote services has been defined and security has been addressed in that architecture.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_identified_data",
+            "title": "Data considered sensitive in the context of the mobile app is clearly identified.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "business_and_security_functions",
+            "title": "All app components are defined in terms of the business functions and/or security functions they provide.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "threat_model_for_mobile_app",
+            "title": "A threat model for the mobile app and the associated remote services has been produced that identifies potential threats and countermeasures.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "security_controls",
+            "title": "All security controls have a centralized implementation.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "cryptographic_key_policy",
+            "title": "There is an explicit policy for how cryptographic keys (if any) are managed, and the lifecycle of cryptographic keys is enforced. Ideally, follow a key management standard such as NIST SP 800-57.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "enforce_mobile_app_updates",
+            "title": "A mechanism for enforcing updates of the mobile app exists.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "address_security",
+            "title": "Security is addressed within all parts of the software development lifecycle.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "data_storage_and_privacy",
+        "title": "Data Storage and Privacy",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "system_creentials_storage_facilities",
+            "title": "System credential storage facilities are used appropriately to store sensitive data, such as PII, user credentials or cryptographic keys.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_storage",
+            "title": "No sensitive data should be stored outside of the app container or system credential storage facilities.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_in_logs",
+            "title": "No sensitive data is written to application logs.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_sharing_with_third_party",
+            "title": "No sensitive data is shared with third parties unless it is a necessary part of the architecture.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "keyboard_cache_disabling",
+            "title": "The keyboard cache is disabled on text inputs that process sensitive data.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_ipc_mechanism",
+            "title": "No sensitive data is exposed via IPC mechanisms.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_exposure_via_ui",
+            "title": "No sensitive data, such as passwords or pins, is exposed through the user interface.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_exposure_via_backup",
+            "title": "No sensitive data is included in backups generated by the mobile operating system.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_removal_on_backgrounded",
+            "title": "The app removes sensitive data from views when backgrounded.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_data_holding_in_memory",
+            "title": "The app does not hold sensitive data in memory longer than necessary, and memory is cleared explicitly after use.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "minimum_device_access_security_policy",
+            "title": "The app enforces a minimum device-access-security policy, such as requiring the user to set a device passcode.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "personal_identifiable_information_identification",
+            "title": "The app educates the user about the types of personally identifiable information processed, as well as security best practices the user should follow in using the app.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "cryptography",
+        "title": "Cryptography",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "symmetric_cryptography_with_hardcoded_keys",
+            "title": "The app does not rely on symmetric cryptography with hardcoded keys as a sole method of encryption.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "proven_cryptographic_primitives",
+            "title": "The app uses proven implementations of cryptographic primitives.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "cryptographic_primitive_for_particular_use_case",
+            "title": "The app uses cryptographic primitives that are appropriate for the particular use-case, configured with parameters that adhere to industry best practices.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "depricated_cryptography_protocols",
+            "title": "The app does not use cryptographic protocols or algorithms that are widely considered depreciated for security purposes.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "reuse_same_cryptographic_key",
+            "title": "The app doesnt re-use the same cryptographic key for multiple purposes.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "secure_random_number_generator",
+            "title": "All random values are generated using a sufficiently secure random number generator.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "authentication_and_session_management",
+        "title": "Authentication and Session Management",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "remote_service_authentication",
+            "title": "If the app provides users access to a remote service, some form of authentication, such as username/password authentication, is performed at the remote endpoint.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "stateful_session_management_authentication",
+            "title": "If stateful session management is used, the remote endpoint uses randomly generated session identifiers to authenticate client requests without sending the users credentials.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "stateless_token_based_management_authentication",
+            "title": "If stateless token-based authentication is used, the server provides a token that has been signed using a secure algorithm.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "remote_endpoint_terminate",
+            "title": "The remote endpoint terminates the existing session when the user logs out.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "password_policy_exists",
+            "title": "A password policy exists and is enforced at the remote endpoint.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "remote_endpoint_implementation_mechanism",
+            "title": "The remote endpoint implements a mechanism to protect against the submission of credentials an excessive number of times.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "session_invalidated_at_remote_endpoint",
+            "title": "Sessions are invalidated at the remote endpoint after a predefined period of inactivity and access tokens expire.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "biometric_authentication",
+            "title": "Biometric authentication, if any, is not event-bound (i.e. using an API that simply returns true or false). Instead, it is based on unlocking the keychain/keystore.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "second_factor_authentication",
+            "title": "A second factor of authentication exists at the remote endpoint and the 2FA requirement is consistently enforced.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_transaction_setup_authentication",
+            "title": "Sensitive transactions require step-up authentication.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "inform_user_login_activities",
+            "title": "The app informs the user of all login activities with their account. Users are able view a list of devices used to access the account, and to block specific devices.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "network_communication",
+        "title": "Network Communication",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "data_encryption_on_network",
+            "title": "Data is encrypted on the network using TLS. The secure channel is used consistently throughout the app.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "tls_settings_best_practices",
+            "title": "The TLS settings are in line with current best practices, or as close as possible if the mobile operating system does not support the recommended standards.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "remote_endpoint_certificate",
+            "title": "The app verifies the X.509 certificate of the remote endpoint when the secure channel is established. Only certificates signed by a trusted CA are accepted.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "app_certification",
+            "title": "The app either uses its own certificate store, or pins the endpoint certificate or public key, and subsequently does not establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "insecure_communication_channel",
+            "title": "The app doesnt rely on a single insecure communication channel (email or SMS) for critical operations, such as enrollments and account recovery.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "app_dependency_on_connectivity_and_library",
+            "title": "The app only depends on up-to-date connectivity and security libraries.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "platform_interaction",
+        "title": "Platform Interaction",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "minimum_set_of_permission",
+            "title": "The app only requests the minimum set of permissions necessary.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "external_source_input_validation",
+            "title": "The app only requests the minimum set of permissions necessary.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "sensitive_functionality_via_url_schemes",
+            "title": "The app does not export sensitive functionality via custom URL schemes, unless these mechanisms are properly protected.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "export_sensitive_functionality_through_ipc",
+            "title": "The app does not export sensitive functionality through IPC facilities, unless these mechanisms are properly protected.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "javascript_disabled",
+            "title": "JavaScript is disabled in WebViews unless explicitly required.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "webview_minimum_set_of_protocol_handlers",
+            "title": "WebViews are configured to allow only the minimum set of protocol handlers required (ideally, only https is supported). Potentially dangerous handlers, such as file, tel and app-id, are disabled.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "webview_within_app_javascript_render",
+            "title": "If native methods of the app are exposed to a WebView, verify that the WebView only renders JavaScript contained within the app package.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "object_deserialization",
+            "title": "Object deserialization, if any, is implemented using safe serialization APIs.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "code_quality_and_build_settings",
+        "title": "Code Quality and Build Settings",
+        "description": "",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "valid_certificate_sign",
+            "title": "The app is signed and provisioned with a valid certificate, of which the private key is properly protected.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "built_in_release_mode",
+            "title": "The app has been built in release mode, with settings appropriate for a release build (e.g. non-debuggable).",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "debugging_symbol",
+            "title": "Debugging symbols have been removed from native binaries.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "debugging_and_verbose_errors",
+            "title": "Debugging code has been removed, and the app does not log verbose errors or debugging messages.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "third_party_vulnerability_check",
+            "title": "All third party components used by the mobile app, such as libraries and frameworks, are identified, and checked for known vulnerabilities.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "exception_handling",
+            "title": "The app catches and handles possible exceptions.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "security_controls_error_handling",
+            "title": "Error handling logic in security controls denies access by default",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "memory_allocation",
+            "title": "In unmanaged code, memory is allocated, freed and used securely.",
+            "description": "",
+            "caption": ""
+          },
+          {
+            "key": "free_security_features_offered_by_toolchain",
+            "title": "Free security features offered by the toolchain, such as byte-code minification, stack protection, PIE support and automatic reference counting, are activated.",
+            "description": "",
+            "caption": ""
+          }
+        ]
+      }
+    ]
+  }
+}
