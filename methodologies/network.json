@@ -46,7 +46,7 @@
         "description": "",
         "type": "checklist",
         "caption": "Please include your full nmap scan output + banner information in a single file. Similarly, include all other tooling outputs.",
-        "item": [
+        "items": [
           {
             "key": "scan_in_scope_targets",
             "title": "Fully scan the range of in-scope targets (all 65,535 TCP and UDP ports).",
@@ -91,7 +91,7 @@
         "description": "",
         "type": "checklist",
         "caption": "Include any screenshots as proof of successful exploitation. For unsuccessful attacks, please document the commands/tools executed.",
-        "steps": [
+        "items": [
           {
             "key": "lack_of_auth",
             "title": "Check for lack of auth/default creds to any available services. e.g. auth portals, anonymous FTP, SSH, RDP, mail relays, etc.",
