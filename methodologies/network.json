@@ -55,7 +55,7 @@
           },
           {
             "key": "ensure_host_scan",
-            "title": "Ensure that hosts are still scanned, even if they’re not responsive to a ping sweep.",
+            "title": "Ensure that hosts are still scanned, even if they are not responsive to a ping sweep.",
             "caption": "",
             "description": ""
           },
@@ -79,7 +79,7 @@
           },
           {
             "key": "leverage_available_services",
-            "title": "Review results and leverage any available services to obtain more information around the targets and/or users. Examples: RPC, SMB, SMTP, SNMP, etc.",
+            "title": "Review results and leverage any available services to obtain more information around the targets or users. Examples are RPC, SMB, SMTP, SNMP, etc.",
             "caption": "",
             "description": ""
           }
@@ -94,7 +94,7 @@
         "items": [
           {
             "key": "lack_of_auth",
-            "title": "Check for lack of auth/default creds to any available services. e.g. auth portals, anonymous FTP, SSH, RDP, mail relays, etc.",
+            "title": "Check for lack of auth or default creds to any available services. e.g. auth portals, anonymous FTP, SSH, RDP, mail relays, etc.",
             "caption": "",
             "description": ""
           },
@@ -106,7 +106,7 @@
           },
           {
             "key": "cross_reference_software_version",
-            "title": "Cross reference software version numbers against known vulnerable versions/exploits (exploit db, CVEs, etc; often facilitated by the use of nessus/nikto/openvas/etc).",
+            "title": "Cross reference software version numbers against known vulnerable versions or exploits (exploit db, CVEs, etc. often facilitated by the use of nessus/nikto/openvas/etc).",
             "caption": "",
             "description": ""
           },
@@ -118,7 +118,7 @@
           },
           {
             "key": "presence_of_sensitive_information_publicly",
-            "title": "Check for the presence of sensitive information that’s publicly available on any service (e.g. documents available via anonymous FTP).",
+            "title": "Check for the presence of sensitive information that is publicly available on any service (e.g. documents available via anonymous FTP).",
             "caption": "",
             "description": ""
           },
