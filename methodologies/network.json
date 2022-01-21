@@ -1,0 +1,195 @@
+{
+  "metadata": {
+    "title": "Network",
+    "release_date": "2022-01-10T00:00:00+00:00",
+    "description": "Bugcrowd network testing methodology",
+    "vrt_version": "10.0.1"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "information",
+        "title": "Information Gathering / Recon",
+        "description": "",
+        "type": "checklist",
+        "caption": "Please include any valuable pieces of information found; and the source of said information",
+        "items": [
+          {
+            "key": "credentials_leaked",
+            "title": "Credentials or keys leaked on Github, Pastebin, etc.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "leaked_as_part_of_past_breaches",
+            "title": "Usernames, emails, passwords, and other information leaked as part of past breaches.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "internal_subdomain",
+            "title": "Internal subdomains, known software, etc.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "zone_transfer_in_scope_ip",
+            "title": "Check for the ability to perform a zone transfer on the in-scope IP addresses",
+            "caption": "",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "key": "scanning",
+        "title": "Scanning",
+        "description": "",
+        "type": "checklist",
+        "caption": "Please include your full nmap scan output + banner information in a single file. Similarly, include all other tooling outputs.",
+        "items": [
+          {
+            "key": "scan_in_scope_targets",
+            "title": "Fully scan the range of in-scope targets (all 65,535 TCP and UDP ports).",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "ensure_host_scan",
+            "title": "Ensure that hosts are still scanned, even if they are not responsive to a ping sweep.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "in_scope_services_and_version_numbers",
+            "title": "Enumerate and document all in-scope services and version numbers.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "document_services_that_communicate_insecurely",
+            "title": "Document services that communicate insecurely (e.g. telnet, http).",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "subdomain_takeovers",
+            "title": "Document any services with misconfigured DNS records allowing for subdomain takeovers.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "leverage_available_services",
+            "title": "Review results and leverage any available services to obtain more information around the targets or users. Examples are RPC, SMB, SMTP, SNMP, etc.",
+            "caption": "",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "key": "exploitation",
+        "title": "Exploitation",
+        "description": "",
+        "type": "checklist",
+        "caption": "Include any screenshots as proof of successful exploitation. For unsuccessful attacks, please document the commands/tools executed.",
+        "items": [
+          {
+            "key": "lack_of_auth",
+            "title": "Check for lack of auth or default creds to any available services. e.g. auth portals, anonymous FTP, SSH, RDP, mail relays, etc.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "service_bypass",
+            "title": "Check for any auth bypasses on any available services.",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "cross_reference_software_version",
+            "title": "Cross reference software version numbers against known vulnerable versions or exploits (exploit db, CVEs, etc. often facilitated by the use of nessus/nikto/openvas/etc).",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "attempt_to_exploit_known_vulnerabilities",
+            "title": "Configure and attempt to exploit any known vulnerabilities (existing scripts with custom shellcode, metasploit modules, etc).",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "presence_of_sensitive_information_publicly",
+            "title": "Check for the presence of sensitive information that is publicly available on any service (e.g. documents available via anonymous FTP).",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_vulnerability_auth_bypass",
+            "title": "Test any available webservers for server-side vulnerabilities including Auth bypasses",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_vulnerability_default_credentials",
+            "title": "Test any available webservers for server-side vulnerabilities including Default credentials",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_vulnerability_known_exploits",
+            "title": "Test any available webservers for server-side vulnerabilities including Known exploits based on running vulnerable software",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_vulnerability_sql_injection",
+            "title": "Test any available webservers for server-side vulnerabilities including SQL Injection (SQLi)",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_rce",
+            "title": "Test any available webservers for server-side vulnerabilities including Remote Code Execution (RCE)",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_xxe",
+            "title": "Test any available webservers for server-side vulnerabilities including XML Entity Injection (XXE)",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_ssrf",
+            "title": "Test any available webservers for server-side vulnerabilities including Server Side Request Forgery (SSRF)",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_lfi_afi",
+            "title": "Test any available webservers for server-side vulnerabilities including Local/Arbitrary File Inclusion (LFI/AFI)",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "server_side_hidden_directory_pages",
+            "title": "Test any available webservers for server-side vulnerabilities including Hidden directories or pages with sensitive information",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "basic_web_app_scanner",
+            "title": "Run a basic web application scanner over the app, and report any valid issues. (nikto, burp, zap, et al)",
+            "caption": "",
+            "description": ""
+          },
+          {
+            "key": "attempt_bruteforcing",
+            "title": "Attempt moderate, informed/educated brute-forcing on available services - based on information gathered earlier in the assessment.",
+            "caption": "",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  }
+}
