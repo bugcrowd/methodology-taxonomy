@@ -434,6 +434,18 @@
             "caption": ""
           }
         ]
+      },
+      {
+        "key": "upload_logs",
+        "title": "Upload logs",
+        "description": "This should include all associated traffic associated to the in-scope targets.",
+        "type": "large_upload"
+      },
+      {
+        "key": "executive_summary",
+        "title": "Executive summary",
+        "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+        "type": "executive_summary"
       }
     ]
   }
