@@ -331,7 +331,7 @@
           },
           {
             "key": "external_source_input_validation",
-            "title": "The app only requests the minimum set of permissions necessary.",
+            "title": "All inputs from external sources and the user are validated and if necessary sanitized. This includes data received via the UI, IPC mechanisms such as intents, custom URLs, and network sources.",
             "description": "",
             "caption": ""
           },
