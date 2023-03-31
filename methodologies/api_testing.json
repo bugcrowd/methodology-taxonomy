@@ -14,12 +14,31 @@
         "type": "checklist",
         "items": [
           {
-            "key": "search_engine_discovery_and_reconnaissance",
-            "title": "Conduct Search Engine Discovery and Reconnaissance for Information Leakage",
-            "caption": "OTG-INFO-001, WAHHM - Recon and Analysis",
-            "description": "Use a search engine to search for Network diagrams and Configurations, Credentials, Error message content.",
-            "tools": "Google Hacking, Sitedigger, Shodan, FOCA, Punkspider",
-            "vrt_category": "sensitive_data_exposure"
+            "key": "review_documentation",
+            "title": "Review Documentation",
+            "description": "Review provided documentation or Swagger Files for any leaked or hidden endpoints.",
+            "caption": ""
+          },
+          {
+            "key": "check_wsdl_files",
+            "title": "Check for .wsdl files",
+            "description": "Check for web service description language (.wsdl) files for SOAP APIs.",
+            "tools": "Burp Proxy, FFUF, WFuzz, Gobuster",
+            "caption": ""
+          },
+          {
+            "key": "check_graphql_introspection",
+            "title": "Check for GraphQL Introspection",
+            "description": "Check for enabled Introspection using GraphQL query.",
+            "tools": "Burp Proxy + GraphQL Raider (BAPP)",
+            "caption": ""
+          },
+          {
+            "key": "search_leaked_api_keys",
+            "title": "Search for leaked API Keys",
+            "description": "Black box only - Search for leaked online API keys on Github, Gitlab etc.",
+            "tools": "TruffleHog",
+            "caption": ""
           },
           {
             "key": "fingerprint",
@@ -42,14 +61,6 @@
             "caption": "if in scope OTG-INFO-004, WAHHM - Recon and Analysis",
             "description": "Find applications hosted in the webserver (Virtual hosts/Subdomain), non-standard ports, DNS zone transfers",
             "tools": "Webhosting.info, dnsrecon, Nmap, fierce, Recon-ng, Intrigue"
-          },
-          {
-            "key": "webpage_comments_and_metadata",
-            "title": "Review Webpage Comments and Metadata for Information Leakage",
-            "caption": "OTG-INFO-005, WAHHM - Recon and Analysis",
-            "description": "Find sensitive information from webpage comments and Metadata on source code.",
-            "tools": "Browser, curl, wget",
-            "vrt_category": "sensitive_data_exposure"
           },
           {
             "key": "application_entry_points",
@@ -77,7 +88,7 @@
             "title": "Fingerprint Web Application",
             "caption": "OTG-INFO-009, WAHHM - Recon and Analysis",
             "description": "Identify the web application and version to determine known vulnerabilities and the appropriate exploits.",
-            "tools": "Whatweb, BlindElephant, Wappalyzer"
+            "tools": "Whatweb, BlindElephant, Wappalyzer, CMSmap"
           },
           {
             "key": "application_architecture",
@@ -109,22 +120,6 @@
             "description": "Identify default installation file/directory, Handle Server errors (40*,50*), Minimal Privilege, Software logging.",
             "tools": "Browser, Nikto",
             "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "file_extensions_handling",
-            "title": "Test File Extensions Handling for Sensitive Information",
-            "caption": "OTG-CONFIG-003, WAHHM - Recon and Analysis",
-            "description": "Find important file, information (.asa , .inc , .sql ,zip, tar, pdf, txt, etc)",
-            "tools": "Browser, Nikto",
-            "vrt_category": "sensitive_data_exposure"
-          },
-          {
-            "key": "backup_and_unreferenced_files",
-            "title": "Backup and Unreferenced Files for Sensitive Information",
-            "caption": "OTG-CONFIG-004, WAHHM - Recon and Analysis",
-            "description": "Check JS source code, comments, cache file, backup file (.old, .bak, .inc, .src) and guessing of filename",
-            "tools": "Nessus, Nikto, Wikto",
-            "vrt_category": "sensitive_data_exposure"
           },
           {
             "key": "admin_interfaces",
@@ -182,25 +177,10 @@
             "vrt_category": "server_security_misconfiguration"
           },
           {
-            "key": "account_provisioning",
-            "title": "Test Account Provisioning Process",
-            "caption": "OTG-IDENT-003, WAHHM - Test Handling of Access",
-            "description": "Determine which roles are able to provision users and what sort of accounts they can provision.",
-            "tools": "Burp Proxy, ZAP"
-          },
-          {
             "key": "guessable_user_accounts",
             "title": "Testing for Account Enumeration and Guessable User Account",
             "caption": "OTG-IDENT-004, WAHHM - Test Handling of Access",
             "description": "Generic login error statement check, return codes/parameter values, enumerate all possible valid user ids (Login system, Forgot password)",
-            "tools": "Browser, Burp Proxy, ZAP",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "username_policy",
-            "title": "Testing for Weak or unenforced username policy",
-            "caption": "OTG-IDENT-005, WAHHM - Test Handling of Access",
-            "description": "User account names are often highly structured (e.g. Joe Bloggs account name is jbloggs and Fred Nurks account name is fnurks) and valid account names can easily be guessed.",
             "tools": "Browser, Burp Proxy, ZAP",
             "vrt_category": "server_security_misconfiguration"
           },
@@ -229,20 +209,19 @@
         "type": "checklist",
         "items": [
           {
+            "key": "tenant_authentication_reuse",
+            "title": "Test tenant authentication re-use",
+            "caption": "",
+            "description": "Check to see if auth parameters are being reused from one tenant to another.",
+            "tools": "Burp Proxy, curl, swagger-ui, mitmproxy, Hackverter"
+          },
+          {
             "key": "encrypted_credentials",
             "title": "Testing for Credentials Transported over an Encrypted Channel",
             "caption": "OTG-AUTHN-001, WAHHM - Miscellaneous Tests",
             "description": "Check the referrer whether it’s HTTP or HTTPs. Sending data through HTTP and HTTPS.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_authentication_and_session_management"
-          },
-          {
-            "key": "default_credentials",
-            "title": "Testing for default credentials",
-            "caption": "OTG-AUTHN-002, WAHHM - Test Handling of Access",
-            "description": "Testing for default credentials of common applications, Testing for default password of new accounts.",
-            "tools": "Burp Proxy, ZAP, Hydra",
-            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "lock_out_mechanism",
@@ -253,52 +232,12 @@
             "vrt_category": "server_security_misconfiguration"
           },
           {
-            "key": "bypass_schema",
-            "title": "Testing for bypassing authentication schema",
-            "caption": "OTG-AUTHN-004, WAHHM - Test Handling of Access",
-            "description": "Force browsing (/admin/main.php, /page.asp?authenticated=yes), Parameter Modification, Session ID prediction, SQL Injection",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "broken_authentication_and_session_management"
-          },
-          {
-            "key": "remember_password",
-            "title": "Test remember password functionality",
-            "caption": "OTG-AUTHN-005, WAHHM - Test Handling of Access",
-            "description": "Look for passwords being stored in a cookie. Examine the cookies stored by the application. Verify that the credentials are not stored in clear text, but are hashed. Autocompleted=off?",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "broken_authentication_and_session_management"
-          },
-          {
-            "key": "browser_cache",
-            "title": "Testing for Browser cache weakness",
-            "caption": "OTG-AUTHN-006, WAHHM - Miscellaneous Tests",
-            "description": "Check browser history issues by clicking the 'Back' button after logging out. Check browser cache issue from HTTP response headers (Cache-Control: no-cache)",
-            "tools": "Burp Proxy, ZAP, Firefox add-on CacheViewer2",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
             "key": "password_policy",
             "title": "Testing for Weak password policy",
             "caption": "OTG-AUTHN-007, WAHHM - Test Handling of Access",
             "description": "Determine the resistance of the application against brute force password guessing using available password dictionaries by evaluating the length, complexity, reuse and aging requirements of Passwords.",
             "tools": "Burp Proxy, ZAP, Hydra",
             "vrt_category": "insufficient_security_configurability"
-          },
-          {
-            "key": "security_question",
-            "title": "Testing for Weak security question/answer",
-            "caption": "OTG-AUTHN-008, WAHHM - Test Handling of Access",
-            "description": "Testing for weak pre-generated questions, Testing for weak self-generated questions, Testing for brute-forcible answers (Unlimited attempts?)",
-            "tools": "Browser",
-            "vrt_category": "broken_authentication_and_session_management"
-          },
-          {
-            "key": "change_password",
-            "title": "Testing for weak password change or reset functionalities",
-            "caption": "OTG-AUTHN-009, WAHHM - Test Handling of Access",
-            "description": "Test password reset (Display old password in plain-text?, Send via email?, Random token on confirmation email ?), Test password change (Need old password?), CSRF vulnerability ?",
-            "tools": "Browser, Burp Proxy, ZAP",
-            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "alternative_channel",
@@ -316,20 +255,44 @@
         "type": "checklist",
         "items": [
           {
+            "key": "broken_access_resource_level_objects",
+            "title": "Test for broken access to resource-level objects",
+            "caption": "",
+            "description": "Can any of the resource-level objects be accessed without a valid token?",
+            "tools": "Burp Proxy, curl, swagger-ui, mitmproxy, Hackverter",
+            "vrt_category": "broken_access_control"
+          },
+          {
+            "key": "broken_access_field_level_objects",
+            "title": "Test for broken access to field-level objects",
+            "caption": "",
+            "description": "Can any of the field-level objects be accessed without a valid token?",
+            "tools": "Burp Proxy, curl, swagger-ui, mitmproxy, Hackverter",
+            "vrt_category": "broken_access_control"
+          },
+          {
+            "key": "broken_access_endpoints",
+            "title": "Test for broken access to endpoints",
+            "caption": "",
+            "description": "Can the endpoints be accessed without a valid token?",
+            "tools": "Burp Proxy, curl, swagger-ui, mitmproxy, Hackverter",
+            "vrt_category": "broken_access_control"
+          },
+          {
+            "key": "cross_tenant_access_control_issues",
+            "title": "Test for cross-tenant access control issues",
+            "caption": "",
+            "description": "Can any of the endpoints be accessed for a different tenant with current tenant tokens?",
+            "tools": "Burp Proxy, curl, swagger-ui, mitmproxy, Hackverter",
+            "vrt_category": "broken_access_control"
+          },
+          {
             "key": "directory_traversal_and_file_include",
             "title": "Testing Directory traversal/file include",
             "caption": "OTG-AUTHZ-001, WAHHM - Test Handling of Input",
             "description": "dot-dot-slash attack (../), Directory traversal, Local File inclusion/Remote File Inclusion.",
             "tools": "Burp Proxy, ZAP, Wfuzz",
             "vrt_category": "server_side_injection"
-          },
-          {
-            "key": "bypass_schema",
-            "title": "Testing for bypassing authorization schema",
-            "caption": "OTG-AUTHZ-002, WAHHM - Test Handling of Access",
-            "description": "Access a resource without authentication?, Bypass ACL, Force browsing (/admin/adduser.jsp)",
-            "tools": "Burp Proxy (Authorize), ZAP",
-            "vrt_category": "broken_access_control"
           },
           {
             "key": "privilege_escalation",
@@ -388,14 +351,6 @@
             "vrt_category": "broken_authentication_and_session_management"
           },
           {
-            "key": "csrf",
-            "title": "Testing for Cross Site Request Forgery",
-            "caption": "OTG-SESS-005, WAHHM - Test Handling of Access",
-            "description": "URL analysis, Direct access to functions without any token.",
-            "tools": "Burp Proxy (csrf_token_detect), burpy, ZAP",
-            "vrt_category": "cross_site_request_forgery_csrf"
-          },
-          {
             "key": "logout",
             "title": "Testing for logout functionality",
             "caption": "OTG-SESS-006, WAHHM - Test Handling of Access",
@@ -427,21 +382,6 @@
         "description": "",
         "type": "checklist",
         "items": [
-          {
-            "key": "reflected_xss",
-            "title": "Testing for Reflected Cross Site Scripting",
-            "caption": "OTG-INPVAL-001, WAHHM - Test Handling of Input",
-            "description": "Check for input validation, Replace the vector used to identify XSS, XSS with HTTP Parameter Pollution.",
-            "tools": "Burp Proxy, ZAP, Xenotix XSS"
-          },
-          {
-            "key": "stored_xss",
-            "title": "Testing for Stored Cross Site Scripting",
-            "caption": "OTG-INPVAL-002, WAHHM - Test Handling of Input",
-            "description": "Check input forms/Upload forms and analyze HTML codes, Leverage XSS with BeEF",
-            "tools": "Burp Proxy, ZAP, BeEF, XSS Proxy",
-            "vrt_category": "cross_site_scripting_xss"
-          },
           {
             "key": "http_verb_tampering",
             "title": "Testing for HTTP Verb Tampering",
@@ -565,13 +505,6 @@
             "vrt_category": "server_side_injection"
           },
           {
-            "key": "local_file_inclusion",
-            "title": "Testing for Local File Inclusion",
-            "caption": "",
-            "description": "LFI with dot-dot-slash (../../), PHP Wrapper (php://filter/convert.base64-encode/resource)",
-            "tools": "Burp Proxy, fimap, Liffy"
-          },
-          {
             "key": "remote_file_inclusion",
             "title": "Testing for Remote File Inclusion",
             "caption": "",
@@ -584,51 +517,6 @@
             "caption": "OTG-INPVAL-013, WAHHM - Test Handling of Input",
             "description": "Understand the application platform, OS, folder structure, relative path and execute OS commands on a Web server.\n%3Bcat%20/etc/passwd\ntest.pdf+|+Dir C:\\ ",
             "tools": "Burp Proxy, ZAP, Commix",
-            "vrt_category": "server_side_injection"
-          },
-          {
-            "key": "buffer_overflow",
-            "title": "Testing for Buffer overflow",
-            "caption": "OTG-INPVAL-014, WAHHM - Test Handling of Input",
-            "description": "Testing for heap overflow vulnerability\nTesting for stack overflow vulnerability\nTesting for format string vulnerability",
-            "tools": "Immunity Canvas, Spike, MSF, Nessus",
-            "vrt_category": "server_side_injection"
-          },
-          {
-            "key": "heap_overflow",
-            "title": "Testing for Heap overflow",
-            "caption": "",
-            "description": "",
-            "tools": ""
-          },
-          {
-            "key": "stack_overflow",
-            "title": "Testing for Stack overflow",
-            "caption": "",
-            "description": "",
-            "tools": ""
-          },
-          {
-            "key": "format_string",
-            "title": "Testing for Format string",
-            "caption": "",
-            "description": "",
-            "tools": ""
-          },
-          {
-            "key": "incubated_vulnerabilities",
-            "title": "Testing for incubated vulnerabilities",
-            "caption": "OTG-INPVAL-015, WAHHM - Test Handling of Input",
-            "description": "File Upload, Stored XSS , SQL/XPATH Injection, Misconfigured servers (Tomcat, Plesk, Cpanel)",
-            "tools": "Burp Proxy, BeEF, MSF",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "http_splitting_and_smuggling",
-            "title": "Testing for HTTP Splitting/Smuggling",
-            "caption": "OTG-INPVAL-016, WAHHM - Test Handling of Input",
-            "description": "param=foobar%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-Type:%20text/html%0d%0aContent-Length:%2035%0d%0a%0d%0a<html>Sorry,%20System%20Down</html>",
-            "tools": "Burp Proxy, ZAP, netcat",
             "vrt_category": "server_side_injection"
           }
         ]
@@ -670,14 +558,6 @@
             "description": "Identify SSL service, Identify weak ciphers/protocols (ie. RC4, BEAST, CRIME, POODLE)",
             "tools": "testssl.sh, SSL Breacher",
             "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "padding_oracle",
-            "title": "Testing for Padding Oracle",
-            "caption": "OTG-CRYPST-002, WAHHM - Test Handling of Access",
-            "description": "Compare the responses in three different states:\nCipher text gets decrypted, resulting data is correct.\nCipher text gets decrypted, resulting data is garbled and causes some exception or error handling in the application logic.\nCipher text decryption fails due to padding errors.",
-            "tools": "PadBuster, Poracle, python-paddingoracle, POET",
-            "vrt_category": "broken_authentication_and_session_management"
           },
           {
             "key": "unencrypted_channels",
@@ -764,108 +644,6 @@
             "description": " Develop or acquire a known “malicious” file.\nTry to upload the malicious file to the application/system and verify that it is correctly rejected.\nIf multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "server_security_misconfiguration"
-          }
-        ]
-      },
-      {
-        "key": "client_side",
-        "title": "Client Side Testing",
-        "description": "",
-        "type": "checklist",
-        "items": [
-          {
-            "key": "dom_based_xss",
-            "title": "Testing for DOM based Cross Site Scripting",
-            "caption": "OTG-CLIENT-001, WAHHM -  Miscellaneous Tests",
-            "description": "Test for the user inputs obtained from client-side JavaScript Objects",
-            "tools": "Burp Proxy, DOMinator",
-            "vrt_category": "cross_site_scripting_xss"
-          },
-          {
-            "key": "javascript_execution",
-            "title": "Testing for JavaScript Execution",
-            "caption": "OTG-CLIENT-002, WAHHM - Test Handling of Input",
-            "description": "Inject JavaScript code:\nwww.victim.com/?javascript:alert(1)",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "cross_site_scripting_xss"
-          },
-          {
-            "key": "html_injection",
-            "title": "Testing for HTML Injection",
-            "caption": "OTG-CLIENT-003, WAHHM - Test Handling of Input",
-            "description": "Send malicious HTML code:\n?user=<img%20src='aaa'%20onerror=alert(1)>",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "server_side_injection"
-          },
-          {
-            "key": "url_redirect",
-            "title": "Testing for Client Side URL Redirect",
-            "caption": "OTG-CLIENT-004, WAHHM - Test Handling of Input",
-            "description": "Modify untrusted URL input to a malicious site:\n(Open Redirect)?redirect=www.fake-target.site",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "unvalidated_redirects_and_forwards"
-          },
-          {
-            "key": "css_injection",
-            "title": "Testing for CSS Injection",
-            "caption": "OTG-CLIENT-005, WAHHM - Test Handling of Input",
-            "description": "nject code in the CSS context :\nwww.victim.com/#red;-o-link:'javascript:alert(1)';-o-link-source:current; (Opera [8,12])\nwww.victim.com/#red;-:expression(alert(URL=1)); (IE 7/8)",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "resource_manipulation",
-            "title": "Testing for Client Side Resource Manipulation",
-            "caption": "OTG-CLIENT-006, WAHHM - Test Handling of Input",
-            "description": "External JavaScript could be easily injected in the trusted web site\nwww.victim.com/#http://evil.com/js.js",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "cors",
-            "title": "Test Cross Origin Resource Sharing",
-            "caption": "OTG-CLIENT-007, WAHHM -  Miscellaneous Tests",
-            "description": "Check the HTTP headers in order to understand how CORS is used (Origin Header)",
-            "tools": "Burp Proxy, ZAP",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "cross_site_flashing",
-            "title": "Testing for Cross Site Flashing",
-            "caption": "OTG-CLIENT-008, WAHHM - Test Handling of Input",
-            "description": "Decompile, Undefined variables, Unsafe methods, Include malicious SWF http://victim/file.swf?lang=http://evil",
-            "tools": "FlashBang, Flare, Flasm, SWFScan, SWF Intruder",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "clickjacking",
-            "title": "Testing for Clickjacking",
-            "caption": "OTG-CLIENT-009, WAHHM -  Miscellaneous Tests",
-            "description": "Discover if a website is vulnerable by loading into an iframe, create a simple web page that includes a frame containing the target.",
-            "tools": "Burp Proxy",
-            "vrt_category": "server_security_misconfiguration"
-          },
-          {
-            "key": "web_sockets",
-            "title": "Testing WebSockets",
-            "caption": "OTG-CLIENT-010, WAHHM - Test Handling of Input",
-            "description": "Identify that the application is using WebSockets by inspecting ws:// or wss:// URI scheme.\nUse Google Chrome's Developer Tools to view the Network WebSocket communication.\nCheck Origin, Confidentiality and Integrity, Authentication, Authorization, Input Sanitization",
-            "tools": "Burp Proxy, Chrome, ZAP, WebSocket Client"
-          },
-          {
-            "key": "web_messaging",
-            "title": "Test Web Messaging",
-            "caption": "OTG-CLIENT-011, WAHHM - Test Handling of Input",
-            "description": "Analyse JavaScript code looking for how Web Messaging is implemented. How the website is restricting messages from untrusted domain and how the data is handled even for trusted domains",
-            "tools": "Burp Proxy, ZAP"
-          },
-          {
-            "key": "local_storage",
-            "title": "Test Local Storage",
-            "caption": "OTG-CLIENT-012, WAHHM -  Miscellaneous Tests",
-            "vrt_category": "server_security_misconfiguration",
-            "description": "Determine whether the website is storing sensitive data in the storage.\nXSS in localstorage http://server/StoragePOC.html#<img src=x onerror=alert(1)>",
-            "tools": "Chrome, Firebug, Burp Proxy, ZAP"
           }
         ]
       },
