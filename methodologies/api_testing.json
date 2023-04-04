@@ -70,13 +70,6 @@
             "tools": "Burp proxy, ZAP, Tamper data"
           },
           {
-            "key": "execution_paths",
-            "title": "Map execution paths through application",
-            "caption": "OTG-INFO-007, WAHHM - Recon and Analysis",
-            "description": "Map the target application and understand the principal workflows.",
-            "tools": "Burp proxy, ZAP"
-          },
-          {
             "key": "fingerprint_webapp_framework",
             "title": "Fingerprint Web Application Framework",
             "caption": "OTG-INFO-008, WAHHM - Recon and Analysis",
