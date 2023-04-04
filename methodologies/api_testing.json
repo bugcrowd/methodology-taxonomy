@@ -498,10 +498,10 @@
           },
           {
             "key": "code_injection",
-            "title": "Testing for Code Injection",
+            "title": "Testing for Local File Inclusion",
             "caption": "OTG-INPVAL-012, WAHHM - Test Handling of Input",
-            "description": "Enter OS commands in the input field.?arg=1; system('id')",
-            "tools": "Burp Proxy, ZAP, Liffy, Panoptic",
+            "description": "LFI with dot-dot-slash (../../), PHP Wrapper (php://filter/convert.base64-encode/resource) Applicable if API is interacting with files.",
+            "tools": "Burp Proxy, fimap, Liffy",
             "vrt_category": "server_side_injection"
           },
           {
