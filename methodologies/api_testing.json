@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "API Testing",
-    "release_date": "2023-03-31T00:00:00+00:00",
+    "release_date": "2025-04-29T00:00:00+00:00",
     "description": "Bugcrowd api methodology testing",
     "vrt_version": "10.0.1"
   },
@@ -20,9 +20,9 @@
             "caption": ""
           },
           {
-            "key": "check_wsdl_files",
-            "title": "Check for .wsdl files",
-            "description": "Check for web service description language (.wsdl) files for SOAP APIs.",
+            "key": "check_API_schema_files",
+            "title": "Check for .wsdl, .wadl, and swagger files",
+            "description": "Check for web service description language (.wsdl/.wadl) and swagger files for SOAP/REST APIs.",
             "tools": "Burp Proxy, FFUF, WFuzz, Gobuster",
             "caption": ""
           },
@@ -30,14 +30,21 @@
             "key": "check_graphql_introspection",
             "title": "Check for GraphQL Introspection",
             "description": "Check for enabled Introspection using GraphQL query.",
-            "tools": "Burp Proxy + GraphQL Raider (BAPP)",
+            "tools": "Burp Proxy + GraphQL Raider (BAPP), InQL (BurpSuite extension)",
+            "caption": ""
+          },
+          {
+            "key": "check_graphql_field_Suggestions",
+            "title": "Check for GraphQL Field Suggestions",
+            "description": "Check for GraphQL Field Suggestions if Introspection Disabled.",
+            "tools": "Clairvoyance",
             "caption": ""
           },
           {
             "key": "search_leaked_api_keys",
             "title": "Search for leaked API Keys",
             "description": "Black box only - Search for leaked online API keys on Github, Gitlab etc.",
-            "tools": "TruffleHog",
+            "tools": "TruffleHog, Gitleaks",
             "caption": ""
           },
           {
@@ -52,7 +59,7 @@
             "key": "webserver_metafiles",
             "title": "Review Webserver Metafiles for Information Leakage",
             "caption": "OTG-INFO-003, WAHHM - Recon and Analysis",
-            "description": "Analyze robots.txt and identify <META> Tags from website.",
+            "description": "Analyze robots.txt, .env, .git, metrics and identify <META> Tags from website.",
             "tools": "Browser, curl, wget"
           },
           {
@@ -238,6 +245,13 @@
             "caption": "OTG-AUTHN-010, WAHHM - Test Handling of Access",
             "description": "Understand the primary mechanism and Identify other channels (Mobile App, Call center, SSO)",
             "tools": "Browser"
+          },
+          {
+            "key": "jwt_misconfigurations",
+            "title": "Testing for misconfigured JWT (Json Web Token)",
+            "caption": "OWASP API Security Top 10 - 2023",
+            "description": "Identify JWT flaws like allowing the None algorithm, algorithm confusion, weak secret keys, missing singature validation, etc.",
+            "tools": "jwt_tool,  "
           }
         ]
       },
@@ -278,14 +292,6 @@
             "description": "Can any of the endpoints be accessed for a different tenant with current tenant tokens?",
             "tools": "Burp Proxy, curl, swagger-ui, mitmproxy, Hackverter",
             "vrt_category": "broken_access_control"
-          },
-          {
-            "key": "directory_traversal_and_file_include",
-            "title": "Testing Directory traversal/file include",
-            "caption": "OTG-AUTHZ-001, WAHHM - Test Handling of Input",
-            "description": "dot-dot-slash attack (../), Directory traversal, Local File inclusion/Remote File Inclusion.",
-            "tools": "Burp Proxy, ZAP, Wfuzz",
-            "vrt_category": "server_side_injection"
           },
           {
             "key": "privilege_escalation",
@@ -438,7 +444,7 @@
             "key": "nosql_injection",
             "title": "Testing for NoSQL injection",
             "caption": "",
-            "description": "dentify NoSQL databases, Pass special characters (' \" \\ ; { } ), Attack with reserved variable name, operator.",
+            "description": "Identify NoSQL databases, Pass special characters (' \" \\ ; { } ), Attack with reserved variable name, operator.",
             "tools": "NoSQLMap"
           },
           {
@@ -511,6 +517,30 @@
             "description": "Understand the application platform, OS, folder structure, relative path and execute OS commands on a Web server.\n%3Bcat%20/etc/passwd\ntest.pdf+|+Dir C:\\ ",
             "tools": "Burp Proxy, ZAP, Commix",
             "vrt_category": "server_side_injection"
+          },
+          {
+            "key": "SSRF",
+            "title": "Testing for Server-Side Request Forgery",
+            "caption": "OWASP API Security Top 10 - 2023",
+            "description": "Test whether the API allows sending arbitrary or internal requests to unauthorized systems.\nUse crafted URLs to target internal IP ranges, cloud metadata endpoint (e.g., http://169.254.169.254/)",
+            "tools": "Burp Collaborator, SSRFmap",
+            "vrt_category": "server_security_misconfiguration"
+          },
+          {
+            "key": "graphql_misconfigurations",
+            "title": "Testing for GraphQL Misconfigurations",
+            "caption": "WSTG - v4.2",
+            "description": "Test GraphQL endpoint for batched abuse and alias overloading, and recursion depth limits, etc.",
+            "tools": "GraphQL Raider, BurpSuite",
+            "vrt_category": ""
+          },
+          {
+            "key": "directory_traversal_and_file_include",
+            "title": "Testing Directory traversal/file include",
+            "caption": "OTG-AUTHZ-001, WAHHM - Test Handling of Input",
+            "description": "dot-dot-slash attack (../), Directory traversal, Local File inclusion/Remote File Inclusion.",
+            "tools": "Burp Proxy, ZAP, Wfuzz",
+            "vrt_category": "server_side_injection"
           }
         ]
       },
@@ -572,7 +602,7 @@
             "key": "data_validation",
             "title": "Test Business Logic Data Validation",
             "caption": "OTG-BUSLOGIC-001, WAHHM - Test for Logic Flaws",
-            "description": "Looking for data entry points or hand off points between systems or software.\nOnce found try to insert logically invalid data into the application/system.",
+            "description": "Identify data entry points or hand off points between systems or software.\nOnce found try to insert logically invalid data into the application/system.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_access_control"
           },
@@ -580,7 +610,7 @@
             "key": "forge_requests",
             "title": "Test Ability to Forge Requests",
             "caption": "OTG-BUSLOGIC-002, WAHHM - Test for Logic Flaws",
-            "description": "Looking for guessable, predictable or hidden functionality of fields.\nOnce found, try to insert logically valid data into the application/system allowing the user to go through the application/system against the normal business logic workflow.",
+            "description": "Identify guessable, predictable or hidden functionality of fields.\nOnce found, try to insert logically valid data into the application/system allowing the user to go through the application/system against the normal business logic workflow.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "server_side_injection"
           },
@@ -588,7 +618,7 @@
             "key": "integrity_check",
             "title": "Test Integrity Checks",
             "caption": "OTG-BUSLOGIC-003, WAHHM - Test for Logic Flaws",
-            "description": "Looking for parts of the application/system (components i.e. For example, input fields, databases or logs) that move, store or handle data/information.\nFor each identified component determine what type of data/information is logically acceptable and what types the application/system should guard against. Also, consider who according to the business logic is allowed to insert, update and delete data/information and in each component.\nAttempt to insert, update or edit delete the data/information values with invalid data/information into each component (i.e. input, database, or log) by users that .should not be allowed per the business logic workflow.",
+            "description": "Identify parts of the application/system (components i.e. For example, input fields, databases or logs) that move, store or handle data/information.\nFor each identified component determine what type of data/information is logically acceptable and what types the application/system should guard against. Also, consider who according to the business logic is allowed to insert, update and delete data/information and in each component.\nAttempt to insert, update or edit delete the data/information values with invalid data/information into each component (i.e. input, database, or log) by users that .should not be allowed per the business logic workflow.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_access_control"
           },
@@ -596,7 +626,7 @@
             "key": "process_timing",
             "title": "Test for Process Timing",
             "caption": "OTG-BUSLOGIC-004, WAHHM - Test for Logic Flaws",
-            "description": "Looking for application/system functionality that may be impacted by time. Such as execution time or actions that help users predict a future outcome or allow one to circumvent any part of the business logic or workflow. For example, not completing transactions in an expected time.\nDevelop and execute the mis-use cases ensuring that attackers cannot gain an advantage based on any timing.",
+            "description": "Identify application/system functionality that may be impacted by time. Such as execution time or actions that help users predict a future outcome or allow one to circumvent any part of the business logic or workflow. For example, not completing transactions in an expected time.\nDevelop and execute the mis-use cases ensuring that attackers cannot gain an advantage based on any timing.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "server_side_injection"
           },
@@ -604,7 +634,7 @@
             "key": "usage_limits",
             "title": "Test Number of Times a Function Can be Used Limits",
             "caption": "OTG-BUSLOGIC-005, WAHHM - Test for Logic Flaws",
-            "description": "Looking for functions or features in the application or system that should not be executed more than a single time or specified number of times during the business logic workflow.\nFor each of the functions and features found that should only be executed a single time or specified number of times during the business logic workflow, develop abuse/misuse cases that may allow a user to execute more than the allowable number of times.",
+            "description": "Identify functions or features in the application or system that should not be executed more than a single time or specified number of times during the business logic workflow.\nFor each of the functions and features found that should only be executed a single time or specified number of times during the business logic workflow, develop abuse/misuse cases that may allow a user to execute more than the allowable number of times.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_access_control"
           },
@@ -612,7 +642,7 @@
             "key": "workflow_circumvention",
             "title": "Testing for the Circumvention of Work Flows",
             "caption": "OTG-BUSLOGIC-006, WAHHM - Test for Logic Flaws",
-            "description": "Looking for methods to skip or go to steps in the application process in a different order from the designed/intended business logic flow.\nFor each method develop a misuse case and try to circumvent or perform an action that is 'not acceptable' per the business logic workflow.",
+            "description": "Identify methods to skip or go to steps in the application process in a different order from the designed/intended business logic flow.\nFor each method develop a misuse case and try to circumvent or perform an action that is 'not acceptable' per the business logic workflow.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_access_control"
           },
@@ -655,5 +685,3 @@
     ]
   }
 }
-
-
