@@ -286,7 +286,7 @@
           },
           {
             "key": "lock_out_mechanism",
-            "title": "Testing for Weak Lock Out Mechanism",
+            "title": "Testing for Weak Lockout Mechanism",
             "caption": "OTG-AUTHN-003, WAHHM - Test Handling of Access",
             "description": "Evaluate the strength of the account lockout against password guessing and the security of the account unlock process.",
             "tools": "Browser, Burp Suite, ZAP, Hydra",
