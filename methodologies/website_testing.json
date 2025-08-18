@@ -709,7 +709,7 @@
           },
           {
             "key": "incubated_vulnerabilities",
-            "title": "Testing for Incubated vulnerabilities",
+            "title": "Testing for Incubated Vulnerabilities",
             "caption": "OTG-INPVAL-015, WAHHM - Test Handling of Input",
             "description": "Analyze application components (file upload, data handling, server configurations) for latent vulnerabilities like Stored XSS and SQL/XPath Injection, and identifying misconfigurations that could be exploited over time.",
             "tools": "Burp Suite, ZAP",
