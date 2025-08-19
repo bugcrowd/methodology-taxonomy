@@ -34,7 +34,7 @@
       "properties": {
         "key": {
           "type": "string",
-          "pattern": "^[a-z_]*$",
+          "pattern": "^[a-z0-9_]*$",
           "minLength": 3
         },
         "title": {
