@@ -248,7 +248,7 @@
             {
               "key": "mssql_default_creds",
               "title": "MSSQL: Default Credentials",
-              "description": "Determine whether you can gain access to the MSSQL server(s) using  default or weak credentials (e.g sa:sa).",
+              "description": "Determine whether you can gain access to the MSSQL server(s) using default or weak credentials (e.g sa:sa).",
               "tools": "impacket-mssqlclient, metasploit, nmap"
             },
             {
