@@ -16,48 +16,56 @@
             {
               "key": "host_service_discovery",
               "title": "Host and Service Discovery",
+              "caption": "",
               "description": "Conduct port scanning to identify live hosts and accessible (TCP & UDP) services.",
               "tools": "Nmap, Zenmap"
             },
             {
               "key": "vuln_assessment",
               "title": "Vulnerability Assessment",
+              "caption": "",
               "description": "Conduct vulnerability scanning against in-scope hosts.",
               "tools": "Nessus, nmap"
             },
             {
               "key": "dns_enum",
               "title": "DNS Enumeration",
+              "caption": "",
               "description": "Identify DNS servers, enumerate the available DNS records and attempt a zone transfer.",
               "tools": "Fierce, dig, nslookup, dnsenum, sublist3r"
             },
             {
               "key": "legacy_unencrypted_services",
               "title": "Legacy & Unencrypted Services",
+              "caption": "",
               "description": "Identify any legacy and unencrypted services (e.g telnet, FTP etc.) that are present in the network.",
               "tools": "Nmap, zenmap"
             },
             {
               "key": "unpatched_software_cve",
               "title": "Unpatched Software & CVEs",
+              "caption": "",
               "description": "Identify the use of outdated and unpatched software in use throughout the network. Assess which publicly disclosed vulnerabilities impact these software versions.",
               "tools": "Nmap, Zenmap"
             },
             {
               "key": "outdated_unsupported_os",
               "title": "Outdated and Unsupported Operating Systems",
+              "caption": "",
               "description": "Identify hosts using outdated and end-of-life operating systems.",
               "tools": "Nessus, nmap"
             },
             {
               "key": "traffic_poisoning",
               "title": "Traffic Poisoning",
+              "caption": "",
               "description": "Analyse traffic and send spoofed responses to hostname resolution queries (e.g LLMNR, NBT-NS, MDNS) with the aim of capturing hashes or relaying authentication to target systems.",
               "tools": "Responder, Inveigh"
             },
             {
               "key": "shares",
               "title": "Share Enumeration",
+              "caption": "",
               "description": "Identify insecure network shares that are accessible to unauthenticated users. Search these shares for the presence of sensitive data (e.g credentials, configuration files, customer data).",
               "tools": "Crackmapexec, NetExec, SMBMap, SMBClient, enum4linux, nmap"
             }
@@ -72,24 +80,28 @@
             {
               "key": "null_sessions_guest_access",
               "title": "Null Sessions & Guest Access",
+              "caption": "",
               "description": "Identify SMB & MSRPC services which support null sessions and/or guest access. If supported, leverage this access to enumerate useful information (e.g users, groups, password policy, shares etc.).",
               "tools": "NetExec, enum4linux, rpcclient"
             },
             {
               "key": "smb_signing",
               "title": "SMB Signing",
+              "caption": "",
               "description": "Identify hosts for which SMB signing is either disabled or enabled but not required.",
               "tools": "nmap smb2-security-mode, NetExec gen-relay-list"
             },
             {
               "key": "ldap_signing_channel_binding",
               "title": "Microsoft LDAP Signing & Channel Binding",
+              "caption": "",
               "description": "Identify LDAP servers configured to not require/enforce LDAP signing and channel binding.",
               "tools": "NetExec ldap-checker, LdapRelayScan"
             },
             {
               "key": "ldap_anonymous_bind",
               "title": "Microsoft LDAP Anonymous Bind",
+              "caption": "",
               "description": "Discern whether the LDAP server(s) supports anonymous binds.",
               "tools": "Ldapsearch"
             }
@@ -104,48 +116,56 @@
             {
               "key": "tftp",
               "title": "TFTP (Trivial File Transfer Protocol)",
+              "caption": "",
               "description": "Attempt to brute-force files from available TFTP servers. For any enumerated files, search for the presence of sensitive data (e.g credentials, configuration data). Fingerprint the TFTP software version and assess whether it is impacted by known vulnerabilities. ",
               "tools": "tftp, nmap tftp-enum, metasploit tftpbrute"
             },
             {
               "key": "ftp_anon_login",
               "title": "FTP (File Transfer Protocol): Anonymous Login and Weak Credentials",
+              "caption": "",
               "description": "Identify FTP servers supporting anonymous login or weak/default credentials.",
               "tools": "FTP, nmap"
             },
             {
               "key": "ftp_common_vulns",
               "title": "FTP (File Transfer Protocol): Common Vulnerabilities",
+              "caption": "",
               "description": "Fingerprint the FTP server(s) and assess whether the software version is impacted by known vulnerabilities.",
               "tools": "Nmap, netcat"
             },
             {
               "key": "nfs_enum",
               "title": "NFS (Network File System)",
+              "caption": "",
               "description": "Identify NFS servers and the versions in use. Attempt to enumerate and mount available NFS shares and search for the presence of exposed sensitive data (e.g home folders, SSH keys, configuration files, credentials).",
               "tools": "showmount, nmap, mount"
             },
             {
               "key": "ssh_enum",
               "title": "SSH (Secure Shell): Protocol & Software Versions",
+              "caption": "",
               "description": "Identify SSH servers and fingerprint both the protocol version and software versions in use. When banner grabbing, note any SSH servers displaying SSH-1.0 or SSH-1.99, indicating support for the insecure and obsolete SSH-1. Assess whether software versions are impacted by known vulnerabilities.",
               "tools": "Nmap, ssh, netcat"
             },
             {
               "key": "ssh_algos",
               "title": "SSH (Secure Shell): Algorithms & Ciphers",
+              "caption": "",
               "description": "Check whether SSH servers support insecure key-exchange, host-key, encryption or message authentication code algorithms.",
               "tools": "Nmap ssh2-enum-algos, ssh-audit"
             },
             {
               "key": "ssh_auth_methods",
               "title": "SSH (Secure Shell): Supported Authentication Methods",
+              "caption": "",
               "description": "Assess whether SSH servers support password-based authentication and permit root login.",
               "tools": "Nmap ssh-auth-methods, ssh-audit"
             },
             {
               "key": "snmp_enum",
               "title": "SNMP (Simple Network Management Protocol)",
+              "caption": "",
               "description": "Identify SNMP servers and assess whether insecure and unencrypted versions (e.g v1/2c) are in use. Test for default community strings or weak passwords which could allow read or write access. Leverage any access gained to retrieve sensitive or useful data present in the MIB.",
               "tools": "snmpwalk, metasploit snmp_enum, nmap"
             }
@@ -160,18 +180,21 @@
             {
               "key": "rdp_enum",
               "title": "RDP (Remote Desktop Protocol)",
+              "caption": "",
               "description": "Identify accessible RDP services and analyse for weaknesses in the configuration by determining the security layer and encryption levels supported.",
               "tools": "Nmap rdp-enum-encryption, rdp-sec-check, NetExec --nla-screenshot"
             },
             {
               "key": "vnc_enum",
               "title": "VNC (Virtual Network Computing)",
+              "caption": "",
               "description": "Identify VNC servers and assess the configuration for weaknesses (e.g 'None' authentication method enabled), use of default/weak credentials, and unpatched vulnerabilities.",
               "tools": "Nmap, metasploit, vncviewer"
             },
             {
               "key": "x11_enum",
               "title": "X11 (X Windows)",
+              "caption": "",
               "description": "Identify X11 servers and assess the configuration for weaknesses (e.g ‘Open’ access) and software version related vulnerabilities.",
               "tools": "Nmap x11-access, metasploit open_x11, xephyr, xwd, xwininfo"
             }
@@ -186,30 +209,35 @@
             {
               "key": "smtp_fingerprint",
               "title": "SMTP (Simple Mail Transfer Protocol): Fingerprinting & Encryption",
+              "caption": "",
               "description": "Fingerprint the software version to identify unpatched vulnerabilities and assess whether the service supports unencrypted connections.",
               "tools": "Nmap, netcat"
             },
             {
               "key": "smtp_user_enum",
               "title": "SMTP (Simple Mail Transfer Protocol): User Enumeration",
+              "caption": "",
               "description": "Assess whether SMTP server(s) are vulnerable to user enumeration.",
               "tools": "smtp-user-enum, nmap smtp-enum-users, metasploit smtp_enum"
             },
             {
               "key": "smtp_relay",
               "title": "SMTP (Simple Mail Transfer Protocol): Open Relay",
+              "caption": "",
               "description": "Assess whether SMTP server(s) are vulnerable to open relay.",
               "tools": "nmap smtp-open-relay, metasploit smtp_relay"
             },
             {
               "key": "imap_enum",
               "title": "IMAP (Internet Message Access Protocol): Fingerprinting & Encryption",
+              "caption": "",
               "description": "Fingerprint the software version to identify unpatched vulnerabilities and assess whether the service supports unencrypted connections.",
               "tools": "nmap"
             },
             {
               "key": "pop3_enum",
               "title": "POP3 (Post Office Protocol): Fingerprinting & Encryption",
+              "caption": "",
               "description": "Fingerprint the software version to identify unpatched vulnerabilities and assess whether the service supports unencrypted connections.",
               "tools": "nmap"
             }
@@ -224,84 +252,98 @@
             {
               "key": "mysql_enum",
               "title": "MySQL: Fingerprinting",
+              "caption": "",
               "description": "Identify the version of MySQL in use to discover whether it is impacted by known vulnerabilities.",
               "tools": "CVE Database, ExploitDB, Metasploit"
             },
             {
               "key": "mysql_default_creds",
               "title": "MySQL: Default Credentials",
+              "caption": "",
               "description": "Determine whether you can gain access to the MySQL server(s) using default or weak credentials (e.g root:<blank>, anonymous:<blank>).",
               "tools": "Mysql, metasploit, nmap"
             },
             {
               "key": "mysql_abuse",
               "title": "MySQL: Abusing Access",
+              "caption": "",
               "description": "If you are able to gain access to the MySQL server, leverage this access to explore the schema and database entries and dump user hashes. Assess the privileges available to the user and abuse dangerous functions such as the FILE privilege to retrieve sensitive data and attempt command execution on the underlying host (e.g via the into outfile and load_file commands).",
               "tools": "Mysql, metasploit"
             },
             {
               "key": "mssql_enum",
               "title": "MSSQL: Fingerprinting",
+              "caption": "",
               "description": "Identify the version of MSSQL in use to discover whether it is impacted by known vulnerabilities.",
               "tools": "CVE Database, ExploitDB, Metasploit"
             },
             {
               "key": "mssql_default_creds",
               "title": "MSSQL: Default Credentials",
+              "caption": "",
               "description": "Determine whether you can gain access to the MSSQL server(s) using default or weak credentials (e.g sa:sa).",
               "tools": "impacket-mssqlclient, metasploit, nmap"
             },
             {
               "key": "mssql_abuse",
               "title": "MSSQL: Abusing Access",
+              "caption": "",
               "description": "If you are able to gain access to the MSSQL server, leverage this access to explore the schema and database entries and dump user hashes. Probe for enabled stored procedures which could be abused for further compromise such as executing commands on the underlying host (e.g xp_cmdshell) or capturing the service account hash (e.g xp_subdirs or xp_dirtree). Assess misconfigurations that could allow you to escalate privileges in the database (for example via impersonation or linked servers).",
               "tools": "impacket-mssqlclient, sqsh, metasploit"
             },
             {
               "key": "postgresql_enum",
               "title": "PostgreSQL: Fingerprinting",
+              "caption": "",
               "description": "Identify the version of PostgreSQL in use to discover whether it is impacted by known vulnerabilities.",
               "tools": "CVE Database, ExploitDB, Metasploit"
             },
             {
               "key": "postgresql_default_creds",
               "title": "PostgreSQL: Default Credentials",
+              "caption": "",
               "description": "Determine whether you can gain access to the PostgreSQL server(s) using default or weak credentials (e.g postgres:postgres).",
               "tools": "psql, metasploit, nmap"
             },
             {
               "key": "postgresql_abuse",
               "title": "PostgreSQL: Abusing Access",
+              "caption": "",
               "description": "If you are able to gain access to the PostgreSQL server, leverage this access to explore the schema and database entries and dump user hashes. If you have sufficient privileges, attempt to retrieve files from the server and gain command execution on the underlying host.",
               "tools": "psql, metasploit"
             },
             {
               "key": "oracle_enum",
               "title": "Oracle DB: Fingerprinting & Enumeration",
+              "caption": "",
               "description": "Identify the version in use to discover whether it is impacted by known vulnerabilities. Attempt to enumerate the TNS listener version, TNS listener password (if enabled), and oracle service identifier (SID).",
               "tools": "tnscmd10g, oscanner, odat, metasploit, nmap, hydra"
             },
             {
               "key": "oracle_default_creds",
               "title": "Oracle DB: Default Credentials",
+              "caption": "",
               "description": "Determine whether you can gain access to OracleDB using default or weak credentials (e.g ANONYMOUS:ANONYMOUS, DBSNMP:DBSNMP, SCOTT:TIGER, SYS:CHANGE_ON_INSTALL and more).",
               "tools": "Metasploit oracle_login, Nmap oracle-brute"
             },
             {
               "key": "oracle_abuse",
               "title": "Oracle DB: Abusing Access",
+              "caption": "",
               "description": "If you are able to gain access to the Oracle DB, leverage this access to explore the schema and database entries, attempt to elevate privileges, read or write files, and gain command execution (e.g via java procedures or DBMS_SCHEDULER).",
               "tools": "sqlplus, odat, metasploit"
             },
             {
               "key": "redis_login",
               "title": "Redis: Anonymous Access or Weak Credentials",
+              "caption": "",
               "description": "Assess the configuration of the Redis DB to determine whether it can be accessed unauthenticated (default) or with weak credentials. As Redis uses a plain-text based protocol, you can also sniff network traffic for credentials or other sensitive data travelling to and from it.",
               "tools": "netcat, redis-cli, metasploit redis_login, nmap redis-brute, hydra"
             },
             {
               "key": "redis_abuse",
               "title": "Redis: Abusing Access",
+              "caption": "",
               "description": "If you are able to gain access to the Redis database, leverage this access to read keys and attempt to gain command execution on the underlying host (e.g via web shell, writing to SSH authorized_keys, manipulating crontab, loading redis modules etc.).",
               "tools": "redis-cli, redis-dump, netcat"
             }
@@ -316,30 +358,35 @@
             {
               "key": "internal_webapps",
               "title": "Internal Web Applications",
+              "caption": "",
               "description": "Identify any web applications present in the internal network. For third-party systems (e.g not developed by the client), consult vendor documentation to examine whether default credentials are in use. For client-managed systems (e.g those created and owned by the client), probe these applications for exploitable vulnerabilities and baseline configuration weaknesses (e.g HTTP security headers, exposed software versions, patching etc.).  As this is an internal infrastructure assessment, focus on exploitable vulnerabilities which could lead to extending compromise on the underlying host(s).",
               "tools": "BurpSuite, SQLMap, nuclei"
             },
             {
               "key": "phpmyadmin",
               "title": "PHPMyAdmin",
+              "caption": "",
               "description": "If PHPMyAdmin is identified, determine whether default (e.g root:<blank>, root:password) or weak credentials are used. Fingerprint the version of PHPMyAdmin and assess whether it is impacted by known vulnerabilities. In particular, historical versions of PHPMyAdmin are impacted by a variety of both unauthenticated and authenticated RCE vulnerabilities.",
               "tools": "Metasploit, hydra"
             },
             {
               "key": "webmin",
               "title": "Webmin",
+              "caption": "",
               "description": "If a Webmin control panel is identified, fingerprint the version and research publicly disclosed vulnerabilities which may impact that version. In particular, historical versions of Webmin are impacted by a number of authenticated RCE vulnerabilities.",
               "tools": "Searchsploit, ExploitDB"
             },
             {
               "key": "tomcat",
               "title": "Apache Tomcat",
+              "caption": "",
               "description": "If Apache Tomcat is identified, locate the manager login page (e.g /manager/html) and determine whether default credentials (e.g admin:admin, tomcat:tomcat, admin:s3cr3t and more) are in use. If access is achieved, attempt to gain command execution on the host by creating and uploading a JSP webshell.",
               "tools": "metasploit tomcat_mgr_login, hydra, msfvenom"
             },
             {
               "key": "jenkins",
               "title": "Jenkins",
+              "caption": "",
               "description": "If Jenkins is identified, perform enumeration to examine which pages can be viewed and which commands can be executed without authentication. Attempt to brute force weak credentials. If access is achieved, attempt to gain code execution on the server (e.g via building projects, executing a groovy script, or reverse shell).",
               "tools": "Metasploit jenkins_enum, jenkins_command, jenkins_login, jenkins_script_console"
             }
@@ -354,6 +401,7 @@
             {
               "key": "ipmi",
               "title": "IPMI (Intelligent Platform Management Interface)",
+              "caption": "",
               "description": "Enumerate which IPMI version and forms of authentication are supported. If IPMI v2.0 is supported, attempt to exploit common vulnerabilities for this version (e.g password hash retrieval and cipher zero authentication bypass). Check for anonymous access being enabled or consult product documentation for default credentials and assess whether these are still in use. Fingerprint and research the particular make and version in use for unpatched vulnerabilities.",
               "tools": "metasploit ipmi_dumphashes, ipmi_cipher_zero, ipmitool, hashcat"
             }
@@ -368,18 +416,21 @@
             {
               "key": "printer_enum",
               "title": "Printers: Discovery",
+              "caption": "",
               "description": "Discover MultiFunction Printers (MFPs) present in the local network and determine the languages supported.",
               "tools": "PRET"
             },
             {
               "key": "printer_file_system",
               "title": "Printers: File System Access",
+              "caption": "",
               "description": "Access the file system of the printer and examine any stored faxes and print jobs for the presence of sensitive data. Research the make and model for path traversal vulnerabilities which allow breakout from the sandboxed directory (e.g 0:/). Explore the file system for sensitive data such as service credentials used for network integration by the printer.",
               "tools": "PRET"
             },
             {
               "key": "printer_portal",
               "title": "Printers: Web Based Management Portal",
+              "caption": "",
               "description": "If the printer has an accessible embedded web server, consult vendor documentation for default credentials and attempt to gain access. If access is achieved, hunt around for sensitive data including stored print jobs, user address books, and credentials used by the printer to connect to external services (e.g FTP, SMB, SMTP). Additionally, if the printer is configured to support LDAP integration, explore the possibility of retrieving credentials via an LDAP Pass-Back Attack.",
               "tools": "PRET"
             }
