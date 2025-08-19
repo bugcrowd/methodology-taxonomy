@@ -37,28 +37,10 @@
               "description": "Identify any legacy and unencrypted services (e.g telnet, FTP etc.) that are present in the network.",
               "tools": "Nmap, zenmap"
             },
-        {
-              "key": "unpatched_software_cve",
-              "title": "Unpatched Software & CVEs",
-              "description": "Identify the use of outdated and unpatched software in use throughout the network. Assess which publicly disclosed vulnerabilities impact these software versions. ",
-              "tools": "Nmap, Zenmap"
-            },
-        {
-              "key": "outdated_unsupported_os",
-              "title": "Outdated and Unsupported Operating Systems",
-              "description": "Identify hosts using outdated and end-of-life operating systems.",
-              "tools": "Nessus, nmap"
-            },
-        {
-              "key": "traffic_poisoning",
-              "title": "Traffic Poisoning",
-              "description": "Analyse traffic and send spoofed responses to hostname resolution queries (e.g LLMNR, NBT-NS, MDNS) with the aim of capturing hashes or relaying authentication to target systems.",
-              "tools": "Responder, Inveigh"
-            },
             {
               "key": "unpatched_software_cve",
               "title": "Unpatched Software & CVEs",
-              "description": "Identify the use of outdated and unpatched software in use throughout the network. Assess which publicly disclosed vulnerabilities impact these software versions. ",
+              "description": "Identify the use of outdated and unpatched software in use throughout the network. Assess which publicly disclosed vulnerabilities impact these software versions.",
               "tools": "Nmap, Zenmap"
             },
             {
