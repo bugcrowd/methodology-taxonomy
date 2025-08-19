@@ -1,9 +1,9 @@
 {
     "metadata": {
       "title": "Internal Network Penetration Testing Methodology",
-      "release_date": "2025-04-03T00:00:00+00:00",
+      "release_date": "2025-08-19T00:00:00+00:00",
       "description": "A checklist for assessing internal network infrastructure and associated services",
-      "vrt_version": "1.15.1"
+      "vrt_version": "1.17"
     },
     "content": {
       "steps": [

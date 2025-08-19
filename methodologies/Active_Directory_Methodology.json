@@ -1,9 +1,9 @@
 {
     "metadata": {
       "title": "Active Directory Testing",
-      "release_date": "2025-04-24T00:00:00+00:00",
+      "release_date": "2025-08-19T00:00:00+00:00",
       "description": "Bugcrowd Active Directory methodology testing",
-      "vrt_version": "1.15.1"
+      "vrt_version": "1.17"
     },
     "content": {
       "steps": [
