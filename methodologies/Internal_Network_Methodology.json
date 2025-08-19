@@ -104,7 +104,7 @@
             {
               "key": "tftp",
               "title": "TFTP (Trivial File Transfer Protocol)",
-              "description": "Attempt to brute-force files from  available TFTP servers. For any enumerated files, search for the presence of sensitive data (e.g credentials, configuration data). Fingerprint the TFTP software version and assess whether it is impacted by known vulnerabilities. ",
+              "description": "Attempt to brute-force files from available TFTP servers. For any enumerated files, search for the presence of sensitive data (e.g credentials, configuration data). Fingerprint the TFTP software version and assess whether it is impacted by known vulnerabilities. ",
               "tools": "tftp, nmap tftp-enum, metasploit tftpbrute"
             },
             {
