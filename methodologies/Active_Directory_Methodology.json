@@ -228,7 +228,7 @@
             {
               "key": "enumerate_dacl",
               "title": "Enumerate Potential DACL Abuse Paths",
-              "description": "Run a collector tool to retrieve  domain data and feed this into the analyser for interpretation.  Enumerate misconfigured DACLs for attack paths that could allow lateral movement or privilege escalation.",
+              "description": "Run a collector tool to retrieve domain data and feed this into the analyser for interpretation.  Enumerate misconfigured DACLs for attack paths that could allow lateral movement or privilege escalation.",
               "tools": "SharpHound, Bloodhound, PowerView, Impacket"
             },
             {
