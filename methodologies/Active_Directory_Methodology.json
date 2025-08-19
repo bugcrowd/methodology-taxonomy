@@ -141,7 +141,7 @@
               "key": "ms14_068",
               "title": "MS14-068",
               "description": "Identify unpatched domain controllers and leverage a low privileged domain user credentials to forge a high-privileged TGT.",
-              "tools": "FindSMB2UPTime.py , PyKEK, impacket, Kekeo, Metasploit auxiliary/admin/kerberos/ms14_068_kerberos_checksum"
+              "tools": "FindSMB2UPTime.py, PyKEK, impacket, Kekeo, Metasploit auxiliary/admin/kerberos/ms14_068_kerberos_checksum"
             },
             {
               "key": "ms14_025",
