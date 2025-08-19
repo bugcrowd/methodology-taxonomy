@@ -356,7 +356,7 @@
               "title": "IPMI (Intelligent Platform Management Interface)",
               "description": "Enumerate which IPMI version and forms of authentication are supported. If IPMI v2.0 is supported, attempt to exploit common vulnerabilities for this version (e.g password hash retrieval and cipher zero authentication bypass). Check for anonymous access being enabled or consult product documentation for default credentials and assess whether these are still in use. Fingerprint and research the particular make and version in use for unpatched vulnerabilities.",
               "tools": "metasploit ipmi_dumphashes, ipmi_cipher_zero, ipmitool, hashcat"
-            }     
+            }
           ]
         },
         {
