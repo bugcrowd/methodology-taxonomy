@@ -8,7 +8,7 @@
       "properties": {
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$"
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<&:]*$"
         },
         "description": {
           "type": "string"
@@ -34,12 +34,12 @@
       "properties": {
         "key": {
           "type": "string",
-          "pattern": "^[a-z_]*$",
+          "pattern": "^[a-z0-9_]*$",
           "minLength": 3
         },
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?]*$",
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<\\?&:]*$",
           "minLength": 3
         },
         "caption": {
@@ -72,7 +72,7 @@
         },
         "title": {
           "type": "string",
-          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<]*$",
+          "pattern": "^[ a-zA-Z0-9\\-+()\/,.<&:]*$",
           "minLength": 3
         },
         "description": {

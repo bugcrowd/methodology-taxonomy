@@ -1,0 +1,426 @@
+{
+    "metadata": {
+      "title": "Active Directory Testing",
+      "release_date": "2025-08-19T00:00:00+00:00",
+      "description": "Bugcrowd Active Directory methodology testing",
+      "vrt_version": "1.17"
+    },
+    "content": {
+      "steps": [
+        {
+          "key": "reconnaissance_enumeration",
+          "title": "Reconnaissance & Enumeration",
+          "description": "Perform initial reconnaissance to enumerate the internal network from an unauthenticated perspective, with the aim of identifying hosts, users, key services, low hanging fruit and potential footholds for quick wins.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "host_service_discovery",
+              "title": "Host and Service Discovery",
+              "caption": "",
+              "description": "Conduct port scanning to identify live hosts and accessible (TCP & UDP) services. Map out high-value targets and assess the services and systems in use throughout the domain.",
+              "tools": "Nmap, Zenmap"
+            },
+            {
+              "key": "legacy_unencrypted_services",
+              "title": "Legacy & Unencrypted Services",
+              "caption": "",
+              "description": "Identify any legacy and unencrypted services (e.g telnet, FTP etc.) in use. Sniff traffic for plaintext credentials or sensitive data that could be used to gain unauthorised access to systems.",
+              "tools": "Nmap, Zenmap, Wireshark, TCPDump"
+            },
+            {
+              "key": "unpatched_software",
+              "title": "Unpatched Software & CVEs",
+              "caption": "",
+              "description": "Identify the use of outdated and unpatched software in use throughout the network. Assess which publicly disclosed vulnerabilities impact these software versions, and particularly for quick compromises that could be used to gain a foothold.",
+              "tools": "Nmap, Zenmap"
+            },
+            {
+              "key": "locate_dc",
+              "title": "Locate Domain Controllers",
+              "caption": "",
+              "description": "Identify the DCs present in the domain.",
+              "tools": "nmap -p 88 --open <ip_range>, nslookup -type=SRV _ldap._tcp.dc._msdcs.<domain>"
+            },
+            {
+              "key": "dns_enumeration",
+              "title": "DNS Enumeration",
+              "caption": "",
+              "description": "Identify DNS servers, enumerate the available DNS records and attempt zone transfer(s).",
+              "tools": "Fierce, dig, nslookup, dnsenum, sublist3r"
+            },
+            {
+              "key": "null_sessions_guest_access",
+              "title": "Null Sessions & Guest Access",
+              "caption": "",
+              "description": "Identify SMB & MSRPC services which support null sessions and/or guest access. If supported, leverage this access to enumerate useful information (e.g users, groups, password policy, shares etc.).",
+              "tools": "NetExec, enum4linux, rpcclient"
+            },
+            {
+              "key": "ldap_anonymous",
+              "title": "Microsoft LDAP Anonymous Bind",
+              "caption": "",
+              "description": "Discover any LDAP server(s) which support anonymous bind. Abuse this access to extract useful information (e.g users, computers, groups, vulnerable targets).",
+              "tools": "Ldapsearch"
+            },
+            {
+              "key": "share_enum",
+              "title": "Share Enumeration",
+              "caption": "",
+              "description": "Identify insecure network shares that are accessible to unauthenticated users. Search these shares for the presence of sensitive data (e.g credentials, configuration files, customer data).",
+              "tools": "Crackmapexec, NetExec, SMBMap, SMBClient, enum4linux, nmap"
+            }
+          ]
+        },
+        {
+          "key": "initial_access",
+          "title": "Initial Access",
+          "description": "Explore vulnerabilities and misconfigurations which could be abused from an unauthenticated perspective to gain an initial foothold in the domain.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "pxe_theft",
+              "title": "PXE Boot Media Theft",
+              "caption": "",
+              "description": "Harvest credentials by retrieving PXE boot media when PXE deployment is configured to support 'all unknown computers' on a distribution point and requires no password or is configured with a weak password.",
+              "tools": "PXEThief"
+            },
+            {
+              "key": "unauth_sccm_abuse",
+              "title": "Unauthenticated SCCM Abuse",
+              "caption": "",
+              "description": "If anonymous distribution point and automatic device approval are enabled, exploit these misconfigurations to retrieve SCCM secret policies and obtain the credentials contained within.",
+              "tools": "SCCMSecrets.py, sccm-http-looter"
+            },
+            {
+              "key": "unauth_coerced_ntlm_relay",
+              "title": "Unauthenticated Coerced NTLM Relay (PetitPotam / CVE-2021-36943 / CVE-2022-26925)",
+              "caption": "",
+              "description": "If vulnerable, retrieve the DC machine account credentials by forcing the domain controller to authenticate to you via NTLM. Combine with ESC8 and perform a DCSync for full domain takeover.",
+              "tools": "Responder, Impacket NTLMrelayx, PetitPotam.py, Mimikatz, Rubeus"
+            },
+            {
+              "key": "timeroasting",
+              "title": "TimeRoasting",
+              "caption": "",
+              "description": "Take advantage of Windows's NTP authentication mechanism to request the password hash of any computer account by sending an NTP request with that account's RID.",
+              "tools": "timeroast.py, timeroast.ps1"
+            },
+            {
+              "key": "asreproast",
+              "title": "ASREPRoast",
+              "caption": "",
+              "description": "Enumerate and attempt to crack the password hashes for any ASREPRoastable domain accounts that do not have pre-authentication enabled.  Retrieve a user list via NULL sessions or kerberos username enumeration.",
+              "tools": "impacket-GetNPUsers, crackmapexec, NetExec, Rubeus"
+            },
+            {
+              "key": "shares",
+              "title": "Shares",
+              "caption": "",
+              "description": "Identify insecure network shares that are accessible to unauthenticated users. Search these shares for the presence of sensitive data that could allow a foothold to be gained on the domain.",
+              "tools": "Crackmapexec, NetExec, SMBMap, SMBClient, enum4linux, nmap"
+            },
+            {
+              "key": "poisoning_relay",
+              "title": "Poisoning & Relay",
+              "caption": "",
+              "description": "Analyse traffic and send spoofed responses to hostname resolution queries (e.g LLMNR, NBT-NS, MDNS) with the aim of capturing hashes or relaying authentication to target systems.",
+              "tools": "Responder, Inveigh, NTLMRelayx"
+            },
+            {
+              "key": "zerologon",
+              "title": "ZeroLogon (CVE-2020-1472)",
+              "caption": "",
+              "description": "If vulnerable, exploit a cryptographic flaw in the ComputeNetlogonCredential call of the Netlogon Remote Protocol (MS-NRPC) to impersonate any computer, including a domain controller.",
+              "tools": "zerologon_tester, cve-2020-1472-exploit"
+            },
+            {
+              "key": "proxyshell",
+              "title": "ProxyShell (CVE-2021-34473, CVE-2021-34523, CVE-2021-31207)",
+              "caption": "",
+              "description": "If vulnerable, exploit a combination of vulnerabilities in Microsoft Exchange to gain RCE as SYSTEM on the Exchange server.",
+              "tools": "Metasploit exploit/windows/http/exchange_proxyshell_rce, proxyshell_rce.py"
+            },
+            {
+              "key": "eternalblue",
+              "title": "EternalBlue (MS17-010)",
+              "caption": "",
+              "description": "Identify any outdated and unpatched Windows hosts to target flaws in SMB v1.0 protocol for RCE on the vulnerable system(s).",
+              "tools": "Metasploit"
+            }
+          ]
+        },
+        {
+          "key": "privilege_escalation_quick_compromises",
+          "title": "Privilege Escalation: Quick Compromises",
+          "description": "Identify and exploit unpatched vulnerabilities which can be exploited from a low-privileged perspective to escalate privileges within the domain.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "ms14_068",
+              "title": "MS14-068",
+              "caption": "",
+              "description": "Identify unpatched domain controllers and leverage a low privileged domain user credentials to forge a high-privileged TGT.",
+              "tools": "FindSMB2UPTime.py , PyKEK, impacket, Kekeo, Metasploit auxiliary/admin/kerberos/ms14_068_kerberos_checksum"
+            },
+            {
+              "key": "ms14_025",
+              "title": "MS14-025: GPP Passwords from SYSVOL",
+              "caption": "",
+              "description": "Identify unpatched domain controllers to retrieve and decrypt passwords stored with Group Policy preferences.",
+              "tools": "Metasploit auxiliary/scanner/smb/smb_enum_gpp, Impacket Get-GPPPassword"
+            },
+            {
+              "key": "privexchange",
+              "title": " PrivExchange (CVE-2019-0724 / CVE-2019-0686)",
+              "caption": "",
+              "description": "Attempt to elicit an unpatched Exchange server to authenticate to a URL under your control. Abuse the accounts privileges to modify the ACL permissions of the existing user and grant DCSync rights.",
+              "tools": "privexchange.py, ntlmrelayx, Exchange2Domain, metasploit exchange_web_server_pushsubscription"
+            },
+            {
+              "key": "nopac",
+              "title": "noPac (CVE-2021-42278 & CVE-2021-42287)",
+              "caption": "",
+              "description": "Leverage low-privileged domain user credentials to attempt to impersonate a domain controller by combining SamAccountName spoofing and S4U2self.",
+              "tools": "nopac.py, Impacket"
+            },
+            {
+              "key": "printnightmare",
+              "title": "PrintNightmare  (CVE-2021-1675, CVE-2021-34527)",
+              "caption": "",
+              "description": "Abuse PrintSpooler to load and execute a malicious DLL with the aims of attaining SYSTEM level RCE on unpatched high-value systems (e.g DC) or local priv esc (if the vulnerable machine is configured to reject remote connection).",
+              "tools": "SharpNightPrintmare, NetExec -M printnightmare"
+            },
+            {
+              "key": "certifried",
+              "title": "Certifried (CVE-2022-26923)",
+              "caption": "",
+              "description": "In an unpatched ADCS environment, attempt to add a new computer to the domain, modify the dNSHostName attribute to the name of the computer account to impersonate, then request a certificate on behalf of the impersonated DC.",
+              "tools": "Certipy"
+            },
+            {
+              "key": "proxynotshell",
+              "title": "ProxyNotShell (CVE-2022-41040, CVE-2022-41082)",
+              "caption": "",
+              "description": "Identify unpatched Exchange servers and leverage a low-privilege mail user to interact with the Exchange Powershell backend, where a deserialization flaw can be leveraged to obtain code execution.",
+              "tools": "Metasploit exchange_proxynotshell_rce, poc_aug3.py"
+            }
+          ]
+        },
+        {
+          "key": "priv_esc_lat_move_ntlm_relay",
+          "title": "Privilege Escalation & Lateral Movement: NTLM Relay",
+          "description": "Attempt to escalate privileges or move laterally throughout the domain by relaying NTLM authentication to other targets.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "hunt_relay_targets",
+              "title": "Hunt for relay targets",
+              "caption": "",
+              "description": "Identify targets with signing and/or channel binding unenforced. If relay protections are in use throughout domain, leverage or target protocols which cannot mandate signing.",
+              "tools": "NetExec --gen-relay-list targets, LdapRelayScan.py, nmap"
+            },
+            {
+              "key": "self_relay",
+              "title": "Self-Relay (MS08-068)",
+              "caption": "",
+              "description": "Identify whether any legacy hosts may be vulnerable to reflection attacks (e.g unpatched Windows 2000, XP, 2003, Vista and 2008 machines).",
+              "tools": "ntlmrelayx, metasploit"
+            },
+            {
+              "key": "smb_crossprotocol_relay",
+              "title": "SMB & Cross-Protocol Relay",
+              "caption": "",
+              "description": "Configure a listener and relay server to launch an opportunistic attack with the aim of relaying captured credentials to exploit other SMB services or conduct cross-protocol relay (e.g relay to MSSQL, HTTP, LDAP, RPC etc.).",
+              "tools": "NTLMRelayx, Responder, Inveigh, Proxychains"
+            },
+            {
+              "key": "coerced_authentication_relay",
+              "title": "Coerced Authentication & Relay",
+              "caption": "",
+              "description": "Enumerate and abuse hosts vulnerable to coerced authentication and relay attacks (e.g PetitPotam, PrinterBug, DFSCoerce etc.).",
+              "tools": "Coercer, PetitPotam.py, printerbug.py, dfscoerce.py"
+            },
+            {
+              "key": "farming_hashes",
+              "title": "Farming hashes - Abusing Shares & WebDAV to Coerce Authentication",
+              "caption": "",
+              "description": "Abuse shared folders with write access or WebDAV enabled hosts to force authentication via an uploaded .lnk file.",
+              "tools": "ntlm_theft.py, crackmapexec -M slinky, crackmapexec -M drop-sc, Farmer"
+            }
+          ]
+        },
+        {
+          "key": "priv_esc_lat_move_dacl_abuse",
+          "title": "Privilege Escalation & Lateral Movement: DACL Abuse",
+          "description": "Explore DACLs (Discretionary Access Control Lists) to enumerate and abuse overly permissive ACEs (Access Control Entries) which could grant the ability to escalate privileges or expand access.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "enumerate_dacl",
+              "title": "Enumerate Potential DACL Abuse Paths",
+              "caption": "",
+              "description": "Run a collector tool to retrieve  domain data and feed this into the analyser for interpretation.  Enumerate misconfigured DACLs for attack paths that could allow lateral movement or privilege escalation.",
+              "tools": "SharpHound, Bloodhound, PowerView, Impacket"
+            },
+            {
+              "key": "abuse_dacl",
+              "title": "Abuse Misconfigured DACLs",
+              "caption": "",
+              "description": "Leverage the discovered misconfigurations to escalate privileges or expand access.",
+              "tools": "Powerview, Impacket, bloodyAD, Netexec"
+            }
+          ]
+        },
+        {
+          "key": "priv_esc_lat_move_sccm_abuse",
+          "title": "Privilege Escalation & Lateral Movement: SCCM Abuse",
+          "description": "Identify and exploit vulnerabilities and misconfigurations present in System Center Configuration Manager (SCCM), also known as Microsoft Endpoint Configuration Manager (MECM). If SCCM/MECM is not in use in the domain, mark these checks as N/A.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "sccm_enum",
+              "title": "SCCM Enumeration",
+              "caption": "",
+              "description": "Map out SCCM components (e.g site server, site database, distribution points and management points). Leverage domain user credentials to query network resources or the local WMI database of managed SCCM clients.",
+              "tools": "ADSISearcher, WMI, SharpSCCM"
+            },
+            {
+              "key": "loot_creds_remotely",
+              "title": "Loot Credentials Remotely",
+              "caption": "",
+              "description": "Leverage domain user or machine credentials to harvest credentials from Management Point(s) and Distribution Points(s).",
+              "tools": "SCCMSecrets, sccm-http-looter, SharpSCCM"
+            },
+            {
+              "key": "local_cred_harvesting",
+              "title": "Local Credential Harvesting",
+              "caption": "",
+              "description": "Leverage local administrator privileges on an SCCM client or an SCCM member server to dump NAA credentials, secrets and client push credentials from collection variables and task sequences via WMI.",
+              "tools": "SharpSCCM.exe, Get-WmiObject"
+            },
+            {
+              "key": "relayed_sccm_abuse",
+              "title": "Relayed SCCM abuse",
+              "caption": "",
+              "description": "Attempt to capture and relay the SCCM site system installation account. Abuse additional vulnerabilities (PrinterBug, PetitPotam, ShadowCoerce, DFSCoerce, etc.) to coerce authentication.",
+              "tools": "ntlmrelayx, SCCMHunter"
+            },
+            {
+              "key": "authentication_coercion_client_push",
+              "title": "Authentication Coercion via Client Push Installation",
+              "caption": "",
+              "description": "If automatic site assignment and client push installation are enabled, attempt to coerce NTLM authentication from a site servers push installation user or machine account which can be cracked offline or relayed elsewhere for authentication. Note that it is best to run the tool with admin privileges in order to cleanup artefacts and prevent errors in SCCM.",
+              "tools": "Inveigh, Ntlmrelayx, SharpSCCM"
+            }
+          ]
+        },
+        {
+          "key": "priv_esc_adcs_abuse",
+          "title": "Privilege Escalation: ADCS Abuse",
+          "description": "Identify and exploit vulnerabilities and misconfigurations present in Active Directory Certificate Services (ADCS).",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "enum_adcs",
+              "title": "Enumerate ADCS",
+              "caption": "",
+              "description": "Discover whether ADCS is in use in the environment. If present, identify the enterprise CA(s) for the domain.",
+              "tools": "Certutil, crackmapexec"
+            },
+            {
+              "key": "assess_templates",
+              "title": "Assess Templates",
+              "caption": "",
+              "description": "Enumerate the available certificate templates and assess the CA configuration for vulnerabilities and misconfigurations.",
+              "tools": "Certify, Certipy"
+            },
+            {
+              "key": "esc1_esc11",
+              "title": "Abuse ESC1 - ESC11",
+              "caption": "",
+              "description": "For any vulnerabilities identified, attempt to escalate privileges by abusing the relevant escalation pathway(s).",
+              "tools": "Certipy, Certify"
+            }
+          ]
+        },
+        {
+          "key": "priv_esc_lat_move_kerberos_attacks",
+          "title": "Privilege Escalation & Lateral Movement: Kerberos Attacks",
+          "description": "Identify and exploit potential attacks which target the Kerberos authentication protocol.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "kerberoasting",
+              "title": "Kerberoasting",
+              "caption": "",
+              "description": "Identify kerberoastable users for which high-privileged domain accounts have been configured to run services. For all identified targets, retrieve the SPNs and attempt to crack the hashes.",
+              "tools": "impacket-GetUserSPNs, metasploit auxiliary/gather/get_user_spns, rubeus"
+            },
+            {
+              "key": "delegation_enum",
+              "title": "Delegation Enumeration",
+              "caption": "",
+              "description": "Identify accounts and computers configured with unconstrained, constrained or resource-based constrained delegation which could allow you to impersonate other users and gain access to valuable targets and services.",
+              "tools": "Bloodhound, PowerView, Impacket findDelegation"
+            },
+            {
+              "key": "delegation_abuse",
+              "title": "Delegation Abuse",
+              "caption": "",
+              "description": "Leverage compromised accounts or machines configured with delegation to impersonate privileged users, access high-value services, and escalate privileges within the domain.",
+              "tools": "Rubeus, Impacket"
+            }
+          ]
+        },
+        {
+          "key": "priv_esc_lat_move_cred_harvesting",
+          "title": "Privilege Escalation & Lateral Movement: Credential Harvesting",
+          "description": "Extend your reach within the domain and open up new attack pathways by pivoting throughout the network and harvesting credentials from compromised machines and accessible shares.",
+          "type": "checklist",
+          "items": [
+            {
+              "key": "auth_share_enum",
+              "title": "Share Enumeration",
+              "caption": "",
+              "description": "Leveraging compromised domain credentials, enumerate accessible shares and search for exposed credentials.",
+              "tools": "Snaffler, ShareAudit, NetExec"
+            },
+            {
+              "key": "shared_passwords",
+              "title": "Shared passwords",
+              "caption": "",
+              "description": "Assess whether shared administrator passwords are in use. Leverage these to move laterally throughout the domain and harvest credentials.",
+              "tools": "Sprayhound, PowerView Find-LocalAdminAccess"
+            },
+            {
+              "key": "harvest_credentials",
+              "title": "Harvest Credentials",
+              "caption": "",
+              "description": "Leverage compromised machines to extract credentials from the SAM database, LSA, LSASS, DPAPI etc.",
+              "tools": "Mimikatz, meterpreter, impacket-secretsdump, crackmapexec"
+            },
+            {
+              "key": "abuse_harvested_credentials",
+              "title": "Abuse harvested credentials",
+              "caption": "",
+              "description": "Assess what new attack pathways may be available with the harvested credentials. Pass or crack the hashes to use the associated accounts as needed.",
+              "tools": "Crackmapexec, impacket, john, hashcat"
+            }
+          ]
+        },
+        {
+          "key": "upload_logs",
+          "title": "Upload logs",
+          "description": "This should include output from port scans and vulnerability assessments.",
+          "type": "large_upload"
+        },
+        {
+          "key": "executive_summary",
+          "title": "Executive summary",
+          "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+          "type": "executive_summary"
+        }
+      ]
+    }
+  }
+  
