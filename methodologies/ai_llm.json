@@ -43,7 +43,7 @@
             "caption": "Review code segments that handle prompt assembly and conditional logic.",
             "description": "If possible, review partial code segments that handle prompt assembly (e.g., concatenating system instructions, developer instructions, user-provided text). Note any conditional logic (e.g., `if user is admin, append extra data to prompt`) that might create unique injection paths.",
             "tools": "Source Code Analyzer, Debugger",
-            "vrt_category": "sensitive_information_disclosure"
+            "vrt_category": "information_gathering"
           }
         ]
       },
