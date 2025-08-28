@@ -35,7 +35,7 @@
             "caption": "Map API routes and analyze how prompts are constructed from user data.",
             "description": "Map out the API routes or web routes that send/receive data from the LLM. Identify how prompts are constructed and what user data is appended (e.g., system prompts, user prompts, context prompts). Look for templates, API calls, or functions that construct or modify the prompt.",
             "tools": "Burp Suite, Postman, Code Review",
-            "vrt_category": "sensitive_information_disclosure"
+            "vrt_category": "information_gathering"
           },
           {
             "key": "analyze_logic",
