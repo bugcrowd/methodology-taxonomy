@@ -532,7 +532,7 @@
             "caption": "WSTG - v4.2",
             "description": "Test GraphQL endpoint for batched abuse and alias overloading, and recursion depth limits, etc.",
             "tools": "GraphQL Raider, BurpSuite",
-            "vrt_category": ""
+            "vrt_category": "server_security_misconfiguration"
           },
           {
             "key": "directory_traversal_and_file_include",
