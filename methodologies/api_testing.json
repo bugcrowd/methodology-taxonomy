@@ -618,7 +618,7 @@
             "key": "integrity_check",
             "title": "Test Integrity Checks",
             "caption": "OTG-BUSLOGIC-003, WAHHM - Test for Logic Flaws",
-            "description": "Identify parts of the application/system (components i.e. For example, input fields, databases or logs) that move, store or handle data/information.\nFor each identified component determine what type of data/information is logically acceptable and what types the application/system should guard against. Also, consider who according to the business logic is allowed to insert, update and delete data/information and in each component.\nAttempt to insert, update or edit delete the data/information values with invalid data/information into each component (i.e. input, database, or log) by users that .should not be allowed per the business logic workflow.",
+            "description": "Identify parts of the application/system (components i.e. For example, input fields, databases or logs) that move, store or handle data/information.\nFor each identified component determine what type of data/information is logically acceptable and what types the application/system should guard against. Also, consider who according to the business logic is allowed to insert, update and delete data/information and in each component.\nAttempt to insert, update or edit delete the data/information values with invalid data/information into each component (i.e. input, database, or log) by users that should not be allowed per the business logic workflow.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_access_control"
           },
