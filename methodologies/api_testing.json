@@ -444,7 +444,7 @@
             "key": "nosql_injection",
             "title": "Testing for NoSQL injection",
             "caption": "",
-            "description": "Identify NoSQL databases, Pass special characters (' \" \\ ; { } ), Attack with reserved variable name, operator.",
+            "description": "Identify NoSQL databases, pass special characters (' \" \\ ; { } ), and attack with reserved variable names and operators.",
             "tools": "NoSQLMap"
           },
           {
