@@ -250,7 +250,7 @@
             "key": "jwt_misconfigurations",
             "title": "Testing for misconfigured JWT (Json Web Token)",
             "caption": "OWASP API Security Top 10 - 2023",
-            "description": "Identify JWT flaws like allowing the None algorithm, algorithm confusion, weak secret keys, missing singature validation, etc.",
+            "description": "Identify JWT flaws like allowing the None algorithm, algorithm confusion, weak secret keys, missing signature validation, etc.",
             "tools": "jwt_tool"
           }
         ]
