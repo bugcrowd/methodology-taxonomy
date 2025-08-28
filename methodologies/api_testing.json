@@ -602,7 +602,7 @@
             "key": "data_validation",
             "title": "Test Business Logic Data Validation",
             "caption": "OTG-BUSLOGIC-001, WAHHM - Test for Logic Flaws",
-            "description": "Identify data entry points or hand off points between systems or software.\nOnce found try to insert logically invalid data into the application/system.",
+            "description": "Identify data entry points or hand off points between systems or software.\nOnce identified, insert logically invalid data into the application/system.",
             "tools": "Burp Proxy, ZAP",
             "vrt_category": "broken_access_control"
           },
