@@ -27,7 +27,7 @@
             "caption": "Identify model type, frameworks, dependencies, and supported input types.",
             "description": "Determine if the model is pre-trained, fine-tuned, or custom-built. Identify architecture type (e.g., transformer, CNN, RNN, GAN), frameworks (e.g., PyTorch, TensorFlow), and if it supports multi-modal inputs (e.g., text, image, audio, video).",
             "tools": "Code Review, Dependency Scanners, Documentation",
-            "vrt_category": "sensitive_information_disclosure"
+            "vrt_category": "information_gathering"
           },
           {
             "key": "review_endpoints",
