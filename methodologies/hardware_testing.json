@@ -42,9 +42,9 @@
                 },
                 {
                   "key": "zigbee_lora",
-                  "title": "ZigBee",
-                  "description":"Try to sniff the communication, can you capture the encryption key exchange (during active recon see if it's hardcoded on the device), can the communication be decrypted, are replay attacks possible",
-                  "tools": "Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), ZT-CHK,  TI SmartRF Protocol Packet Sniffer (SPPS) software"
+                  "title": "ZigBee and LoRa",
+                  "description":"For ZigBee and LoRa devices, try to sniff the communication, capture the encryption key exchange (during active recon see if it's hardcoded on the device), check if the communication can be decrypted, and determine if replay attacks are possible. For LoRa, also check for LoRaWAN-specific vulnerabilities, such as weak join procedures, unencrypted payloads, and improper key management.",
+                  "tools": "Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), ZT-CHK, TI SmartRF Protocol Packet Sniffer (SPPS) software, Semtech LoRaWAN sniffer, TTN Packet Forwarder, SDR tools supporting LoRa (HackRF, LimeSDR, BladeRF), Universal Radio Hacker (URH)"
                 },
                 {
                   "key": "near_field_communication",
