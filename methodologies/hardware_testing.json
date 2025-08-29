@@ -132,7 +132,7 @@
             },
             { 
               "key":"improper_lock_bit_protection",
-              "title":"Improer Lock Bit Protection",
+              "title":"Improper Lock Bit Protection",
               "decsription":"Assess the integrated circuit trusted lock bit to see if it's missing or can be modified by software later giving access to protected registers, address regions, systems and features that should be protected.",
              "CWE":"CWE-1231 and CWE-1233",
             },
