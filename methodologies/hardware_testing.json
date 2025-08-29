@@ -144,7 +144,7 @@
             {
               "key": "fault_injection_and_side_channel_attacks",
               "title": "Fault Injection and Side Channel Attacks",
-              "description": "Test for fault injection attacks and Side Channel attacks that can be used to bypass security measures to dump the firmware, access sensitive information, to perform a code execution, skip authentication, privilege escalation, and side channel attacks.",   
+              "description": "Test for fault injection and side channel attacks that can bypass security measures to dump firmware, access sensitive information, perform code execution, skip authentication, or escalate privileges.",
               "CWE": ["CWE-1256", "CWE-1300"],    
               "tools": "chipwhisperer, oscilloscope, pcb workstation with nano probes"
             },
