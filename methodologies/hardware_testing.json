@@ -93,16 +93,25 @@
           ]
         },
         {
-          "key": "dump_download_firmware",
-          "title": "Dump or Download Firmware for Analysis",
-          "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firmware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
-          "tools": "desoldering station, jtagulator, minicom, PuTTy, Bus Pirate, Raspberry Pi Pico"
-        },
-        {
-          "key":"firmware_analysis",
-          "title":"Firmware Analysis",
-          "description":"Reverse engineering the dumped firmware. Identify encryption if used and try to decrypt it. Use emulation software to help analyze it. Analyze and search the firmware for hardcoded passwords/keys and other sensitive information.",
-          "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
+          "key": "firmware",
+          "title": "Accessing and Analysing Firmware",
+          "description": "Using info gathered during active and passive recon access and reverse engineer the firmware for the device.",
+          "type": "checklist",
+          "items": 
+          [
+                {
+                  "key": "dump_download_firmware",
+                  "title": "Dump or Download Firmware for Analysis",
+                  "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firmware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
+                  "tools": "desoldering station, jtagulator, minicom, PuTTy, Bus Pirate, Raspberry Pi Pico"
+                },
+                {
+                  "key":"firmware_analysis",
+                  "title":"Firmware Analysis",
+                  "description":"Reverse engineering the dumped firmware. Identify encryption if used and try to decrypt it. Use emulation software to help analyze it. Analyze and search the firmware for hardcoded passwords/keys and other sensitive information.",
+                  "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
+                },
+          ]
         },
         {
           "key":"testing_device",
@@ -127,7 +136,7 @@
               "title":"Broken Access Control for On-Chip Debugger",
               "description":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access control during different boot stages.",
               "CWE": ["CWE-1191", "CWE-1244"],
-              "tools":"jtagulator"
+              "tools":"jtagulator, SOIC-8 clip"
             },
             { 
               "key":"improper_lock_bit_protection",
@@ -144,7 +153,7 @@
             {
               "key": "fault_injection_and_side_channel_attacks",
               "title": "Fault Injection and Side Channel Attacks",
-              "description": "Test for fault injection attacks and Side Channel attacks that can be used to bypass security measures to dump the firmware, access sensitive information, to perform a code execution, skip authentication, privilege escalation, and side channel attacks.",   
+              "description": "Test for fault injection and side channel attacks that can bypass security measures to dump firmware, access sensitive information, perform code execution, skip authentication, or escalate privileges.",
               "CWE": ["CWE-1256", "CWE-1300"],    
               "tools": "chipwhisperer, oscilloscope, pcb workstation with nano probes"
             },
@@ -171,6 +180,12 @@
               "title":"Firmware Not Getting Updates",
               "description":"Verify if the firmware can receive regular updates as vulnerabilities are discovered in the future.",
               "CWE":"CWE-1277"
+            },
+            {
+              "key":"root_shell",
+              "title":"Root Shell Access",
+              "description":"Try to gain root shell access on the device using an enabled communication protocol, i.e. telnet or ssh, or using an open debug port to interrupt the boot process.",
+              "tools":"SOIC-8 clip, Burp, Caido, Screen"
             }
           ]
         },    
