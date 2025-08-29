@@ -18,7 +18,7 @@
             "key": "open_source_intelligence",
             "title": "Open Source Intelligence",
             "description": "Gathering information using search engines to find publicly available information about the device",
-              "tools": "Google Dorking components/device, FCC Database (fccid.io or fcc.io), Patents (patents.google.com, worldwide.espacenet.com/patent, appft.uspto.gov), Chinese OSINT (baidu.com, right.com.cn, codechine.csdn.net, pudn.com, search.gitee.com), Finding datasheets for components",
+              "tools": "Google Dorking components/device, FCC Database (fccid.io or fcc.io), Patents (patents.google.com, worldwide.espacenet.com/patent, appft.uspto.gov), Chinese OSINT (baidu.com, qichacha.com, right.com.cn, codechine.csdn.net, pudn.com, search.gitee.com), Finding datasheets for components",
             "vrt_category": "sensitive_data_exposure"
           },
           {
