@@ -37,7 +37,7 @@
                 {
                 "key": "bluetooth_ble",
                 "title": "Bluetooth and BLE",
-                "description": "Try to sniff the communication, check if it's encrypted, can it be decrypted, are replay attacks possible, check if sentisitve information being trasnmitted in plaintext",
+                "description": "Try to sniff the communication, check if it's encrypted, can it be decrypted, are replay attacks possible, check if sensitive information being transmitted in plaintext",
                   "tools": "Flipper, Ubertooth, Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), btmon (linux), Bluetooth Virtual Sniffer (Windows)"
                 },
                 {
