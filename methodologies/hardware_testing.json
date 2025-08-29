@@ -43,7 +43,7 @@
                 {
                   "key": "zigbee_lora",
                   "title": "ZigBee",
-                  "Description":"Try to sniff the communication, can you capture the encryption key exchange (during active recon see if it's hardcoded on the device), can the communication be decrypted, are replay attacks possible",
+                  "description":"Try to sniff the communication, can you capture the encryption key exchange (during active recon see if it's hardcoded on the device), can the communication be decrypted, are replay attacks possible",
                   "tools": "Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), ZT-CHK,  TI SmartRF Protocol Packet Sniffer (SPPS) software"
                 },
                 {
