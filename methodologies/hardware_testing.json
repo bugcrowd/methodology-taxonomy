@@ -157,7 +157,7 @@
             },
             {
               "key":"clearing_memory_during_state_transition",
-              "title":"Sensitive Information Uncleard Before State Transition",
+              "title":"Sensitive Information Uncleared Before State Transition",
               "description":"Assess if sensitive information only needed for one state is cleared  after transitioning to the next state, such as during boot or waking up from sleep mode.",
               "CWE":"CWE-1272"
             },
