@@ -138,7 +138,7 @@
             },
             { 
               "key":"cryptographic_implemenation",
-              "title":"Cryptographic Implemtation",
+              "title":"Cryptographic Implementation",
               "description":"Assess if the cryptographic algorithm in use is non-standard or a disallowed/non-compliant version.",
               "CWE":"CWE-1240",
             },
