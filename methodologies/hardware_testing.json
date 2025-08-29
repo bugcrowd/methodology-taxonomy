@@ -152,7 +152,7 @@
             {
              "key":"memory_overlap",
              "title":"Improper Handling of Memory Overlap",
-             "description":"Assess if isolated memory regions and access conrol policies allow software with low privilges to make changes to overlapping memory also used by software running with higher privilges.",
+             "description":"Assess if isolated memory regions and access control policies allow software with low privileges to make changes to overlapping memory also used by software running with higher privileges.",
              "CWE":"CWE-1260"
             },
             {
