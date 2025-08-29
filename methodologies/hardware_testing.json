@@ -18,7 +18,7 @@
             "key": "open_source_intelligence",
             "title": "Open Source Intelligence",
             "description": "Gathering information using search engines to find publicly available information about the device",
-              "tools": "Google Dorking components/device, FCC Database (fccid.io or fcc.io), Patents (patents.google.com, worldwide.espacenet.com/patent, appft.uspto.gov), Chinese OSINT (baidu.com, qichacha.com, right.com.cn, codechina.csdn.net, pudn.com, search.gitee.com), Finding datasheets for components",
+            "tools": "Google Dorking components/device, FCC Database (fccid.io or fcc.io), Patents (patents.google.com, worldwide.espacenet.com/patent, appft.uspto.gov), Chinese OSINT (baidu.com, qichacha.com, right.com.cn, codechina.csdn.net, pudn.com, search.gitee.com), Finding datasheets for components",
             "vrt_category": "sensitive_data_exposure"
           },
           {
@@ -35,9 +35,9 @@
             "type": "checklist",
             "items": [
                 {
-                "key": "bluetooth_ble",
-                "title": "Bluetooth and BLE",
-                "description": "Try to sniff the communication, check if it's encrypted, can it be decrypted, are replay attacks possible, check if sensitive information being transmitted in plaintext",
+                  "key": "bluetooth_ble",
+                  "title": "Bluetooth and BLE",
+                  "description": "Try to sniff the communication, check if it's encrypted, can it be decrypted, are replay attacks possible, check if sensitive information being transmitted in plaintext",
                   "tools": "Flipper, Ubertooth, Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), btmon (linux), Bluetooth Virtual Sniffer (Windows)"
                 },
                 {
@@ -105,16 +105,16 @@
           "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
         },
         {
-         "key":"testing_device",
+          "key":"testing_device",
           "title":"Testing the Device",
           "description":"Using all of the information gathered start testing the device for security vulnerabilities.",
           "type":"checklist",
           "items":[
             { 
-            "key":"replay_attacks",
-            "title":"Replay Attacks",
-            "description":"Using the sniffed traffic can you replay the messages sent to the device, will the device accept modified requests, can you make changes to the configuration. Device is using unencrypted communication.",
-            "tools":"Wireshark, hackRF, python"
+              "key":"replay_attacks",
+              "title":"Replay Attacks",
+              "description":"Using the sniffed traffic, determine if replay attacks are possible. Check if the device accepts modified requests and if you can make changes to the configuration. Verify if the device uses unencrypted communication.",
+              "tools":"Wireshark, hackRF, python"
             },
             { 
               "key":"shared_resources",
