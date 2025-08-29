@@ -74,7 +74,7 @@
                 {
                   "key": "visual_component_identification",
                   "title": "Visual Component Identification",
-                  "description": "Using a magnifying glass id the various compnents on the PCB in the device, determine what they do and how they connect together, look up datasheets for important compents online and read through them",
+                  "description": "Using a magnifying glass identify the various components on the PCB in the device, determine what they do and how they connect together, look up datasheets for important components online and read through them",
                   "tools": "magnifying glass, Search Engines"
                 },
                 {
