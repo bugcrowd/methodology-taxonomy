@@ -136,7 +136,7 @@
               "CWE":"CWE-1231 and CWE-1233"
             },
             { 
-              "key":"cryptographic_implemenation",
+              "key":"cryptographic_implementation",
               "title":"Cryptographic Implementation",
               "description":"Assess if the cryptographic algorithm in use is non-standard or a disallowed/non-compliant version.",
               "CWE":"CWE-1240"
