@@ -66,7 +66,7 @@
               "key": "opening_device",
               "title": "Opening up the Device Under Test",
               "description": "Open up the device to identify the various components and find data sheets online for the various components, map out PCB, find open ports (UART, JTAG)",
-              "tools": "screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, Multimeter, XRAY, probes, oscillscope, magnifying glass, logic analyser",
+              "tools": "screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, Multimeter, XRAY, probes, oscilloscope, magnifying glass, logic analyzer",
               "type": "checklist",
               "items": 
               [
@@ -86,7 +86,7 @@
                   "key": "id_debug_ports",
                   "title": "ID Debug Ports",
                   "description": "Determine which debug protocols are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases  you may need to desolder the ports and solder header pins to them to access them",
-                  "tools": "multimeter, logic analyser, oscillscope, soldering iron"
+                  "tools": "multimeter, logic analyzer, oscilloscope, soldering iron"
                 }
               ] 
             }
@@ -146,7 +146,7 @@
               "title": "Fault Injection and Side Channel Attacks",
               "description": "Test for fault injection attacks and Side Channel attacks that can be used to bypass security measures to dump the firmware, access sensitive information, to perform a code execution, skip authentication, privilege escalation, and side channel attacks.",   
               "CWE":"CWE-1256 and CWE-1300",    
-              "tools": "chipwhisperer, oscillscope, pcb workstation with nano probes"
+              "tools": "chipwhisperer, oscilloscope, pcb workstation with nano probes"
             },
             {
              "key":"memory_overlap",
