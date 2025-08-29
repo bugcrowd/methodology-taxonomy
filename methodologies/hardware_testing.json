@@ -113,7 +113,7 @@
             { 
             "key":"replay_attacks",
             "title":"Replay Attacks",
-            "decsription":"Using the sniffed traffic can you replay the messages sent to the device, will the device accept modified requests, can you make changes to the configuration. Device is sing unencrypted communication.",
+            "description":"Using the sniffed traffic can you replay the messages sent to the device, will the device accept modified requests, can you make changes to the configuration. Device is using unencrypted communication.",
             "tools":"Wireshark, hackRF, python"
             },
             { 
@@ -125,15 +125,15 @@
             { 
               "key":"bac_on_chip_debugger",
               "title":"Broken Access Control for On-Chip Debugger",
-              "decsription":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access across during different boot stages.",
+              "description":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access across during different boot stages.",
               "CWE":"CWE-1191 and CWE-1244",
               "tools":"jtagulator"
             },
             { 
               "key":"improper_lock_bit_protection",
               "title":"Improper Lock Bit Protection",
-              "decsription":"Assess the integrated circuit trusted lock bit to see if it's missing or can be modified by software later giving access to protected registers, address regions, systems and features that should be protected.",
-             "CWE":"CWE-1231 and CWE-1233"
+              "description":"Assess the integrated circuit trusted lock bit to see if it's missing or can be modified by software later giving access to protected registers, address regions, systems and features that should be protected.",
+              "CWE":"CWE-1231 and CWE-1233"
             },
             { 
               "key":"cryptographic_implemenation",
