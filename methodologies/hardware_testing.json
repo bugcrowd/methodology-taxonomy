@@ -125,7 +125,7 @@
             { 
               "key":"bac_on_chip_debugger",
               "title":"Broken Access Control for On-Chip Debugger",
-              "description":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access across during different boot stages.",
+              "description":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access control during different boot stages.",
               "CWE":"CWE-1191 and CWE-1244",
               "tools":"jtagulator"
             },
