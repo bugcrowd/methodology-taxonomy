@@ -80,7 +80,7 @@
                 {
                   "key": "measure_voltage_resistance_continuity",
                   "title": "Measuring Voltage, Resistance, and Continuity",
-                  "description": "Using a multimeter id GND, Vcc, N/C, Pull-Up resistors to help map out the board verify the different pins identified in the datasheets, and enumerate debug ports",
+                  "description": "Using a multimeter identify GND, Vcc, N/C, Pull-Up resistors to help map out the board, verify the different pins identified in the datasheets, and enumerate debug ports",
                   "tools": "multimeter"
                 },
                 {
