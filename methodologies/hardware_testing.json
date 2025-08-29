@@ -120,7 +120,7 @@
             { 
               "key":"shared_resources",
               "title":"Improper Isolation of Shared Resources",
-              "decsription":"A SOC may use pin multiplexing allowing an untrsuted agent to access assets/info intended to trusted agents only",
+              "description":"A SOC may use pin multiplexing allowing an untrusted agent to access assets/info intended to trusted agents only",
               "CWE":"CWE-1189"
             },
             { 
