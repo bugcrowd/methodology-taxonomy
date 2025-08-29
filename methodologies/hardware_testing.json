@@ -102,7 +102,7 @@
           "key":"firmware_analysis",
           "title":"Firmware Analysis",
           "description":"Reverse engineering the dumped firmware. ID encryption if used and try to decrypt it. Use emulation software to help analyse it. Analyse and search the firmware to hardcoded passwords/keys and other sensitive information.",
-          "tools":"binwalk, QEMU, Ghidra, binwally, grep, strings, hexdump, readelf"
+          "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
         },
         {
          "key":"testing_device",
