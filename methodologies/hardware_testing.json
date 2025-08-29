@@ -66,7 +66,7 @@
             {
               "key": "opening_device",
               "title": "Opening up the Device Under Test",
-              "description": "Open of the device to identify the various component and find data sheets online for the vairous compnents, map out PCB, find open ports (UART, JTAG)",
+              "description": "Open up the device to identify the various components and find data sheets online for the various components, map out PCB, find open ports (UART, JTAG)",
               "tools": "screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, Multimeter, XRAY, probes, oscillscope, magnifying glass, logic analyser",
               "type": "checklist",
               "items": 
