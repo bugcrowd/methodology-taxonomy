@@ -20,7 +20,7 @@
             "caption": ""
           },
           {
-            "key": "check_API_schema_files",
+            "key": "check_api_schema_files",
             "title": "Check for .wsdl, .wadl, and swagger files",
             "description": "Check for web service description language (.wsdl/.wadl) and swagger files for SOAP/REST APIs.",
             "tools": "Burp Proxy, FFUF, WFuzz, Gobuster",
@@ -34,7 +34,7 @@
             "caption": ""
           },
           {
-            "key": "check_graphql_field_Suggestions",
+            "key": "check_graphql_field_suggestions",
             "title": "Check for GraphQL Field Suggestions",
             "description": "Check for GraphQL Field Suggestions if Introspection Disabled.",
             "tools": "Clairvoyance",
@@ -519,7 +519,7 @@
             "vrt_category": "server_side_injection"
           },
           {
-            "key": "SSRF",
+            "key": "ssrf",
             "title": "Testing for Server-Side Request Forgery",
             "caption": "OWASP API Security Top 10 - 2023",
             "description": "Test whether the API allows sending arbitrary or internal requests to unauthorized systems.\nUse crafted URLs to target internal IP ranges, cloud metadata endpoint (e.g., http://169.254.169.254/)",
