@@ -86,7 +86,7 @@
                 {
                   "key": "id_debug_ports",
                   "title": "ID Debug Ports",
-                  "description": "Determine which debug protocls are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases  you may need to desolder the ports and solder header pins to them to access them",
+                  "description": "Determine which debug protocols are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases  you may need to desolder the ports and solder header pins to them to access them",
                   "tools": "multimeter, logic analyser, oscillscope, soldering iron"
                 },
               ] 
