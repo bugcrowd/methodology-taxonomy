@@ -115,7 +115,7 @@
             "key":"replay_attacks",
             "title":"Replay Attacks",
             "decsription":"Using the sniffed traffic can you replay the messages sent to the device, will the device accept modified requests, can you make changes to the configuration. Device is sing unencrypted communication.",
-            "tools":"wireshart, hackRF, python"
+            "tools":"Wireshark, hackRF, python"
             },
             { 
               "key":"shared_resources",
