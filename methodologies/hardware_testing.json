@@ -57,7 +57,7 @@
         ]
         },
         {
-          "key": "Active Recon",
+          "key": "active_recon",
           "title": "Active Recon",
           "description": "Opening up, sniffing, and probing the device under test (DUT)",
           "type": "checklist",
