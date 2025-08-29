@@ -53,8 +53,7 @@
                   "tools": "flipper (base model is limited, additional hardware can be installed), Proxmark"
                 }
               ] 
-          },
-          
+          }
         ]
         },
         {
@@ -88,7 +87,7 @@
                   "title": "ID Debug Ports",
                   "description": "Determine which debug protocols are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases  you may need to desolder the ports and solder header pins to them to access them",
                   "tools": "multimeter, logic analyser, oscillscope, soldering iron"
-                },
+                }
               ] 
             }
           ]
@@ -134,13 +133,13 @@
               "key":"improper_lock_bit_protection",
               "title":"Improper Lock Bit Protection",
               "decsription":"Assess the integrated circuit trusted lock bit to see if it's missing or can be modified by software later giving access to protected registers, address regions, systems and features that should be protected.",
-             "CWE":"CWE-1231 and CWE-1233",
+             "CWE":"CWE-1231 and CWE-1233"
             },
             { 
               "key":"cryptographic_implemenation",
               "title":"Cryptographic Implementation",
               "description":"Assess if the cryptographic algorithm in use is non-standard or a disallowed/non-compliant version.",
-              "CWE":"CWE-1240",
+              "CWE":"CWE-1240"
             },
             {
               "key": "fault_injection_and_side_channel_attacks",
@@ -172,7 +171,7 @@
               "title":"Firmware Not Getting Updates",
               "description":"Verify if the firmware can receive regular updates as vulnerabilities are discovered in the future.",
               "CWE":"CWE-1277"
-            },
+            }
           ]
         },    
         {
