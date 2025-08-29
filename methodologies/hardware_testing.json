@@ -30,7 +30,7 @@
           {
             "key": "rf_scanning",
             "title": "Radio Frequency Scanning",
-            "description": "Identify any radio communitcations, frequencies, modulation the device might be using, identify wireless protocols in use",
+            "description": "Identify any radio communications, frequencies, modulation the device might be using, identify wireless protocols in use",
             "tools": "HackRF, LimeSDR, BladeRF, Universal Radio Hacker (URH), other various rf sniffers",
             "type": "checklist",
             "items": [
