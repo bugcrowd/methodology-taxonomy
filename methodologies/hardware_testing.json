@@ -96,7 +96,7 @@
         {
           "key": "dump_download_firmware",
           "title": "Dump or Download Firmware for Analysis",
-          "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
+          "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firmware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
           "tools": "desoldering station, jtagulator, minicom, PuTTy, Bus Pirate, Raspberry Pi Pico"
         },
         {
