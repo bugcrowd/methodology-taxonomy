@@ -99,18 +99,18 @@
           "type": "checklist",
           "items": 
           [
-                {
-                  "key": "dump_download_firmware",
-                  "title": "Dump or Download Firmware for Analysis",
-                  "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firmware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
-                  "tools": "desoldering station, jtagulator, minicom, PuTTy, Bus Pirate, Raspberry Pi Pico"
-                },
-                {
-                  "key":"firmware_analysis",
-                  "title":"Firmware Analysis",
-                  "description":"Reverse engineering the dumped firmware. Identify encryption if used and try to decrypt it. Use emulation software to help analyze it. Analyze and search the firmware for hardcoded passwords/keys and other sensitive information.",
-                  "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
-                },
+            {
+              "key": "dump_download_firmware",
+              "title": "Dump or Download Firmware for Analysis",
+              "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firmware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
+              "tools": "desoldering station, jtagulator, minicom, PuTTy, Bus Pirate, Raspberry Pi Pico"
+            },
+            {
+              "key":"firmware_analysis",
+              "title":"Firmware Analysis",
+              "description":"Reverse engineering the dumped firmware. Identify encryption if used and try to decrypt it. Use emulation software to help analyze it. Analyze and search the firmware for hardcoded passwords/keys and other sensitive information.",
+              "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
+            }
           ]
         },
         {
