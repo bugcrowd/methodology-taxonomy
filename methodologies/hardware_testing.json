@@ -106,8 +106,7 @@
           "title": "Accessing and Analysing Firmware",
           "description": "Using info gathered during active and passive recon access and reverse engineer the firmware for the device.",
           "type": "checklist",
-          "items": 
-          [
+          "items": [
             {
               "key": "dump_download_firmware",
               "title": "Dump or Download Firmware for Analysis",
