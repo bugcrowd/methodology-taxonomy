@@ -74,8 +74,7 @@
               "description": "Open up the device to identify the various components and find data sheets online for the various components, map out PCB, find open ports (UART, JTAG)",
               "tools": "screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, Multimeter, XRAY, probes, oscilloscope, magnifying glass, logic analyzer",
               "type": "checklist",
-              "items": 
-              [
+              "items": [
                 {
                   "key": "visual_component_identification",
                   "title": "Visual Component Identification",
