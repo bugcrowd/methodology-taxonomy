@@ -185,7 +185,7 @@
               "key":"root_shell",
               "title":"Root Shell Access",
               "description":"Try to gain root shell access on the device using an enabled communication protocol, i.e. telnet or ssh, or using an open debug port to interrupt the boot process.",
-              "tools":"SOIC-8 clip, Burp, Caido, Screen"
+              "tools":"SOIC-8 clip, Burp, Caido, GNU Screen"
             }
           ]
         },    
