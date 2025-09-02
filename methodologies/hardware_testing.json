@@ -140,7 +140,7 @@
               "title":"Improper Isolation of Shared Resources",
               "caption": "",
               "description":"A SOC may use pin multiplexing allowing an untrusted agent to access assets/info intended to trusted agents only",
-              "CWE":"CWE-1189"
+              "CWE": ["CWE-1189"]
             },
             { 
               "key":"bac_on_chip_debugger",
@@ -162,7 +162,7 @@
               "title":"Cryptographic Implementation",
               "caption": "",
               "description":"Assess if the cryptographic algorithm in use is non-standard or a disallowed/non-compliant version.",
-              "CWE":"CWE-1240"
+              "CWE": ["CWE-1240"]
             },
             {
               "key": "fault_injection_and_side_channel_attacks",
@@ -177,28 +177,28 @@
              "title":"Improper Handling of Memory Overlap",
              "caption": "",
              "description":"Assess if isolated memory regions and access control policies allow software with low privileges to make changes to overlapping memory also used by software running with higher privileges.",
-             "CWE":"CWE-1260"
+             "CWE": ["CWE-1260"]
             },
             {
               "key":"clearing_memory_during_state_transition",
               "title":"Sensitive Information Uncleared Before State Transition",
               "caption": "",
               "description":"Assess if sensitive information only needed for one state is cleared after transitioning to the next state, such as during boot or waking up from sleep mode.",
-              "CWE":"CWE-1272"
+              "CWE": ["CWE-1272"]
             },
             {
               "key":"volatile_memory_boot_code",
               "title":"Improper Access Control for Volatile Memory for Boot Code",
               "caption": "",
               "description":"Assess if the secure boot process can be bypassed to execute untrusted malicious boot code",
-              "CWE":"CWE-1274"
+              "CWE": ["CWE-1274"]
             },
             {
               "key":"firmware_not_updating",
               "title":"Firmware Not Getting Updates",
               "caption": "",
               "description":"Verify if the firmware can receive regular updates as vulnerabilities are discovered in the future.",
-              "CWE":"CWE-1277"
+              "CWE": ["CWE-1277"]
             },
             {
               "key":"root_shell",
