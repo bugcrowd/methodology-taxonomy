@@ -55,7 +55,7 @@
                   "title": "NFC Testing",
                   "caption": "",
                   "description": "For card readers like access control locks and credit cards, can also be used in mobile testing. Try to read the information on the card, is it encrypted, can it be decrypted, can you forge a request, does the reader allow you to write to it so it will accept forged messages",
-                  "tools": "flipper (base model is limited, additional hardware can be installed), Proxmark"
+                  "tools": "Flipper (base model is limited, additional hardware can be installed), Proxmark"
                 }
               ] 
           }
