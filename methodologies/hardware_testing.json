@@ -12,8 +12,7 @@
         "title": "Passive Recon",
         "description": "Information gathering before turning off or opening the device",
         "type": "checklist",
-        "items": 
-        [
+        "items": [
           { 
             "key": "open_source_intelligence",
             "title": "Open Source Intelligence",
