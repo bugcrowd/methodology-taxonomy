@@ -128,7 +128,7 @@
           "title":"Testing the Device",
           "description":"Using all of the information gathered start testing the device for security vulnerabilities.",
           "type":"checklist",
-          "items":[
+          "items": [
             { 
               "key":"replay_attacks",
               "title":"Replay Attacks",
