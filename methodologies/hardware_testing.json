@@ -17,6 +17,7 @@
           { 
             "key": "open_source_intelligence",
             "title": "Open Source Intelligence",
+            "caption": "",
             "description": "Gathering information using search engines to find publicly available information about the device",
             "tools": "Google Dorking components/device, FCC Database (fccid.io or fcc.io), Patents (patents.google.com, worldwide.espacenet.com/patent, appft.uspto.gov), Chinese OSINT (baidu.com, qichacha.com, right.com.cn, codechina.csdn.net, pudn.com, search.gitee.com), Finding datasheets for components",
             "vrt_category": "sensitive_data_exposure"
@@ -24,12 +25,14 @@
           {
             "key": "network_scanning",
             "title": "Network Scanning",
+            "caption": "",
             "description": "Scan the network for devices to find the one being tested, identify wireless protocols in use",
             "tools": "NMAP, Wireshark, tcpdump"
           },
           {
             "key": "rf_scanning",
             "title": "Radio Frequency Scanning",
+            "caption": "",
             "description": "Identify any radio communications, frequencies, modulation the device might be using, identify wireless protocols in use",
             "tools": "HackRF, LimeSDR, BladeRF, Universal Radio Hacker (URH), other various rf sniffers",
             "type": "checklist",
@@ -37,18 +40,21 @@
                 {
                   "key": "bluetooth_ble",
                   "title": "Bluetooth and BLE",
+                  "caption": "",
                   "description": "Try to sniff the communication, check if it's encrypted, can it be decrypted, are replay attacks possible, check if sensitive information being transmitted in plaintext",
                   "tools": "Flipper, Ubertooth, Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), btmon (linux), Bluetooth Virtual Sniffer (Windows)"
                 },
                 {
                   "key": "zigbee_lora",
                   "title": "ZigBee and LoRa",
+                  "caption": "",
                   "description": "For ZigBee and LoRa devices, try to sniff the communication, capture the encryption key exchange (during active recon see if it's hardcoded on the device), check if the communication can be decrypted, and determine if replay attacks are possible. For LoRa, also check for LoRaWAN-specific vulnerabilities, such as weak join procedures, unencrypted payloads, and improper key management.",
                   "tools": "Nordic nRF, Wireshark (might need to install an additional plugin and/or connect external hardware), ZT-CHK, TI SmartRF Protocol Packet Sniffer (SPPS) software, Semtech LoRaWAN sniffer, TTN Packet Forwarder, SDR tools supporting LoRa (HackRF, LimeSDR, BladeRF), Universal Radio Hacker (URH)"
                 },
                 {
                   "key": "near_field_communication",
                   "title": "NFC Testing",
+                  "caption": "",
                   "description": "For card readers like access control locks and credit cards, can also be used in mobile testing. Try to read the information on the card, is it encrypted, can it be decrypted, can you forge a request, does the reader allow you to write to it so it will accept forged messages",
                   "tools": "flipper (base model is limited, additional hardware can be installed), Proxmark"
                 }
@@ -65,6 +71,7 @@
             {
               "key": "opening_device",
               "title": "Opening up the Device Under Test",
+              "caption": "",
               "description": "Open up the device to identify the various components and find data sheets online for the various components, map out PCB, find open ports (UART, JTAG)",
               "tools": "screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, Multimeter, XRAY, probes, oscilloscope, magnifying glass, logic analyzer",
               "type": "checklist",
@@ -73,18 +80,21 @@
                 {
                   "key": "visual_component_identification",
                   "title": "Visual Component Identification",
+                  "caption": "",
                   "description": "Using a magnifying glass identify the various components on the PCB in the device, determine what they do and how they connect together, look up datasheets for important components online and read through them",
                   "tools": "magnifying glass, Search Engines"
                 },
                 {
                   "key": "measure_voltage_resistance_continuity",
                   "title": "Measuring Voltage, Resistance, and Continuity",
+                  "caption": "",
                   "description": "Using a multimeter identify GND, Vcc, N/C, Pull-Up resistors to help map out the board, verify the different pins identified in the datasheets, and enumerate debug ports",
                   "tools": "multimeter"
                 },
                 {
                   "key": "id_debug_ports",
                   "title": "ID Debug Ports",
+                  "caption": "",
                   "description": "Determine which debug protocols are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases  you may need to desolder the ports and solder header pins to them to access them",
                   "tools": "multimeter, logic analyzer, oscilloscope, soldering iron"
                 }
@@ -102,12 +112,14 @@
             {
               "key": "dump_download_firmware",
               "title": "Dump or Download Firmware for Analysis",
+              "caption": "",
               "description": "Using the identified debug ports try to dump the firmware from the device for reverse engineering. Desoldering the SPI flash and using a tool to dump the firmware from it directly. Try downloading the firmware from the vendor site, however it might be encrypted.",
               "tools": "desoldering station, jtagulator, minicom, PuTTy, Bus Pirate, Raspberry Pi Pico"
             },
             {
               "key":"firmware_analysis",
               "title":"Firmware Analysis",
+              "caption": "",
               "description":"Reverse engineering the dumped firmware. Identify encryption if used and try to decrypt it. Use emulation software to help analyze it. Analyze and search the firmware for hardcoded passwords/keys and other sensitive information.",
               "tools":"binwalk, QEMU, Ghidra, grep, strings, hexdump, readelf"
             }
@@ -122,18 +134,21 @@
             { 
               "key":"replay_attacks",
               "title":"Replay Attacks",
+              "caption": "",
               "description":"Using the sniffed traffic, determine if replay attacks are possible. Check if the device accepts modified requests and if you can make changes to the configuration. Verify if the device uses unencrypted communication.",
               "tools":"Wireshark, hackRF, python"
             },
             { 
               "key":"shared_resources",
               "title":"Improper Isolation of Shared Resources",
+              "caption": "",
               "description":"A SOC may use pin multiplexing allowing an untrusted agent to access assets/info intended to trusted agents only",
               "CWE":"CWE-1189"
             },
             { 
               "key":"bac_on_chip_debugger",
               "title":"Broken Access Control for On-Chip Debugger",
+              "caption": "",
               "description":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access control during different boot stages.",
               "CWE": ["CWE-1191", "CWE-1244"],
               "tools":"jtagulator, SOIC-8 clip"
@@ -141,18 +156,21 @@
             { 
               "key":"improper_lock_bit_protection",
               "title":"Improper Lock Bit Protection",
+              "caption": "",
               "description":"Assess the integrated circuit trusted lock bit to see if it's missing or can be modified by software later giving access to protected registers, address regions, systems and features that should be protected.",
               "CWE": ["CWE-1231", "CWE-1233"]
             },
             { 
               "key":"cryptographic_implementation",
               "title":"Cryptographic Implementation",
+              "caption": "",
               "description":"Assess if the cryptographic algorithm in use is non-standard or a disallowed/non-compliant version.",
               "CWE":"CWE-1240"
             },
             {
               "key": "fault_injection_and_side_channel_attacks",
               "title": "Fault Injection and Side Channel Attacks",
+              "caption": "",
               "description": "Test for fault injection and side channel attacks that can bypass security measures to dump firmware, access sensitive information, perform code execution, skip authentication, or escalate privileges.",
               "CWE": ["CWE-1256", "CWE-1300"],    
               "tools": "chipwhisperer, oscilloscope, pcb workstation with nano probes"
@@ -160,30 +178,35 @@
             {
              "key":"memory_overlap",
              "title":"Improper Handling of Memory Overlap",
+             "caption": "",
              "description":"Assess if isolated memory regions and access control policies allow software with low privileges to make changes to overlapping memory also used by software running with higher privileges.",
              "CWE":"CWE-1260"
             },
             {
               "key":"clearing_memory_during_state_transition",
               "title":"Sensitive Information Uncleared Before State Transition",
+              "caption": "",
               "description":"Assess if sensitive information only needed for one state is cleared  after transitioning to the next state, such as during boot or waking up from sleep mode.",
               "CWE":"CWE-1272"
             },
             {
               "key":"volatile_memory_boot_code",
               "title":"Improper Access Control for Volatile Memory for Boot Code",
+              "caption": "",
               "description":"Assess if the secure boot process can be bypassed to execute untrusted malicious boot code",
               "CWE":"CWE-1274"
             },
             {
               "key":"firmware_not_updating",
               "title":"Firmware Not Getting Updates",
+              "caption": "",
               "description":"Verify if the firmware can receive regular updates as vulnerabilities are discovered in the future.",
               "CWE":"CWE-1277"
             },
             {
               "key":"root_shell",
               "title":"Root Shell Access",
+              "caption": "",
               "description":"Try to gain root shell access on the device using an enabled communication protocol, i.e. telnet or ssh, or using an open debug port to interrupt the boot process.",
               "tools":"SOIC-8 clip, Burp, Caido, GNU Screen"
             }
@@ -196,7 +219,7 @@
           "type": "large_upload"
         },
         {
-           "key": "executive_summary",
+          "key": "executive_summary",
           "title": "Executive summary",
           "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
           "type": "executive_summary"
