@@ -151,7 +151,7 @@
               "caption": "",
               "description":"Unauthenticated access to the on chip debugger through the JTAG, allowing root access or access to sensitive information. Or not implementing proper access control during different boot stages.",
               "CWE": ["CWE-1191", "CWE-1244"],
-              "tools":"jtagulator, SOIC-8 clip"
+              "tools":"JTAGulator, SOIC-8 clip"
             },
             { 
               "key":"improper_lock_bit_protection",
