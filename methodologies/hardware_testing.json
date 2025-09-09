@@ -63,40 +63,30 @@
         },
         {
           "key": "active_recon",
-          "title": "Active Recon",
-          "description": "Opening up, sniffing, and probing the device under test (DUT)",
+          "title": "Active Recon - Opening up the Device Under Test",
+          "description": "Open up the device to identify the various components and find data sheets online for the various components, map out PCB, find open ports (UART, JTAG). Use tools like screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, multimeter, XRAY, probes, oscilloscope, magnifying glass, and logic analyzer.",
           "type": "checklist",
           "items": [
             {
-              "key": "opening_device",
-              "title": "Opening up the Device Under Test",
+              "key": "visual_component_identification",
+              "title": "Visual Component Identification",
               "caption": "",
-              "description": "Open up the device to identify the various components and find data sheets online for the various components, map out PCB, find open ports (UART, JTAG)",
-              "tools": "screwdrivers, anti-tamper bits, prying tools, soldering iron, desoldering workstation, Multimeter, XRAY, probes, oscilloscope, magnifying glass, logic analyzer",
-              "type": "checklist",
-              "items": [
-                {
-                  "key": "visual_component_identification",
-                  "title": "Visual Component Identification",
-                  "caption": "",
-                  "description": "Using a magnifying glass identify the various components on the PCB in the device, determine what they do and how they connect together, look up datasheets for important components online and read through them",
-                  "tools": "magnifying glass, Search Engines"
-                },
-                {
-                  "key": "measure_voltage_resistance_continuity",
-                  "title": "Measuring Voltage, Resistance, and Continuity",
-                  "caption": "",
-                  "description": "Using a multimeter identify GND, Vcc, N/C, Pull-Up resistors to help map out the board, verify the different pins identified in the datasheets, and enumerate debug ports",
-                  "tools": "multimeter"
-                },
-                {
-                  "key": "id_debug_ports",
-                  "title": "ID Debug Ports",
-                  "caption": "",
-                  "description": "Determine which debug protocols are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases you may need to desolder the ports and solder header pins to them to access them",
-                  "tools": "multimeter, logic analyzer, oscilloscope, soldering iron"
-                }
-              ] 
+              "description": "Using a magnifying glass identify the various components on the PCB in the device, determine what they do and how they connect together, look up datasheets for important components online and read through them",
+              "tools": "magnifying glass, Search Engines"
+            },
+            {
+              "key": "measure_voltage_resistance_continuity",
+              "title": "Measuring Voltage, Resistance, and Continuity",
+              "caption": "",
+              "description": "Using a multimeter identify GND, Vcc, N/C, Pull-Up resistors to help map out the board, verify the different pins identified in the datasheets, and enumerate debug ports",
+              "tools": "multimeter"
+            },
+            {
+              "key": "id_debug_ports",
+              "title": "ID Debug Ports",
+              "caption": "",
+              "description": "Determine which debug protocols are being used, UART, JTAG, SPI, I2C, SWD, and/or NAND/MMC and find out which pins can be used to access those ports. In some cases you may need to desolder the ports and solder header pins to them to access them",
+              "tools": "multimeter, logic analyzer, oscilloscope, soldering iron"
             }
           ]
         },
