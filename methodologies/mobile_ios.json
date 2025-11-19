@@ -1,77 +1,49 @@
 {
   "metadata": {
     "title": "iOS",
-    "release_date": "2022-01-10T00:00:00+00:00",
+    "release_date": "2025-11-19T00:00:00+00:00",
     "description": "Bugcrowd iOS testing methodology",
-    "vrt_version": "10.0.1"
+    "vrt_version": "1.17"
   },
   "content": {
     "steps": [
       {
         "key": "architecture_design_and_threat_modelling",
-        "title": "Architecture, design and threat modelling",
+        "title": "Architecture, Design and Threat Modelling",
         "description": "",
         "type": "checklist",
         "items": [
           {
-            "key": "all_app_components_are_identified_and_known_to_be_needed",
-            "title": "All app components are identified and known to be needed",
-            "description": "",
-            "caption": ""
+            "key": "search_engine_discovery",
+            "title": "Conduct Search Engine Discovery and Reconnaissance for Information Leakage",
+            "description": "Identify all the endpoints and domains used in the application. Search for network diagrams, source code, configurations, privileged credentials, and error messages.",
+            "caption": "",
+            "tools": "Google Dorking, Manual Review, Static analysis using MobSF, jadx, Hopper",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "security_controls_client_side",
-            "title": "Security controls are never enforced only on the client side, but on the respective remote endpoints.",
-            "description": "",
-            "caption": ""
+            "key": "server_fingerprinting",
+            "title": "Fingerprint Servers and Endpoints Used by the Target Application",
+            "description": "Find the version and type of running server/endpoint to determine known vulnerabilities and the appropriate exploits (relevant for non-HTTP services as well).",
+            "caption": "",
+            "tools": "Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "high_level_architecture_for_mobile_app",
-            "title": "A high-level architecture for the mobile app and all connected remote services has been defined and security has been addressed in that architecture.",
-            "description": "",
-            "caption": ""
+            "key": "third_party_library_identification",
+            "title": "Determine Third Party Libraries Included in the Application",
+            "description": "Identify and fingerprint third-party libraries included embedded into the application package, checking for known vulnerabilities (CVEs) and ensuring they are recent versions. OS libraries are out of scope.",
+            "caption": "",
+            "tools": "Embedded Service Review, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_identified_data",
-            "title": "Data considered sensitive in the context of the mobile app is clearly identified.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "business_and_security_functions",
-            "title": "All app components are defined in terms of the business functions and/or security functions they provide.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "threat_model_for_mobile_app",
-            "title": "A threat model for the mobile app and the associated remote services has been produced that identifies potential threats and countermeasures.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "security_controls",
-            "title": "All security controls have a centralized implementation.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "cryptographic_key_policy",
-            "title": "There is an explicit policy for how cryptographic keys (if any) are managed, and the lifecycle of cryptographic keys is enforced. Ideally, follow a key management standard such as NIST SP 800-57.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "enforce_mobile_app_updates",
-            "title": "A mechanism for enforcing updates of the mobile app exists.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "address_security",
-            "title": "Security is addressed within all parts of the software development lifecycle.",
-            "description": "",
-            "caption": ""
+            "key": "api_endpoint_identification",
+            "title": "Identify All API Endpoints",
+            "description": "Use static analysis to discover hidden endpoints. Perform API testing during dynamic analysis.",
+            "caption": "",
+            "tools": "MobSF, jadx, Hopper",
+            "references": "https://mas.owasp.org/checklists/"
           }
         ]
       },
@@ -82,76 +54,68 @@
         "type": "checklist",
         "items": [
           {
-            "key": "system_creentials_storage_facilities",
-            "title": "System credential storage facilities are used appropriately to store sensitive data, such as PII, user credentials or cryptographic keys.",
-            "description": "",
-            "caption": ""
+            "key": "local_storage_sensitive_data",
+            "title": "Test Local Storage for Sensitive Data",
+            "description": "Verify that sensitive data stored locally is properly protected and not exposed.",
+            "caption": "",
+            "tools": "Manual Review using ssh, ADB",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_data_storage",
-            "title": "No sensitive data should be stored outside of the app container or system credential storage facilities.",
-            "description": "",
-            "caption": ""
+            "key": "logs_sensitive_data",
+            "title": "Test Logs for Sensitive Data",
+            "description": "Check that sensitive information is not logged or, if logged, is properly protected.",
+            "caption": "",
+            "tools": "ADB, Xcode, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_data_in_logs",
-            "title": "No sensitive data is written to application logs.",
-            "description": "",
-            "caption": ""
+            "key": "third_party_data_sharing",
+            "title": "Determine Whether Sensitive Data Is Shared with Third Parties via SDKs or Frameworks",
+            "description": "Assess whether sensitive data is unintentionally shared with third parties through embedded SDKs or frameworks.",
+            "caption": "",
+            "tools": "Manual Analysis",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_data_sharing_with_third_party",
-            "title": "No sensitive data is shared with third parties unless it is a necessary part of the architecture.",
-            "description": "",
-            "caption": ""
+            "key": "notification_data_sharing",
+            "title": "Determine Whether Sensitive Data Is Shared with Third Parties via Notifications",
+            "description": "Verify that sensitive data is not disclosed through notifications or is properly masked.",
+            "caption": "",
+            "tools": "Notification Analysis, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "keyboard_cache_disabling",
-            "title": "The keyboard cache is disabled on text inputs that process sensitive data.",
-            "description": "",
-            "caption": ""
+            "key": "keyboard_cache_disabled",
+            "title": "Determine Whether the Keyboard Cache Is Disabled for Text Input Fields",
+            "description": "Ensure that keyboard cache is disabled for input fields containing sensitive data.",
+            "caption": "",
+            "tools": "Keyboard Cache Review, Manual Analysis",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_data_ipc_mechanism",
-            "title": "No sensitive data is exposed via IPC mechanisms.",
-            "description": "",
-            "caption": ""
+            "key": "backups_sensitive_data",
+            "title": "Test Backups for Sensitive Data",
+            "description": "Check that backups do not contain sensitive data or that such data is securely protected in backups.",
+            "caption": "",
+            "tools": "Backup Analysis Tools, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_data_exposure_via_ui",
-            "title": "No sensitive data, such as passwords or pins, is exposed through the user interface.",
-            "description": "",
-            "caption": ""
+            "key": "memory_sensitive_data",
+            "title": "Test Memory for Sensitive Data",
+            "description": "Verify that sensitive data is not exposed in memory or is protected if it is. Note: This is only relevant for apps dealing with secrets/cipher keys and may require advanced analysis.",
+            "caption": "",
+            "tools": "Memory Analysis Tools, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "sensitive_data_exposure_via_backup",
-            "title": "No sensitive data is included in backups generated by the mobile operating system.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "sensitive_data_removal_on_backgrounded",
-            "title": "The app removes sensitive data from views when backgrounded.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "sensitive_data_holding_in_memory",
-            "title": "The app does not hold sensitive data in memory longer than necessary, and memory is cleared explicitly after use.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "minimum_device_access_security_policy",
-            "title": "The app enforces a minimum device-access-security policy, such as requiring the user to set a device passcode.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "personal_identifiable_information_identification",
-            "title": "The app educates the user about the types of personally identifiable information processed, as well as security best practices the user should follow in using the app.",
-            "description": "",
-            "caption": ""
+            "key": "device_access_policy",
+            "title": "Testing the Device-Access-Security Policy",
+            "description": "Assess the security policies in place for device access and ensure they are properly enforced. Note: On iOS, the application's ability to govern the user's device configuration is limited.",
+            "caption": "",
+            "tools": "Device Security Policy Review, Manual Analysis",
+            "references": "https://mas.owasp.org/checklists/"
           }
         ]
       },
@@ -162,40 +126,44 @@
         "type": "checklist",
         "items": [
           {
-            "key": "symmetric_cryptography_with_hardcoded_keys",
-            "title": "The app does not rely on symmetric cryptography with hardcoded keys as a sole method of encryption.",
-            "description": "",
-            "caption": ""
+            "key": "symmetric_crypto",
+            "title": "Test Symmetric Cryptography",
+            "description": "Verify that symmetric cryptographic algorithms used in the app are secure and implemented correctly.",
+            "caption": "",
+            "tools": "Cryptography Analysis Tools, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "proven_cryptographic_primitives",
-            "title": "The app uses proven implementations of cryptographic primitives.",
-            "description": "",
-            "caption": ""
+            "key": "crypto_algorithm_configuration",
+            "title": "Review the Configuration of Cryptographic Standard Algorithms",
+            "description": "Ensure that cryptographic standard algorithms are configured according to industry best practices.",
+            "caption": "",
+            "tools": "Configuration Review Tools, Manual Analysis",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "cryptographic_primitive_for_particular_use_case",
-            "title": "The app uses cryptographic primitives that are appropriate for the particular use-case, configured with parameters that adhere to industry best practices.",
-            "description": "",
-            "caption": ""
+            "key": "random_number_generation",
+            "title": "Test Random Number Generation",
+            "description": "Verify that any random number generation used for cryptographic purposes (e.g., key generation, nonce creation, tokens) relies on secure system-provided APIs or other approved cryptographic random functions. This check does not apply to non-cryptographic randomness (e.g. UI effects, game logic, shuffling, etc.).",
+            "caption": "",
+            "tools": "Random Number Generators, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "depricated_cryptography_protocols",
-            "title": "The app does not use cryptographic protocols or algorithms that are widely considered depreciated for security purposes.",
-            "description": "",
-            "caption": ""
+            "key": "key_usage_purposes",
+            "title": "Verify the Purposes of Keys",
+            "description": "Verify that cryptographic keys are used for their intended purposes and are managed properly.",
+            "caption": "",
+            "tools": "Key Management Tools, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           },
           {
-            "key": "reuse_same_cryptographic_key",
-            "title": "The app doesnt re-use the same cryptographic key for multiple purposes.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "secure_random_number_generator",
-            "title": "All random values are generated using a sufficiently secure random number generator.",
-            "description": "",
-            "caption": ""
+            "key": "key_reuse",
+            "title": "Test for Cryptographic Key Reuse",
+            "description": "Ensure that high-security cryptographic keys (e.g., wallet keys) are not reused for low-security cipher tasks.",
+            "caption": "",
+            "tools": "Key Management Tools, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
           }
         ]
       },
@@ -207,68 +175,62 @@
         "items": [
           {
             "key": "remote_service_authentication",
-            "title": "If the app provides users access to a remote service, some form of authentication, such as username/password authentication, is performed at the remote endpoint.",
-            "description": "",
+            "title": "Test Remote Service Authentication",
+            "description": "If the app provides users access to a remote service, some form of authentication, such as username/password authentication, is performed at the remote endpoint.",
             "caption": ""
           },
           {
-            "key": "stateful_session_management_authentication",
-            "title": "If stateful session management is used, the remote endpoint uses randomly generated session identifiers to authenticate client requests without sending the users credentials.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "stateless_token_based_management_authentication",
-            "title": "If stateless token-based authentication is used, the server provides a token that has been signed using a secure algorithm.",
-            "description": "",
+            "key": "secure_session_token_generation",
+            "title": "Test for Secure Session and Token Generation",
+            "description": "Validate that both stateful session identifiers and stateless tokens are securely generated (e.g., randomly generated, signed with a secure algorithm) by the remote endpoint.",
             "caption": ""
           },
           {
             "key": "remote_endpoint_terminate",
-            "title": "The remote endpoint terminates the existing session when the user logs out.",
-            "description": "",
+            "title": "Ensure the Remote Endpoint Terminates Session on Log Out",
+            "description": "The remote endpoint terminates the existing session when the user logs out. Beware potential external provider limitations (e.g., cloud services) where sessions may not immediately terminate and may be out of the clients control",
             "caption": ""
           },
           {
             "key": "password_policy_exists",
-            "title": "A password policy exists and is enforced at the remote endpoint.",
-            "description": "",
+            "title": "Review Password Policy",
+            "description": "A password policy exists and is enforced at the remote endpoint.",
             "caption": ""
           },
           {
             "key": "remote_endpoint_implementation_mechanism",
-            "title": "The remote endpoint implements a mechanism to protect against the submission of credentials an excessive number of times.",
-            "description": "",
+            "title": "Test Login Functionality Against Brute-Force Attacks",
+            "description": "The remote endpoint implements a mechanism to protect against the submission of credentials an excessive number of times. Check for rate-limiting, WAF implementation, or similar mechanisms",
             "caption": ""
           },
           {
             "key": "session_invalidated_at_remote_endpoint",
-            "title": "Sessions are invalidated at the remote endpoint after a predefined period of inactivity and access tokens expire.",
-            "description": "",
+            "title": "Test Session Timeout",
+            "description": "Sessions are invalidated at the remote endpoint after a predefined period of inactivity and access tokens expire. This should be applied based on the usage context of the application (e.g. apps handling highly sensitive data such as banking apps should have a much shorter timeout compared to a social media app).",
             "caption": ""
           },
           {
             "key": "biometric_authentication",
-            "title": "Biometric authentication, if any, is not event-bound (i.e. using an API that simply returns true or false). Instead, it is based on unlocking the keychain/keystore.",
-            "description": "",
+            "title": "Review Biometric Authentication",
+            "description": "Biometric authentication, if any, is not event-bound (i.e. using an API that simply returns true or false). Instead, it is based on unlocking the keychain/keystore.",
             "caption": ""
           },
           {
             "key": "second_factor_authentication",
-            "title": "A second factor of authentication exists at the remote endpoint and the 2FA requirement is consistently enforced.",
-            "description": "",
+            "title": "Test Multifactor Authentication",
+            "description": "Check whether a secure method of multi-factor authentication is available and enforced where relevant (apps dealing with highly sensitive data)",
             "caption": ""
           },
           {
             "key": "sensitive_transaction_setup_authentication",
-            "title": "Sensitive transactions require step-up authentication.",
-            "description": "",
+            "title": "Review Sensitive Transactions",
+            "description": "Sensitive transactions require step-up authentication.",
             "caption": ""
           },
           {
             "key": "inform_user_login_activities",
-            "title": "The app informs the user of all login activities with their account. Users are able view a list of devices used to access the account, and to block specific devices.",
-            "description": "",
+            "title": "Ensure Login Activity Functionality Exists",
+            "description": "The app informs the user of all login activities with their account. Users are able view a list of devices used to access the account, and to block specific devices. This check is primarily focused on apps dealing with personal/sensitive data",
             "caption": ""
           }
         ]
@@ -281,39 +243,47 @@
         "items": [
           {
             "key": "data_encryption_on_network",
-            "title": "Data is encrypted on the network using TLS. The secure channel is used consistently throughout the app.",
-            "description": "",
+            "title": "Test for Encrypted Communicatons",
+            "description": "Data is encrypted on the network using TLS. The secure channel is used consistently throughout the app.",
             "caption": ""
           },
           {
             "key": "tls_settings_best_practices",
-            "title": "The TLS settings are in line with current best practices, or as close as possible if the mobile operating system does not support the recommended standards.",
-            "description": "",
+            "title": "Review TLS Settings",
+            "description": "The TLS settings are in line with current best practices, or as close as possible if the mobile operating system does not support the recommended standards.",
             "caption": ""
           },
           {
             "key": "remote_endpoint_certificate",
-            "title": "The app verifies the X.509 certificate of the remote endpoint when the secure channel is established. Only certificates signed by a trusted CA are accepted.",
-            "description": "",
+            "title": "Review Certificates",
+            "description": "The app verifies the X.509 certificate of the remote endpoint when the secure channel is established. Only certificates signed by a trusted CA are accepted.",
             "caption": ""
           },
           {
             "key": "app_certification",
-            "title": "The app either uses its own certificate store, or pins the endpoint certificate or public key, and subsequently does not establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.",
-            "description": "",
+            "title": "Analyze Certificate Verification",
+            "description": "The app either uses its own certificate store, or pins the endpoint certificate or public key, and subsequently does not establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.",
             "caption": ""
           },
           {
             "key": "insecure_communication_channel",
-            "title": "The app doesnt rely on a single insecure communication channel (email or SMS) for critical operations, such as enrollments and account recovery.",
-            "description": "",
+            "title": "Test for Insecure Communication Channels",
+            "description": "The app doesnt rely on a single insecure communication channel (email or SMS) for critical operations, such as enrollments and account recovery. This is highly dependent on the use-case of the application, primarily applicable to applications handling sensitive or personal information",
             "caption": ""
           },
           {
             "key": "app_dependency_on_connectivity_and_library",
-            "title": "The app only depends on up-to-date connectivity and security libraries.",
-            "description": "",
+            "title": "Check App Connectivity and Security Libraries",
+            "description": "The app only depends on up-to-date connectivity and security libraries. On iOS, this is almost always the case.",
             "caption": ""
+          },
+          {
+            "key": "secure_update_channel",
+            "title": "Validate Secure Update Channels",
+            "description": "Ensure that in-app updates are downloaded over secure, authenticated channels and verified for integrity (e.g., signature checks). This is only relevant in very limited cases, such as when the an app is enterprise-distributed or apps that download executable content to run in interpreted environments (e.g. Javascript in a webview, Lua scripts). In these cases, the integrity and authenticity of these downloads should be reviewed.",
+            "caption": "",
+            "tools": "Burp Suite, Charles Proxy, Traffic Inspection",
+            "references": "https://mas.owasp.org/checklists/"
           }
         ]
       },
@@ -325,50 +295,72 @@
         "items": [
           {
             "key": "minimum_set_of_permission",
-            "title": "The app only requests the minimum set of permissions necessary.",
-            "description": "",
+            "title": "Review App Permissions",
+            "description": "The app only requests the minimum set of permissions necessary.",
             "caption": ""
           },
           {
             "key": "external_source_input_validation",
-            "title": "All inputs from external sources and the user are validated and if necessary sanitized. This includes data received via the UI, IPC mechanisms such as intents, custom URLs, and network sources.",
-            "description": "",
+            "title": "Test Input Validation",
+            "description": "All inputs from external sources and the user are validated and if necessary sanitized. This includes data received via the UI, IPC mechanisms such as intents, custom URLs, and network sources.",
             "caption": ""
           },
           {
             "key": "sensitive_functionality_via_url_schemes",
-            "title": "The app does not export sensitive functionality via custom URL schemes, unless these mechanisms are properly protected.",
-            "description": "",
+            "title": "Review URL Scheme Implementations",
+            "description": "The app does not export sensitive functionality via custom URL schemes, unless these mechanisms are properly protected.",
             "caption": ""
           },
           {
             "key": "export_sensitive_functionality_through_ipc",
-            "title": "The app does not export sensitive functionality through IPC facilities, unless these mechanisms are properly protected.",
-            "description": "",
+            "title": "Review IPC Implementations",
+            "description": "The app does not export sensitive functionality through IPC facilities, unless these mechanisms are properly protected.",
             "caption": ""
           },
           {
             "key": "javascript_disabled",
-            "title": "JavaScript is disabled in WebViews unless explicitly required.",
-            "description": "",
+            "title": "Test Javascript in WebViews",
+            "description": "JavaScript is disabled in WebViews unless explicitly required.",
             "caption": ""
           },
           {
             "key": "webview_minimum_set_of_protocol_handlers",
-            "title": "WebViews are configured to allow only the minimum set of protocol handlers required (ideally, only https is supported). Potentially dangerous handlers, such as file, tel and app-id, are disabled.",
-            "description": "",
+            "title": "Review WebView Protocol Handler Configuration",
+            "description": "WebViews are configured to allow only the minimum set of protocol handlers required (ideally, only https is supported). Potentially dangerous handlers, such as file, tel and app-id, are disabled.",
             "caption": ""
           },
           {
             "key": "webview_within_app_javascript_render",
-            "title": "If native methods of the app are exposed to a WebView, verify that the WebView only renders JavaScript contained within the app package.",
-            "description": "",
+            "title": "Validate Secure WebView JavaScript-to-Native Interactions",
+            "description": "If native methods of the app are exposed to a WebView, verify that the WebView only renders JavaScript contained within the app package.",
             "caption": ""
           },
           {
             "key": "object_deserialization",
-            "title": "Object deserialization, if any, is implemented using safe serialization APIs.",
-            "description": "",
+            "title": "Review Object Deserialization",
+            "description": "Object deserialization, if any, is implemented using safe serialization APIs.",
+            "caption": ""
+          },
+          {
+            "key": "runtime_permission_enforcement",
+            "title": "Analyze Runtime Permission Enforcement",
+            "description": "Compare declared permissions with those used at runtime to detect excessive privilege or permission abuse.",
+            "caption": "",
+            "tools": "Runtime Analysis Tools, Logcat Monitoring",
+            "references": "https://mas.owasp.org/checklists/"
+          },
+          {
+            "key": "jailbreak_root_policy_enforcement",
+            "title": "Test Jailbreak/Root Policy Enforcement",
+            "description": "Ensure that the application not only detects rooted/jailbroken devices but also enforces security restrictions accordingly.",
+            "caption": "",
+            "tools": "Magisk, Frida, RootBeer, Manual Review",
+            "references": "https://mas.owasp.org/checklists/"
+          },
+          {
+            "key": "security_controls_error_handling",
+            "title": "Review Error Handling",
+            "description": "Error handling logic in security controls denies access by default",
             "caption": ""
           }
         ]
@@ -381,56 +373,50 @@
         "items": [
           {
             "key": "valid_certificate_sign",
-            "title": "The app is signed and provisioned with a valid certificate, of which the private key is properly protected.",
-            "description": "",
+            "title": "Review App Signing Certificate",
+            "description": "The app is signed and provisioned with a valid certificate, of which the private key is properly protected.",
             "caption": ""
           },
           {
             "key": "built_in_release_mode",
-            "title": "The app has been built in release mode, with settings appropriate for a release build (e.g. non-debuggable).",
-            "description": "",
+            "title": "Verify App is Built in Release Mode",
+            "description": "The app has been built in release mode, with settings appropriate for a release build (e.g. non-debuggable).",
             "caption": ""
           },
           {
             "key": "debugging_symbol",
-            "title": "Debugging symbols have been removed from native binaries.",
-            "description": "",
+            "title": "Check for Left Over Debugging Symbols",
+            "description": "Debugging symbols should have been removed from native binaries.",
             "caption": ""
           },
           {
             "key": "debugging_and_verbose_errors",
-            "title": "Debugging code has been removed, and the app does not log verbose errors or debugging messages.",
-            "description": "",
+            "title": "Check for Left Over Debug Code",
+            "description": "Debugging code should have been removed, and the app does not log verbose errors or debugging messages.",
             "caption": ""
           },
           {
             "key": "third_party_vulnerability_check",
-            "title": "All third party components used by the mobile app, such as libraries and frameworks, are identified, and checked for known vulnerabilities.",
-            "description": "",
+            "title": "Review Third-Party Components For Known Vulnerabilities",
+            "description": "All third-party components used by the mobile app, such as libraries and frameworks, are identified, and checked for known vulnerabilities.",
             "caption": ""
           },
           {
             "key": "exception_handling",
-            "title": "The app catches and handles possible exceptions.",
-            "description": "",
-            "caption": ""
-          },
-          {
-            "key": "security_controls_error_handling",
-            "title": "Error handling logic in security controls denies access by default",
-            "description": "",
+            "title": "Review Exception Handling",
+            "description": "The app catches and handles possible exceptions.",
             "caption": ""
           },
           {
             "key": "memory_allocation",
-            "title": "In unmanaged code, memory is allocated, freed and used securely.",
-            "description": "",
+            "title": "Review Memory Allocation",
+            "description": "In unmanaged code, memory is allocated, freed and used securely.",
             "caption": ""
           },
           {
             "key": "free_security_features_offered_by_toolchain",
-            "title": "Free security features offered by the toolchain, such as byte-code minification, stack protection, PIE support and automatic reference counting, are activated.",
-            "description": "",
+            "title": "Ensure All Offered Security Features are Activated",
+            "description": "Free security features offered by the toolchain, such as byte-code minification, stack protection, PIE support and automatic reference counting, are activated.",
             "caption": ""
           }
         ]
