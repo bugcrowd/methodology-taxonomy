@@ -374,7 +374,7 @@
           {
             "key": "valid_certificate_sign",
             "title": "Review App Signing Certificate",
-            "description": "The app is signed and provisioned with a valid certificate, of which the private key is properly protected.",
+            "description": "The app is signed and provisioned with a valid certificate, and the private key is properly protected.",
             "caption": ""
           },
           {
