@@ -1,0 +1,1215 @@
+{
+  "metadata": {
+    "title": "Microsoft Azure Cloud Configuration Review Methodology",
+    "release_date": "2025-10-30T00:00:00+00:00",
+    "description": "Methodology based on Microsoft Azure Benchmark v4.0.0",
+    "vrt_version": "1.15.1"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "compute_services",
+        "title": "Compute Services",
+        "description": "This part outlines fundamental security settings for Azure's compute services, with a key focus on mandating Multi-Factor Authentication for privileged Virtual Machine access.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "container_instances_use_managed_identity",
+            "title": "Verify that Container Instances use a Managed Identity for Azure service interactions (Manual).",
+            "description": "When containers must access other Azure resources, or be accessed by them, an identity is necessary. Employing a Managed Identity eliminates the need to hardcode credentials within the Container Instance."
+          },
+          {
+            "key": "container_instances_use_private_vnets",
+            "title": "Verify that Container Instances are deployed within Private Virtual Networks (Manual).",
+            "description": "Private Virtual Networks (vNets) are crucial for segmenting services and hosts into private subnets. Any public IP addressing for container instances should be managed via a NAT gateway or firewall. Additionally, a Network Security Group (NSG) must be configured and assigned to the vNet of your container instance."
+          },
+          {
+            "key": "container_instances_least_privilege_for_managed_identity",
+            "title": "Verify that the principle of least privilege is applied to Managed Identity role assignments (Manual).",
+            "description": "For any managed identity, whether user-assigned or system-assigned, that requires a specific role, the principle of least privilege must be applied. This means granting the identity only the minimum permissions necessary to perform its function."
+          },
+          {
+            "key": "app_service_supported_php_version",
+            "title": "Verify that the 'PHP version' for App Services is currently supported (if in use) (Manual).",
+            "description": "Older versions of PHP are periodically deprecated and lose support. To prevent exposure to unpatched vulnerabilities, it is recommended to use a currently supported version of PHP for all web applications."
+          },
+          {
+            "key": "app_service_authentication_setup",
+            "title": "Verify that App Service Authentication is configured for all web applications (Automated).",
+            "description": "Azure App Service Authentication serves to block anonymous HTTP requests from accessing a Web Application or to authenticate them using tokens beforehand. If an unauthenticated browser request is detected, App Service can redirect it to a login page, utilizing a selected identity provider or a custom authentication solution."
+          },
+          {
+            "key": "app_service_supported_java_version",
+            "title": "Verify that the 'Java version' for App Services is currently supported (if in use) (Manual).",
+            "description": "Older versions of Java are periodically deprecated and lose support. To prevent exposure to unpatched vulnerabilities, it is recommended to use a currently supported version of Java for all web applications."
+          },
+          {
+            "key": "app_service_supported_python_version",
+            "title": "Verify that the 'Python version' for App Services is currently supported (if in use) (Manual).",
+            "description": "Older versions of Python are periodically deprecated and lose support. To prevent exposure to unpatched vulnerabilities, it is recommended to use a currently supported version of Python for all web applications."
+          },
+          {
+            "key": "app_service_client_certificates_on",
+            "title": "Verify that the web app's 'Client Certificates' setting is 'On' (Automated).",
+            "description": "This setting enables the application to demand a certificate for all incoming requests. Access is granted only to clients that present a valid certificate."
+          },
+          {
+            "key": "app_service_https_only",
+            "title": "Verify that 'HTTPS Only' is enabled for App Services (Automated).",
+            "description": "By default, Azure App Service permits traffic over both HTTP and HTTPS, leaving apps accessible through insecure links. It is a recommended security measure to enforce HTTPS-only traffic, which involves restricting insecure HTTP requests and redirecting all traffic to the secure HTTPS port."
+          },
+          {
+            "key": "app_service_latest_tls_version",
+            "title": "Verify that the Web App is configured to use the latest TLS encryption version (Automated).",
+            "description": "The Transport Layer Security (TLS) protocol provides security for data transmission online through encryption. It is crucial to configure encryption with the most recent TLS version. App Service defaults to TLS 1.2, which aligns with industry best practices such as PCI DSS."
+          },
+          {
+            "key": "app_service_register_with_aad",
+            "title": "Verify that 'Register with Azure Active Directory' is enabled for the App Service (Automated).",
+            "description": "Using a managed service identity with Azure Active Directory enhances security by eliminating secrets from an application, such as credentials in connection strings. By registering the app with Azure AD, it can connect to other Azure services securely without managing usernames and passwords."
+          },
+          {
+            "key": "app_service_ftp_state_secure",
+            "title": "Verify that the 'FTP State' is configured to 'FTPS Only' or 'Disabled' (Automated).",
+            "description": "By default, App Services support deployment via FTP. If FTP is a necessary part of the deployment process, FTPS should be mandated for all logins. If FTPS is not essential, the setting should be 'Disabled' for optimal security."
+          },
+          {
+            "key": "app_service_use_key_vault_for_secrets",
+            "title": "Verify that Azure Key Vaults are used for storing application secrets (Manual).",
+            "description": "Azure Key Vault provides a secure repository for various types of sensitive data, including encryption keys, certificate thumbprints, and Managed Identity credentials. Granular permissions can be used to control access to these 'Secrets'."
+          },
+          {
+            "key": "app_service_http20_enabled",
+            "title": "Verify that 'HTTP20enabled' is set to 'true' for the App Service (if in use) (Automated).",
+            "description": "Outdated versions of HTTP can become deprecated and unsupported. Using a current version of HTTP for web apps is advisable to avoid vulnerabilities from obsolete protocols. HTTP 2.0 brings performance enhancements over older versions, addressing head-of-line blocking, compressing headers, and prioritizing requests."
+          },
+          {
+            "key": "compute_vm_mfa_for_privileged_access",
+            "title": "Verify that only MFA-enabled identities have privileged access to Virtual Machines (Manual).",
+            "description": "Identify any identities that can access a privileged virtual machine without Multi-Factor Authentication. An attacker could exploit this access to move laterally and execute actions using the VM's managed identity. Ensure the VM has only essential permissions and revoke excessive admin rights based on the principle of least privilege."
+          },
+          {
+            "key": "vm_azure_bastion_host_exists",
+            "title": "Verify that an Azure Bastion Host is deployed (Automated).",
+            "description": "The Azure Bastion service enables secure remote connections to Azure Virtual Machines from the internet without exposing remote access ports. Access is provided via TLS over 443/TCP and integrates with an organization's hardened Azure Active Directory configurations."
+          },
+          {
+            "key": "vm_encrypt_unattached_disks_with_cmk",
+            "title": "Verify that unattached disks are encrypted with a Customer-Managed Key (CMK) (Automated).",
+            "description": "Verify that all unattached disks within a subscription are secured through encryption using a Customer-Managed Key (CMK)."
+          },
+          {
+            "key": "vm_only_approved_extensions",
+            "title": "Verify that only approved extensions are installed on Virtual Machines (Manual).",
+            "description": "For improved security, ensure that only extensions approved by the organization are installed on Virtual Machines."
+          },
+          {
+            "key": "vm_legacy_encrypt_vhds",
+            "title": "[Legacy] Verify that Virtual Hard Disks (VHDs) are encrypted (Manual).",
+            "description": "Virtual Hard Disks (VHDs) are an older disk type stored in blob storage. As storage accounts are unencrypted by default, Microsoft Defender recommends encrypting OS disks. Therefore, storage accounts containing VHDs should have encryption enabled, using either platform-managed or customer-managed keys."
+          },
+          {
+            "key": "vm_install_endpoint_protection",
+            "title": "Verify that Endpoint Protection is installed on all Virtual Machines (Manual).",
+            "description": "Ensure endpoint protection software is installed on every virtual machine to safeguard against threats."
+          },
+          {
+            "key": "vm_utilize_managed_disks",
+            "title": "Verify that Virtual Machines are using Managed Disks (Automated).",
+            "description": "Transition any blob-based VHDs to Managed Disks on Virtual Machines to benefit from the inherent features of this modern disk configuration."
+          },
+          {
+            "key": "vm_encrypt_disks_with_cmk",
+            "title": "Verify that OS and data disks are encrypted with a Customer-Managed Key (CMK) (Automated).",
+            "description": "Confirm that both operating system disks (boot volumes) and data disks are encrypted using Customer-Managed Keys (CMK). This can be implemented via Azure Disk Encryption (ADE) or Server-Side Encryption (SSE)."
+          },
+          {
+            "key": "cyclecloud_configure_ssl",
+            "title": "Verify that SSL is configured for CycleCloud (Manual).",
+            "description": "Implementing SSL is crucial for encrypting data transmitted to and from the Azure CycleCloud server, thereby maintaining confidentiality."
+          }
+        ]
+      },
+      {
+        "key": "identity_services",
+        "title": "Identity Services",
+        "description": "This chapter outlines security best practices for Azure's identity services. It provides guidance on Microsoft Entra ID settings, Conditional Access rules, regular identity audits, and role-based access control to create a resilient identity management system.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "identity_disallow_users_to_create_security_groups",
+            "title": "Verify that 'Users can create security groups...' is set to 'No' (Manual).",
+            "description": "Ensure that the ability to create security groups is limited to administrative accounts only."
+          },
+          {
+            "key": "identity_restrict_non_admin_tenant_creation",
+            "title": "Verify that 'Restrict non-admin users from creating tenants' is set to 'Yes' (Automated).",
+            "description": "Mandate that new tenants can only be created by administrators or other specifically delegated users."
+          },
+          {
+            "key": "identity_set_account_lockout_duration",
+            "title": "Verify that the account 'Lockout duration in seconds' is 60 or greater (Manual).",
+            "description": "The lockout duration specifies the amount of time an account remains locked, determining how long a user must wait before attempting to log in again after reaching the lockout threshold."
+          },
+          {
+            "key": "identity_no_custom_subscription_admin_roles",
+            "title": "Verify that no custom subscription administrator roles exist (Automated).",
+            "description": "Adhere to the principle of least privilege by assigning only necessary permissions, rather than granting full administrative control."
+          },
+          {
+            "key": "identity_notify_users_on_password_resets",
+            "title": "Verify that 'Notify users on password resets?' is set to 'Yes' (Manual).",
+            "description": "Confirm that users receive notifications to their primary and secondary email addresses when their password is reset."
+          },
+          {
+            "key": "identity_require_auth_info_reconfirmation",
+            "title": "Verify that 'Number of days before users are asked to re-confirm their authentication information' is not '0' (Manual).",
+            "description": "Make sure that the period before users are prompted to re-confirm their authentication details is not set to zero days."
+          },
+          {
+            "key": "identity_restrict_guest_invitations_to_admins",
+            "title": "Verify 'Guest invite restrictions' is set to 'Only users assigned to specific admin roles can invite...' (Automated).",
+            "description": "Restrict the ability to invite guest users exclusively to accounts holding designated administrative roles."
+          },
+          {
+            "key": "identity_no_admin_accounts_for_daily_ops",
+            "title": "Verify that Azure admin accounts are not used for daily operational tasks (Manual).",
+            "description": "Microsoft Azure administrative accounts should be reserved for administrative duties and not used for routine, non-privileged activities."
+          },
+          {
+            "key": "identity_consider_device_code_flow_exclusion_policy",
+            "title": "Verify that an exclusionary policy for the device code flow has been considered (Manual).",
+            "description": "Conditional Access Policies can be used to block the device code authentication flow. This flow should only be allowed for users whose roles specifically require it, such as for authenticating with Azure via PowerShell."
+          },
+          {
+            "key": "identity_restrict_access_to_entra_admin_center",
+            "title": "Verify that 'Restrict access to Microsoft Entra admin center' is set to 'Yes' (Manual).",
+            "description": "Ensure that access to the Microsoft Entra ID administration portal is restricted to administrative personnel only."
+          },
+          {
+            "key": "identity_set_account_lockout_threshold",
+            "title": "Verify that the account 'Lockout threshold' is 10 or less (Manual).",
+            "description": "The lockout threshold defines the number of failed sign-in attempts allowed before an account is locked and a variable lockout period begins."
+          },
+          {
+            "key": "identity_custom_role_for_resource_locks",
+            "title": "Verify that a custom role is used for administering resource locks (Manual).",
+            "description": "Resource locking is a vital security feature that prevents accidental modification or deletion of Azure resources, aligning with recommended NIST configurations. A custom role should manage these locks."
+          },
+          {
+            "key": "identity_notify_admins_on_other_admin_password_resets",
+            "title": "Verify that 'Notify all admins when other admins reset their password?' is set to 'Yes' (Manual).",
+            "description": "Ensure a system is in place to notify all Global Administrators whenever any other administrator resets their password."
+          },
+          {
+            "key": "identity_review_privileged_roles_periodically",
+            "title": "Verify that all 'privileged' role assignments are reviewed periodically (Manual).",
+            "description": "Regularly review privileged role assignments to confirm that the roles granted to users remain accurate and appropriate for their responsibilities."
+          },
+          {
+            "key": "identity_restrict_user_access_administrator_role",
+            "title": "Verify that the use of the 'User Access Administrator' role is restricted (Automated).",
+            "description": "The User Access Administrator role provides extensive privileges, including viewing all resources and managing access at any subscription or management group level. To mitigate security risks, this role should only be assigned temporarily and removed immediately after the necessary tasks are completed."
+          },
+          {
+            "key": "identity_require_two_methods_for_password_reset",
+            "title": "Verify that the 'Number of methods required to reset' is set to '2' (Manual).",
+            "description": "This policy ensures that users must provide two different forms of identification before they are permitted to reset their password."
+          },
+          {
+            "key": "identity_restrict_user_access_to_my_groups",
+            "title": "Verify that 'Restrict user ability to access groups features in My Groups' is 'Yes' (Manual).",
+            "description": "Restrict user access to the group management interface within the Access Panel portal."
+          },
+          {
+            "key": "identity_require_mfa_for_azure_management_api",
+            "title": "Verify that multi-factor authentication is required for the Azure Service Management API (Manual).",
+            "description": "This setting ensures that any user accessing resources via the Windows Azure Service Management API (e.g., Azure PowerShell, CLI, Resource Manager API) must authenticate using multi-factor authentication (MFA)."
+          },
+          {
+            "key": "identity_disallow_owners_to_manage_group_requests",
+            "title": "Verify that 'Owners can manage group membership requests in My Groups' is 'No' (Manual).",
+            "description": "Ensure that the management of security groups is confined to administrative accounts only."
+          },
+          {
+            "key": "identity_enable_security_defaults",
+            "title": "Verify that 'security defaults' is enabled in Microsoft Entra ID (Manual).",
+            "description": "Security defaults in Microsoft Entra ID simplify security and help safeguard your organization by providing pre-configured settings to defend against common attacks."
+          },
+          {
+            "key": "identity_require_mfa_for_admin_portals",
+            "title": "Verify that multi-factor authentication is required for access to Microsoft Admin Portals (Manual).",
+            "description": "This policy ensures that users accessing Microsoft Admin Portals (like the Microsoft 365 Admin Center, Azure Portal, etc.) must authenticate using multi-factor authentication (MFA)."
+          },
+          {
+            "key": "identity_disallow_users_to_register_apps",
+            "title": "Verify that 'Users can register applications' is set to 'No' (Automated).",
+            "description": "Mandate that the registration of third-party applications can only be performed by administrators or other appropriately delegated users."
+          },
+          {
+            "key": "identity_disallow_user_consent_for_apps",
+            "title": "Verify that 'User consent for applications' is set to 'Do not allow user consent' (Manual).",
+            "description": "Require that administrative consent is given for all applications before they can be used."
+          },
+          {
+            "key": "identity_require_mfa_for_risky_sign_ins",
+            "title": "Verify that multi-factor authentication is required for risky sign-ins (Manual).",
+            "description": "Entra ID monitors sign-in event behavior. For tenants with a P2 license, this behavior can trigger additional security measures. When this policy is enabled, sign-in events flagged as risky will require users to provide a multi-factor authentication (MFA) token for verification."
+          },
+          {
+            "key": "identity_consider_geographic_exclusion_policy",
+            "title": "Verify that an exclusionary geographic Conditional Access policy has been considered (Manual).",
+            "description": "Conditional Access Policies can be configured to block access from geographic regions that are considered outside the operational scope of your organization or application. The specifics of this policy should be carefully defined."
+          },
+          {
+            "key": "identity_allow_user_consent_from_verified_publishers",
+            "title": "Verify 'User consent for applications' is set to 'Allow user consent for apps from verified publishers...' (Manual).",
+            "description": "Allow users to grant consent for certain permissions when the application request originates from a publisher that has been verified."
+          },
+          {
+            "key": "identity_prevent_subscription_tenant_transfers",
+            "title": "Verify that subscription transfers into or out of the Microsoft Entra tenant are prohibited (Manual).",
+            "description": "Users assigned as subscription owners have the ability to perform administrative actions, including moving subscriptions between Microsoft Entra ID tenants. This setting prevents such transfers."
+          },
+          {
+            "key": "identity_mfa_policy_for_all_users",
+            "title": "Verify that a multi-factor authentication policy is in place for all users (Manual).",
+            "description": "A Conditional Access policy can be implemented to ensure all users are required to use Multifactor Authentication (MFA) during the login process."
+          },
+          {
+            "key": "identity_define_trusted_locations",
+            "title": "Verify that 'trusted locations' have been defined (Manual).",
+            "description": "Microsoft Entra ID Conditional Access enables organizations to define Named Locations and designate them as either trusted or untrusted. This feature allows for the specification of geographic areas or specific IP ranges for use in conditional access policies."
+          },
+          {
+            "key": "identity_limit_global_administrators",
+            "title": "Verify that fewer than 5 users are assigned the global administrator role (Manual).",
+            "description": "This guideline seeks to balance security with operational needs by recommending a minimum of 2 and a maximum of 4 users assigned the Global Administrator role. Having at least two ensures redundancy, while keeping the number below five mitigates the risk of excessive privileged access."
+          },
+          {
+            "key": "identity_enforce_custom_banned_password_list",
+            "title": "Verify that a 'Custom banned password list' is enforced (Manual).",
+            "description": "In addition to a default global banned password list, Microsoft Azure allows for the enforcement of a custom list for all user and admin accounts managed directly in Microsoft Entra ID."
+          },
+          {
+            "key": "identity_disable_remember_mfa_on_trusted_devices",
+            "title": "Verify 'Allow users to remember multifactor authentication on devices they trust' is disabled (Manual).",
+            "description": "Prevent users from saving their multi-factor authentication status on devices they use."
+          },
+          {
+            "key": "identity_review_guest_users_regularly",
+            "title": "Verify that guest user accounts are reviewed on a regular basis (Manual).",
+            "description": "Microsoft Entra ID provides functionality to invite external individuals as guest users into your cloud environment, where they can sign in using their own credentials. These guest accounts should be reviewed periodically."
+          },
+          {
+            "key": "identity_disallow_users_to_create_m365_groups",
+            "title": "Verify that 'Users can create Microsoft 365 groups...' is set to 'No' (Manual).",
+            "description": "Limit the creation of Microsoft 365 groups to administrative accounts only."
+          },
+          {
+            "key": "identity_restrict_guest_user_access",
+            "title": "Verify 'Guest users access restrictions' is set to restrict access to their own directory objects (Automated).",
+            "description": "Constrain the permissions of guest users to only view properties and memberships of their own directory objects."
+          },
+          {
+            "key": "identity_require_mfa_to_join_devices",
+            "title": "Verify 'Require Multifactor Authentication to register or join devices...' is 'Yes' (Manual).",
+            "description": "The process of joining or registering a device with Microsoft Entra ID should require the user to complete a multi-factor authentication challenge."
+          },
+          {
+            "key": "identity_enable_mfa_for_all_users",
+            "title": "Verify that 'multifactor authentication' is enabled for all users (Manual).",
+            "description": "Activate multi-factor authentication for all user accounts without exception."
+          }
+        ]
+      },
+      {
+        "key": "networking_services",
+        "title": "Networking Policies",
+        "description": "This chapter addresses security guidelines for networking policies within an Azure subscription. It includes controls for restricting internet-based RDP and SSH, managing Network Watcher, and defining retention periods for network flow logs.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "networking_evaluate_public_ips_periodically",
+            "title": "Verify that Public IP addresses are evaluated on a periodic basis (Manual).",
+            "description": "Public IP Addresses grant internet connectivity to resources within a tenant. Since some Azure resources create a Public IP upon deployment, all Public IP Addresses should be reviewed regularly to ensure they are necessary and correctly configured."
+          },
+          {
+            "key": "networking_restrict_rdp_from_internet",
+            "title": "Verify that RDP access from the Internet is evaluated and restricted (Automated).",
+            "description": "Network security groups require periodic review for port misconfigurations. Access to Azure resources from the internet, particularly for RDP, should be restricted or removed unless it is explicitly required and tightly configured."
+          },
+          {
+            "key": "networking_vnet_flow_log_retention_over_90_days",
+            "title": "Verify that virtual network flow log retention is set to 90 days or more (Automated).",
+            "description": "Confirm that the retention period for virtual network flow logs is configured to be at least 90 days."
+          },
+          {
+            "key": "networking_restrict_udp_from_internet",
+            "title": "Verify that UDP access from the Internet is evaluated and restricted (Automated).",
+            "description": "Network security groups should be reviewed regularly for port misconfigurations. Any ports and protocols exposed to the internet should be evaluated for necessity and restricted if not explicitly required."
+          },
+          {
+            "key": "networking_restrict_ssh_from_internet",
+            "title": "Verify that SSH access from the Internet is evaluated and restricted (Automated).",
+            "description": "Network security groups require periodic review for port misconfigurations. Any ports and protocols exposed to the internet should be evaluated for necessity and restricted if not explicitly required."
+          },
+          {
+            "key": "networking_nsg_flow_log_retention_over_90_days",
+            "title": "Verify that Network Security Group Flow Log retention is greater than 90 days (Automated).",
+            "description": "It is required that Network Security Group Flow Logs are enabled and their retention period is set to 90 days or longer."
+          },
+          {
+            "key": "networking_enable_network_watcher_for_used_regions",
+            "title": "Verify that Network Watcher is 'Enabled' for all in-use Azure Regions (Automated).",
+            "description": "Enable the Network Watcher service for every physical region in your Azure subscriptions that hosts resources."
+          },
+          {
+            "key": "networking_restrict_http_from_internet",
+            "title": "Verify that HTTP(S) access from the Internet is evaluated and restricted (Automated).",
+            "description": "Network security groups need regular evaluation for port misconfigurations. Any ports and protocols, like HTTP(S), exposed to the internet should be reviewed for necessity and restricted unless they are explicitly required and narrowly configured."
+          }
+        ]
+      },
+      {
+        "key": "database_services",
+        "title": "Database Services",
+        "description": "This chapter details fundamental security settings for various Azure Database services.",
+        "type": "checklist",
+        "items": [
+          [
+            {
+              "key": "sqldb_tde_protector_encrypted_with_cmk",
+              "title": "Verify that the SQL server's TDE protector is encrypted with a Customer-Managed Key (Automated).",
+              "description": "Using a customer-managed key for Transparent Data Encryption (TDE) provides greater control over the TDE Protector, enhances security through an HSM-backed service, and helps enforce separation of duties."
+            },
+            {
+              "key": "sqldb_data_encryption_on",
+              "title": "Verify that 'Data encryption' is set to 'On' for all SQL Databases (Automated).",
+              "description": "Ensure that Transparent Data Encryption is enabled on all SQL server instances."
+            },
+            {
+              "key": "sqldb_entra_authentication_configured",
+              "title": "Verify that Microsoft Entra authentication is configured for SQL Servers (Automated).",
+              "description": "Utilize Microsoft Entra authentication for SQL Database connections to centralize credential management."
+            },
+            {
+              "key": "sqldb_no_ingress_from_any_ip",
+              "title": "Verify that no Azure SQL Databases allow ingress from 0.0.0.0/0 (Any IP) (Automated).",
+              "description": "Confirm that no SQL Databases are configured to permit inbound traffic from all IP addresses (0.0.0.0/0)."
+            },
+            {
+              "key": "sqldb_auditing_retention_over_90_days",
+              "title": "Verify that 'Auditing' retention is greater than 90 days (Automated).",
+              "description": "The retention period for SQL Server Auditing should be set to a value greater than 90 days."
+            },
+            {
+              "key": "sqldb_public_network_access_disabled",
+              "title": "Verify that Public Network Access is disabled for SQL Servers (Manual).",
+              "description": "By disabling public network access, you prevent the service from being reachable from public networks."
+            },
+            {
+              "key": "sqldb_auditing_on",
+              "title": "Verify that 'Auditing' is set to 'On' for SQL Servers (Automated).",
+              "description": "Activate the auditing feature on all SQL Server instances."
+            },
+            {
+              "key": "postgresql_connection_throttling_on",
+              "title": "Verify that 'connection_throttling' is 'ON' for PostgreSQL Servers (Automated).",
+              "description": "Ensure the connection_throttling parameter is enabled on all PostgreSQL Servers."
+            },
+            {
+              "key": "postgresql_log_retention_over_3_days",
+              "title": "Verify that 'log_retention_days' is greater than 3 for PostgreSQL Servers (Automated).",
+              "description": "Confirm that the log_retention_days parameter on PostgreSQL Servers is configured to an adequate value."
+            },
+            {
+              "key": "postgresql_log_disconnections_on",
+              "title": "Verify that 'log_disconnections' is 'ON' for PostgreSQL Servers (Automated).",
+              "description": "Ensure the log_disconnections parameter is enabled on all PostgreSQL Servers."
+            },
+            {
+              "key": "postgresql_log_checkpoints_on",
+              "title": "Verify that 'log_checkpoints' is 'ON' for PostgreSQL Servers (Automated).",
+              "description": "Enable log_checkpoints on PostgreSQL Servers."
+            },
+            {
+              "key": "postgresql_disable_allow_access_to_azure_services",
+              "title": "Verify that 'Allow access to Azure services' for PostgreSQL Servers is disabled (Automated).",
+              "description": "Disable the setting that allows access from other Azure services to the PostgreSQL Database Server."
+            },
+            {
+              "key": "postgresql_enforce_ssl_connection",
+              "title": "Verify that 'Enforce SSL connection' is 'ENABLED' for PostgreSQL Servers (Automated).",
+              "description": "Ensure that SSL connections are required for all PostgreSQL Servers."
+            },
+            {
+              "key": "postgresql_enable_infrastructure_double_encryption",
+              "title": "Verify that 'Infrastructure double encryption' for PostgreSQL Servers is 'Enabled' (Single Server Only) (Automated).",
+              "description": "All Azure Database for PostgreSQL servers should be deployed with 'infrastructure double encryption' enabled."
+            },
+            {
+              "key": "postgresql_log_connections_on",
+              "title": "Verify that 'log_connections' is 'ON' for PostgreSQL Servers (Automated).",
+              "description": "Enable log_connections on PostgreSQL Servers."
+            },
+            {
+              "key": "cosmosdb_use_entra_id_and_rbac",
+              "title": "Verify that Entra ID and Azure RBAC are used for Cosmos DB authentication where possible (Manual).",
+              "description": "Cosmos DB supports both tokens and Entra ID for client authentication, with the latter using Azure RBAC for authorization. Using Entra ID is more secure because it centralizes credential management, enables MFA, and integrates seamlessly with Azure RBAC."
+            },
+            {
+              "key": "cosmosdb_limit_firewalls_and_networks",
+              "title": "Verify that 'Firewalls & Networks' is limited to selected networks (Automated).",
+              "description": "Confining your Cosmos DB's communication to whitelisted networks effectively reduces its potential attack surface."
+            },
+            {
+              "key": "cosmosdb_use_private_endpoints",
+              "title": "Verify that Private Endpoints are used for Cosmos DB where possible (Automated).",
+              "description": "Private endpoints ensure that network traffic is restricted to only approved and secure sources."
+            },
+            {
+              "key": "redis_allow_access_only_via_ssl",
+              "title": "Verify that 'Allow access only via SSL' is set to 'Yes' for Redis Cache (Automated).",
+              "description": "By setting 'Allow access only via SSL' to 'Yes', you guarantee that all data in transit to and from Azure Cache for Redis is encrypted with TLS."
+            },
+            {
+              "key": "redis_public_network_access_disabled",
+              "title": "Verify that 'Public Network Access' for Redis Cache is 'Disabled' (Manual).",
+              "description": "Disabling public network access ensures the service cannot be reached from public networks, enhancing security."
+            },
+            {
+              "key": "redis_implement_access_policies",
+              "title": "Verify that 'Access Policies' are implemented and periodically reviewed (Manual).",
+              "description": "Access Policies function as an Access Control List (ACL), enabling administrators to specify which identities can access what data and commands. This Role-Based Access Control (RBAC) implementation requires careful planning to deploy and manage."
+            },
+            {
+              "key": "redis_minimum_tls_1_2",
+              "title": "Verify that 'Minimum TLS version' is set to 1.2 or higher (Manual).",
+              "description": "Configuring a minimum TLS version helps mitigate protocol vulnerabilities by disallowing the use of older, less secure TLS versions."
+            },
+            {
+              "key": "redis_system_assigned_managed_identity_on",
+              "title": "Verify that 'System Assigned Managed Identity' is set to 'On' (Manual).",
+              "description": "System Assigned Managed Identities give the Azure Cache for Redis instance a unique, automatically managed identity. These identities are specific to the resource they are created for and are deleted when the resource is removed."
+            },
+            {
+              "key": "redis_entra_authentication_enabled",
+              "title": "Verify that 'Microsoft Entra Authentication' is 'Enabled' (Manual).",
+              "description": "Enabling Microsoft Entra Authentication allows for the native integration and use of identities already managed within Microsoft Entra ID."
+            },
+            {
+              "key": "mysql_set_tls_1_2",
+              "title": "Verify that 'TLS Version' is 'TLSV1.2' or higher for MySQL flexible servers (Automated).",
+              "description": "Verify that the TLS version on MySQL flexible servers is set to 1.2 or a more recent version."
+            },
+            {
+              "key": "mysql_audit_log_events_connection",
+              "title": "Verify that 'audit_log_events' includes 'CONNECTION' for MySQL Servers (Manual).",
+              "description": "Configure the audit_log_enabled parameter to include the 'CONNECTION' event on all MySQL Servers."
+            },
+            {
+              "key": "mysql_enforce_ssl_connection",
+              "title": "Verify that 'Enforce SSL connection' is 'Enabled' for Standard MySQL Servers (Automated).",
+              "description": "Ensure that SSL connections are required for all standard MySQL Servers."
+            },
+            {
+              "key": "mysql_audit_log_enabled",
+              "title": "Verify that 'audit_log_enabled' is set to 'ON' for MySQL Servers (Manual).",
+              "description": "Ensure the audit_log_enabled parameter is turned on for all MySQL Servers."
+            }
+          ]
+        ]
+      },
+      {
+        "key": "management_and_governance_services",
+        "title": "Management and Governance",
+        "description": "This chapter addresses security guidelines for logging, monitoring, and governance within an Azure Subscription. It highlights the importance of configuring diagnostic settings, establishing activity log alerts, and using resource locks to safeguard critical infrastructure.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "governance_alert_on_delete_nsg",
+            "title": "Verify that an Activity Log Alert exists for 'Delete Network Security Group' (Automated).",
+            "description": "Set up an activity log alert to trigger whenever a Network Security Group is deleted."
+          },
+          {
+            "key": "governance_capture_nsg_flow_logs_to_log_analytics",
+            "title": "Verify that Network Security Group Flow logs are sent to Log Analytics (Manual).",
+            "description": "Make sure that network flow logs are being captured and directed to a centralized Log Analytics workspace for analysis."
+          },
+          {
+            "key": "governance_alert_on_create_update_nsg",
+            "title": "Verify that an Activity Log Alert exists for 'Create or Update Network Security Group' (Automated).",
+            "description": "Configure an Activity Log Alert for any event where a Network Security Group is created or modified."
+          },
+          {
+            "key": "governance_alert_on_delete_policy_assignment",
+            "title": "Verify that an Activity Log Alert exists for 'Delete Policy Assignment' (Automated).",
+            "description": "Set up an activity log alert to trigger whenever a Policy Assignment is deleted."
+          },
+          {
+            "key": "governance_alert_on_create_policy_assignment",
+            "title": "Verify that an Activity Log Alert exists for 'Create Policy Assignment' (Automated).",
+            "description": "Set up an activity log alert to trigger whenever a Policy Assignment is created."
+          },
+          {
+            "key": "governance_alert_on_create_update_security_solution",
+            "title": "Verify that an Activity Log Alert exists for 'Create or Update Security Solution' (Automated).",
+            "description": "Configure an activity log alert for any event where a Security Solution is created or modified."
+          },
+          {
+            "key": "governance_alert_on_delete_public_ip",
+            "title": "Verify that an Activity Log Alert exists for 'Delete Public IP Address rule' (Automated).",
+            "description": "Set up an activity log alert that triggers when a Public IP Address rule is deleted."
+          },
+          {
+            "key": "governance_enable_resource_logging_for_all_services",
+            "title": "Verify that Azure Monitor Resource Logging is enabled for all supported services (Manual).",
+            "description": "Resource Logs record activity in the data access plane, unlike the Activity Log which covers the control plane. These logs provide detailed insights into operations within a resource, like reading a secret from a Key Vault. Many Azure services support this logging, and its content varies by resource type."
+          },
+          {
+            "key": "governance_capture_vnet_flow_logs_to_log_analytics",
+            "title": "Verify that virtual network flow logs are sent to Log Analytics (Manual).",
+            "description": "Ensure that virtual network flow logs are captured and consolidated into a central Log Analytics workspace."
+          },
+          {
+            "key": "governance_encrypt_activity_log_storage_with_cmk",
+            "title": "Verify the storage account for activity logs is encrypted with a Customer-Managed Key (CMK) (Automated).",
+            "description": "Storage accounts designated for activity log exports can be secured using Customer-Managed Keys (CMK) for encryption."
+          },
+          {
+            "key": "governance_diagnostic_setting_captures_categories",
+            "title": "Verify the Diagnostic Setting captures all appropriate log categories (Automated).",
+            "description": "The diagnostic setting needs to be configured to log all pertinent activities from the control and management planes."
+          },
+          {
+            "key": "governance_diagnostic_setting_for_graph_activity_logs",
+            "title": "Verify a diagnostic setting sends Microsoft Graph activity logs to a defined destination (Manual).",
+            "description": "Configure a Microsoft Entra diagnostic setting to forward Microsoft Graph activity logs to a destination like a Log Analytics workspace or storage account. This allows for centralized monitoring of all HTTP requests processed by the Microsoft Graph service for a tenant."
+          },
+          {
+            "key": "governance_alert_for_service_health",
+            "title": "Verify that an Activity Log Alert exists for Service Health events (Automated).",
+            "description": "Set up an activity log alert to notify on Service Health events."
+          },
+          {
+            "key": "governance_alert_on_delete_sql_firewall_rule",
+            "title": "Verify that an Activity Log Alert exists for 'Delete SQL Server Firewall Rule' (Automated).",
+            "description": "Create an activity log alert specifically for the 'Delete SQL Server Firewall Rule' event."
+          },
+          {
+            "key": "governance_alert_on_create_update_sql_firewall_rule",
+            "title": "Verify an Activity Log Alert exists for 'Create or Update SQL Server Firewall Rule' (Automated).",
+            "description": "Configure an activity log alert for any event where a SQL Server Firewall Rule is created or modified."
+          },
+          {
+            "key": "governance_enable_logging_for_key_vault",
+            "title": "Verify that logging for Azure Key Vault is 'Enabled' (Automated).",
+            "description": "Enable 'AuditEvent' logging for all key vault instances to ensure that all interactions are recorded and accessible."
+          },
+          {
+            "key": "governance_avoid_basic_sku_for_monitored_artifacts",
+            "title": "Verify that Basic/Consumption SKUs are not used for monitored production workloads (Manual).",
+            "description": "While cost-effective, Basic or Free SKUs in Azure have significant monitoring and support limitations. These SKUs typically lack a service SLA, and Microsoft may not provide support for them. For these reasons, they should not be used for production workloads."
+          },
+          {
+            "key": "governance_alert_on_delete_security_solution",
+            "title": "Verify that an Activity Log Alert exists for 'Delete Security Solution' (Automated).",
+            "description": "Set up an activity log alert to trigger whenever a Security Solution is deleted."
+          },
+          {
+            "key": "governance_set_resource_locks_for_mission_critical_resources",
+            "title": "Verify that Resource Locks are set for mission-critical Azure resources (Manual).",
+            "description": "Resource Manager Locks allow administrators to secure Azure resources against deletion or modification. These locks operate outside the RBAC hierarchy and apply restrictions to all users. They are highly effective for protecting important resources from both accidental and malicious changes."
+          },
+          {
+            "key": "governance_diagnostic_setting_for_activity_logs",
+            "title": "Verify a 'Diagnostic Setting' exists for Subscription Activity Logs (Manual).",
+            "description": "Activate diagnostic settings to export activity logs. These settings are available on a per-resource basis and should be configured for all relevant resources in your environment."
+          },
+          {
+            "key": "governance_diagnostic_setting_for_entra_activity_logs",
+            "title": "Verify a diagnostic setting sends Microsoft Entra activity logs to a defined destination (Manual).",
+            "description": "Configure a Microsoft Entra diagnostic setting to forward its activity logs to a suitable destination, such as a Log Analytics workspace or storage account. This facilitates centralized monitoring and analysis of Microsoft Entra activities."
+          },
+          {
+            "key": "governance_enable_appservice_http_logs",
+            "title": "Verify that 'HTTP logs' logging is enabled for Azure AppService (Automated).",
+            "description": "Enable the 'AppServiceHTTPLogs' diagnostic log category for your Azure App Service instances to ensure all HTTP requests are captured and centrally logged."
+          },
+          {
+            "key": "governance_configure_application_insights",
+            "title": "Verify that Application Insights is configured correctly (Automated).",
+            "description": "Application Insights in Azure serves as an Application Performance Monitoring tool, offering valuable data on application performance and aiding in incident response. It collects application metrics, telemetry, and trace logging data, providing detailed information that helps organizations proactively and reactively manage security and performance."
+          },
+          {
+            "key": "governance_alert_on_create_update_public_ip",
+            "title": "Verify an Activity Log Alert exists for 'Create or Update Public IP Address rule' (Automated).",
+            "description": "Set up an activity log alert for the event of creating or updating Public IP Address rules."
+          },
+          {
+            "key": "governance_capture_intune_logs_to_log_analytics",
+            "title": "Verify that Intune logs are sent to Log Analytics (Manual).",
+            "description": "Confirm that logs from Intune are being captured and forwarded to a central Log Analytics workspace."
+          }
+        ]
+      },
+      {
+        "key": "security_services",
+        "title": "Security Services",
+        "description": "This chapter addresses security best practices for services in the Azure Security category. This includes Microsoft Defender for Cloud plans (covering Servers, Containers, Storage, etc.) and Azure Key Vault settings to provide thorough threat protection and secure secret management.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "security_keyvault_enable_rbac",
+            "title": "Verify that Role-Based Access Control (RBAC) is enabled for Azure Key Vault (Automated).",
+            "description": "The preferred method for managing access to Key Vaults is by using the Azure Role-Based Access Control (RBAC) permissions model."
+          },
+          {
+            "key": "security_keyvault_use_managed_hsm_when_required",
+            "title": "Verify that Azure Key Vault Managed HSM is used where required (Manual).",
+            "description": "Azure Key Vault Managed HSM is a dedicated, fully managed, single-tenant cloud service that protects cryptographic keys with FIPS 140-2 Level 3 validated Hardware Security Modules."
+          },
+          {
+            "key": "security_keyvault_is_recoverable",
+            "title": "Verify that the Key Vault is configured to be recoverable (Automated).",
+            "description": "Key Vaults store critical objects like keys, secrets, and certificates. Deleting a Key Vault can lead to irreversible data loss or the failure of security functions (like authentication and verification) that depend on its objects."
+          },
+          {
+            "key": "security_keyvault_non_rbac_secrets_have_expiration",
+            "title": "Verify that an expiration date is set for all secrets in Non-RBAC Key Vaults (Automated).",
+            "description": "Confirm that every secret stored in Azure Key Vaults that do not use Role-Based Access Control (RBAC) has a defined expiration date."
+          },
+          {
+            "key": "security_keyvault_rbac_secrets_have_expiration",
+            "title": "Verify that an expiration date is set for all secrets in RBAC Key Vaults (Automated).",
+            "description": "Confirm that every secret stored in Azure Key Vaults that use Role-Based Access Control (RBAC) has a defined expiration date."
+          },
+          {
+            "key": "security_keyvault_rbac_keys_have_expiration",
+            "title": "Verify that an expiration date is set for all keys in RBAC Key Vaults (Automated).",
+            "description": "Confirm that every key stored in Azure Key Vaults that use Role-Based Access Control (RBAC) has a defined expiration date."
+          },
+          {
+            "key": "security_keyvault_enable_automatic_key_rotation",
+            "title": "Verify that automatic key rotation is enabled in Azure Key Vault (Automated).",
+            "description": "Key Vault's automated cryptographic key rotation feature enables users to set a schedule for automatically generating new key versions. A unique rotation policy can be configured for each key."
+          },
+          {
+            "key": "security_keyvault_non_rbac_keys_have_expiration",
+            "title": "Verify that an expiration date is set for all keys in Non-RBAC Key Vaults (Automated).",
+            "description": "Confirm that every key stored in Azure Key Vaults that do not use Role-Based Access Control (RBAC) has a defined expiration date."
+          },
+          {
+            "key": "security_keyvault_use_private_endpoints",
+            "title": "Verify that Private Endpoints are used for Azure Key Vault (Automated).",
+            "description": "Using private endpoints secures the network traffic between Azure Key Vault and the resources that request its secrets and keys."
+          },
+          {
+            "key": "security_keyvault_disable_public_access_with_private_endpoint",
+            "title": "Verify that Public Network Access is disabled when using a Private Endpoint (Automated).",
+            "description": "When a Private Endpoint is active on a Key Vault, traffic from the public internet can still reach its public endpoint unless 'Public network access' is explicitly set to 'Disabled'."
+          },
+          {
+            "key": "security_azure_bastion_host_exists",
+            "title": "Verify that an Azure Bastion Host is deployed (Automated).",
+            "description": "Azure Bastion offers secure remote access to Azure VMs over the internet, avoiding direct exposure of remote access ports. It provides this access via TLS over 443/TCP and integrates with Azure AD for hardened configurations."
+          },
+          {
+            "key": "security_mcsb_policies_not_disabled",
+            "title": "Verify that Microsoft Cloud Security Benchmark policies are not 'Disabled' (Manual).",
+            "description": "The Microsoft Cloud Security Benchmark (MCSB) is an Azure Policy Initiative with numerous security policies for evaluating resource configurations against best practices. If a policy within MCSB is disabled, it won't be evaluated, potentially leaving administrators unaware of important security recommendations."
+          },
+          {
+            "key": "security_defender_for_app_services_on",
+            "title": "Verify that Microsoft Defender for App Services is set to 'On' (Automated).",
+            "description": "Enabling Microsoft Defender for App Service activates threat detection, offering threat intelligence, anomaly detection, and behavioral analytics through Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_defender_for_iot_hub_on",
+            "title": "Verify that Microsoft Defender for IoT Hub is set to 'On' (Manual).",
+            "description": "Microsoft Defender for IoT functions as a centralized security management hub for all IoT devices within your organization."
+          },
+          {
+            "key": "security_defender_for_azure_sql_db_on",
+            "title": "Verify Microsoft Defender for Azure SQL Databases is set to 'On' (Automated).",
+            "description": "Turning on Microsoft Defender for Azure SQL Databases activates threat detection for Managed Instance databases, providing threat intelligence and behavioral analytics via Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_defender_for_resource_manager_on",
+            "title": "Verify that Microsoft Defender for Resource Manager is set to 'On' (Automated).",
+            "description": "Microsoft Defender for Resource Manager analyzes all incoming administrative requests to modify your infrastructure, whether from the CLI or the Azure portal."
+          },
+          {
+            "key": "security_defender_for_key_vault_on",
+            "title": "Verify that Microsoft Defender for Key Vault is set to 'On' (Automated).",
+            "description": "Enabling Microsoft Defender for Key Vault turns on threat detection, providing threat intelligence, anomaly detection, and behavioral analytics through Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_defender_for_storage_on",
+            "title": "Verify that Microsoft Defender for Storage is set to 'On' (Automated).",
+            "description": "Turning on Microsoft Defender for Storage enables threat detection capabilities, offering threat intelligence, anomaly detection, and behavioral analytics via Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_defender_for_containers_on",
+            "title": "Verify that Microsoft Defender for Containers is set to 'On' (Automated).",
+            "description": "Microsoft Defender for Containers is designed to enhance, monitor, and secure containerized assets—like Kubernetes clusters, nodes, and images—across multi-cloud and on-premises setups."
+          },
+          {
+            "key": "security_defender_easm_enabled",
+            "title": "Verify that Microsoft Defender External Attack Surface Monitoring (EASM) is enabled (Manual).",
+            "description": "An organization's attack surface consists of all assets with a public identifier that an external attacker could access. The larger this surface, the more difficult it is to protect. EASM helps monitor and manage this risk."
+          },
+          {
+            "key": "security_defender_for_open_source_relational_db_on",
+            "title": "Verify Microsoft Defender for Open-Source Relational Databases is 'On' (Automated).",
+            "description": "Enabling Microsoft Defender for open-source relational databases activates threat detection, providing threat intelligence and behavioral analytics through Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_defender_for_dns_on",
+            "title": "[LEGACY] Verify that Microsoft Defender for DNS is set to 'On' (Automated).",
+            "description": "[NOTE: As of August 1, 2023, this service is only available to existing subscribers. New subscribers will find suspicious DNS activity alerts included in Defender for Servers P2.] Microsoft Defender for DNS monitors all outbound network traffic from a subscription."
+          },
+          {
+            "key": "security_defender_for_cosmos_db_on",
+            "title": "Verify that Microsoft Defender for Azure Cosmos DB is set to 'On' (Automated).",
+            "description": "Microsoft Defender for Azure Cosmos DB inspects all inbound network requests for potential threats to your Cosmos DB resources."
+          },
+          {
+            "key": "security_defender_for_sql_servers_on_machines_on",
+            "title": "Verify Microsoft Defender for SQL Servers on Machines is set to 'On' (Automated).",
+            "description": "Enabling Microsoft Defender for SQL servers on machines activates threat detection, providing threat intelligence and behavioral analytics through Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_defender_enable_attack_path_notifications",
+            "title": "Verify that notifications for attack paths are enabled (Automated).",
+            "description": "This setting configures email notifications about attack paths to be sent to the subscription owner or another designated security contact."
+          },
+          {
+            "key": "security_defender_checks_vm_os_updates",
+            "title": "Verify Defender for Cloud is configured to check VM OS for updates (Automated).",
+            "description": "Ensure that the most recent OS patches are consistently applied to all virtual machines."
+          },
+          {
+            "key": "security_defender_notifications_to_owner",
+            "title": "Verify 'All users with the following roles' is set to 'Owner' for notifications (Automated).",
+            "description": "This configuration ensures security alert emails are sent to the subscription owners."
+          },
+          {
+            "key": "security_defender_enable_severity_alert_notifications",
+            "title": "Verify that notifications for security alerts are enabled (Automated).",
+            "description": "This setting configures email notifications for security alerts to be sent to the subscription owner or another designated security contact."
+          },
+          {
+            "key": "security_defender_notifications_to_additional_email",
+            "title": "Verify 'Additional email addresses' is configured with a security contact (Automated).",
+            "description": "Microsoft Defender for Cloud will email subscription owners when a high-severity alert is triggered. An additional security contact email address should also be provided to ensure alerts are received."
+          },
+          {
+            "key": "security_defender_for_servers_on",
+            "title": "Verify that Defender for Servers is set to 'On' (Automated).",
+            "description": "The Defender for Servers plan within Microsoft Defender for Cloud helps lower security risk by offering actionable advice to improve machine security. It also protects machines from real-time threats."
+          },
+          {
+            "key": "security_vulnerability_assessment_for_machines_on",
+            "title": "Verify 'Vulnerability assessment for machines' is set to 'On' (Manual).",
+            "description": "Enable vulnerability scanning for all machines, including both Azure-native and hybrid (Arc-enabled) machines."
+          },
+          {
+            "key": "security_agentless_scanning_for_machines_on",
+            "title": "Verify 'Agentless scanning for machines' is set to 'On' (Manual).",
+            "description": "The agentless scanner utilizes disk snapshots to identify installed software, known vulnerabilities, and secrets stored in plain text."
+          },
+          {
+            "key": "security_endpoint_protection_on",
+            "title": "Verify the 'Endpoint protection' component status is set to 'On' (Manual).",
+            "description": "The Endpoint protection component facilitates communication between Microsoft Defender for Endpoint and Microsoft Defender for Cloud."
+          },
+          {
+            "key": "security_file_integrity_monitoring_on",
+            "title": "Verify 'File Integrity Monitoring' component status is set to 'On' (Manual).",
+            "description": "File Integrity Monitoring (FIM) is a feature that observes critical system files on Windows or Linux for any signs of potential attack or compromise."
+          }
+        ]
+      },
+      {
+        "key": "storage_services",
+        "title": "Storage Services",
+        "description": "This part details essential secure configuration advice for Azure Storage services, such as Azure Files, Blob Storage, and the parent Storage Accounts. It addresses data protection, access management, and network security settings.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "storage_files_set_smb_protocol_version",
+            "title": "Verify 'SMB protocol version' is 'SMB 3.1.1' or higher for SMB file shares (Automated).",
+            "description": "Make sure that SMB file shares are set to use the most current supported SMB protocol. Keeping the protocol version updated is key to mitigating risks from older, vulnerable versions that lack modern security features."
+          },
+          {
+            "key": "storage_files_set_smb_channel_encryption",
+            "title": "Verify 'SMB channel encryption' is 'AES-256-GCM' or higher for SMB file shares (Automated).",
+            "description": "To protect data confidentiality and integrity during transit, implement SMB channel encryption with AES-256-GCM for all SMB file shares. This provides robust defense against eavesdropping and man-in-the-middle attacks."
+          },
+          {
+            "key": "storage_files_enable_soft_delete",
+            "title": "Verify soft delete for Azure File Shares is enabled (Automated).",
+            "description": "Azure Files provides a soft delete feature for file shares, which enables easy data recovery in cases of accidental deletion by a user or application."
+          },
+          {
+            "key": "recovery_vaults_cross_region_restore_enabled",
+            "title": "Verify 'Cross Region Restore' is 'Enabled' on Recovery Services vaults (Automated).",
+            "description": "Cross-region restore allows data to be restored in a secondary Azure paired region, even if the primary region is available. This feature enables organizations to test their regional resiliency and prepare for potential outages."
+          },
+          {
+            "key": "recovery_vaults_cross_subscription_restore_disabled",
+            "title": "Verify 'Cross Subscription Restore' is 'Disabled' or 'Permanently Disabled' on Recovery Services vaults (Automated).",
+            "description": "By disabling cross-subscription restore, you ensure that backup data from a Recovery Services vault can only be restored within the same subscription, preventing data from being moved to other subscriptions."
+          },
+          {
+            "key": "recovery_vaults_soft_delete_enabled",
+            "title": "Verify soft delete is enabled on Recovery Services vaults (Automated).",
+            "description": "Soft delete adds an extra layer of protection for data in a Recovery Services vault. When enabled, deleted backup data remains recoverable for a specified retention period."
+          },
+          {
+            "key": "recovery_vaults_infrastructure_encryption_enabled",
+            "title": "Verify 'Use infrastructure encryption for this vault' is enabled on Recovery Services vaults (Automated).",
+            "description": "In addition to customer-managed key encryption at rest, you can enable a second layer of platform-managed infrastructure encryption. This dual-layer encryption model provides enhanced protection for your backup data."
+          },
+          {
+            "key": "recovery_vaults_public_network_access_disabled",
+            "title": "Verify public network access is disabled on Recovery Services vaults (Automated).",
+            "description": "Turn off public network access on Recovery Services vaults to prevent internet exposure and minimize unauthorized access risks. Use private endpoints and Azure RBAC for secure access management within trusted networks."
+          },
+          {
+            "key": "recovery_vaults_immutability_enabled",
+            "title": "Verify immutability is enabled for Recovery Services vaults (Automated).",
+            "description": "Immutable vaults protect backup data by blocking any operation that could lead to the loss of recovery points. This setting can be locked, making it irreversible and preventing malicious attempts to disable it and delete backups."
+          },
+          {
+            "key": "recovery_vaults_encrypted_with_cmk",
+            "title": "Verify backup data in Recovery Services vaults is encrypted with customer-managed keys (CMK) (Automated).",
+            "description": "Recovery Services vaults support two encryption methods: Microsoft-managed keys for automatic encryption, and customer-managed keys (CMK), which give organizations complete control over their encryption keys for greater security and compliance."
+          },
+          {
+            "key": "queue_storage_use_sap_for_sas",
+            "title": "Verify stored access policies (SAP) are used when generating shared access signature (SAS) tokens (Manual).",
+            "description": "When creating shared access signature (SAS) tokens in Azure, use stored access policies (SAP) to centrally manage permissions, expiration, and revocation. These policies can be applied to blob containers, file shares, queues, and tables."
+          },
+          {
+            "key": "queue_storage_sas_tokens_expire_within_hour",
+            "title": "Verify that shared access signature (SAS) tokens expire within an hour (Manual).",
+            "description": "Shared access signature (SAS) tokens grant limited, time-bound access to Azure Storage resources. To reduce security exposure, SAS tokens should have the shortest possible lifespan, ideally no more than one hour."
+          },
+          {
+            "key": "queue_storage_sas_https_only",
+            "title": "Verify 'Allowed Protocols' for SAS tokens is set to 'HTTPS Only' (Manual).",
+            "description": "Shared access signatures (SAS) grant restricted access to Azure Storage resources. When creating a SAS, you can specify the allowed protocols. It is strongly recommended to permit requests over HTTPS exclusively."
+          },
+          {
+            "key": "netapp_encryption_source_is_cmk",
+            "title": "Verify 'Encryption key source' is 'Customer Managed Key' for Azure NetApp Files accounts (Automated).",
+            "description": "Using customer-managed keys (CMK) for Azure NetApp Files volume encryption lets organizations use their own keys, giving them full control over the encryption process."
+          },
+          {
+            "key": "elastic_san_public_network_access_disabled",
+            "title": "Verify 'Public network access' is 'Disabled' on Azure Elastic SAN (Automated).",
+            "description": "Azure Elastic SAN is a scalable cloud storage solution. Disabling public network access at the SAN level ensures that all Elastic SAN resources are only accessible through private networks."
+          },
+          {
+            "key": "elastic_san_use_cmk",
+            "title": "Verify customer-managed keys (CMK) are used to encrypt data at rest on Azure Elastic SAN volume groups (Automated).",
+            "description": "Azure Elastic SAN volume groups support two encryption methods: Microsoft-managed keys for automatic encryption, and customer-managed keys (CMK), which give organizations complete control over their encryption keys for greater security."
+          },
+          {
+            "key": "storage_account_disable_key_access",
+            "title": "Verify 'Allow storage account key access' is 'Disabled' for Storage Accounts (Automated).",
+            "description": "All secure requests to an Azure Storage account require authorization. By default, authorization can be done with Microsoft Entra credentials or via Shared Key authorization using the account access key. This setting disables the latter."
+          },
+          {
+            "key": "storage_account_consider_readonly_locks",
+            "title": "Verify that Azure Resource Manager ReadOnly locks have been considered for Storage Accounts (Manual).",
+            "description": "A ReadOnly lock from Azure Resource Manager can prevent accidental or malicious deletion or modification of a storage account, its properties, containers, or access assignments. The lock must be explicitly removed before any such changes can be made."
+          },
+          {
+            "key": "storage_account_use_geo_redundant_storage",
+            "title": "Verify Redundancy is 'geo-redundant storage (GRS)' on critical Storage Accounts (Automated).",
+            "description": "Geo-redundant storage (GRS) replicates data three times locally and then asynchronously copies it to a secondary region. This provides 99.99999999999999% durability, ensuring high availability and protecting data against regional failures."
+          },
+          {
+            "key": "storage_account_enable_blob_logging",
+            "title": "Verify Storage logging is enabled for Blob Service for 'Read', 'Write', and 'Delete' requests (Automated).",
+            "description": "The Storage Blob service offers scalable object storage. Server-side Storage Logging can record details of both successful and failed requests, allowing users to monitor read, write, and delete operations on their blobs."
+          },
+          {
+            "key": "storage_account_default_network_rule_deny",
+            "title": "Verify the default network access rule for storage accounts is set to deny (Automated).",
+            "description": "By default, storage accounts accept connections from any network. To enhance security, the default action should be changed to deny access, limiting connections to only selected networks."
+          },
+          {
+            "key": "storage_account_enable_soft_delete_for_containers_blobs",
+            "title": "Verify that Soft Delete is enabled for Azure Containers and Blob Storage (Automated).",
+            "description": "Azure Storage blobs can contain sensitive data. Accidental modification or deletion can lead to data loss. Enabling soft delete makes this data recoverable."
+          },
+          {
+            "key": "storage_account_sas_https_only",
+            "title": "Verify 'Allowed Protocols' for SAS tokens is set to 'HTTPS Only' (Manual).",
+            "description": "When generating a Shared Access Signature (SAS) to grant limited access to storage resources, it is a security best practice to specify that only requests over HTTPS are permitted."
+          },
+          {
+            "key": "storage_account_default_to_entra_auth_in_portal",
+            "title": "Verify 'Default to Microsoft Entra authorization in the Azure portal' is 'Enabled' (Automated).",
+            "description": "When this setting is active, the Azure portal will use Microsoft Entra ID by default to authorize requests to blobs, files, queues, and tables."
+          },
+          {
+            "key": "storage_account_require_secure_transfer",
+            "title": "Verify that 'Secure transfer required' is 'Enabled' for Storage Accounts (Automated).",
+            "description": "This setting ensures that all data is encrypted while in transit to and from the storage account."
+          },
+          {
+            "key": "storage_account_enable_key_rotation_reminders",
+            "title": "Verify that 'Enable key rotation reminders' is enabled for each Storage Account (Manual).",
+            "description": "Access Keys are used to authenticate application requests to storage accounts. Periodically rotating these keys is crucial to prevent long-term exploitation of a compromised key. The 'Rotation Reminder' feature helps automate reminders for this manual process."
+          },
+          {
+            "key": "storage_account_disable_public_network_access",
+            "title": "Verify that 'Public Network Access' is 'Disabled' for storage accounts (Automated).",
+            "description": "For Azure Resource Manager storage accounts, disabling public network access at the account level overrides any public access settings for individual containers, enhancing security. Note that classic deployment model accounts will be retired."
+          },
+          {
+            "key": "storage_account_enable_infrastructure_encryption",
+            "title": "Verify 'Enable Infrastructure Encryption' is 'enabled' for each Storage Account (Automated).",
+            "description": "This enables an additional layer of encryption at the hardware level, on top of the default software-based encryption for data in Azure storage."
+          },
+          {
+            "key": "storage_account_sas_tokens_expire_within_hour",
+            "title": "Verify that shared access signature (SAS) tokens expire within an hour (Manual).",
+            "description": "SAS tokens provide temporary, restricted access to storage resources. To minimize security risk, these tokens should be configured with a very short lifespan, ideally one hour or less."
+          },
+          {
+            "key": "storage_account_use_private_endpoints",
+            "title": "Verify that Private Endpoints are used to access Storage Accounts (Automated).",
+            "description": "Use private endpoints for storage accounts to allow secure data access over an encrypted Private Link. This uses an IP from a VNet, ensuring traffic is segmented and protected from outside access as it traverses the network."
+          },
+          {
+            "key": "storage_account_regenerate_keys_periodically",
+            "title": "Verify that Storage Account access keys are regenerated periodically (Manual).",
+            "description": "To improve security, it is important to periodically regenerate the access keys for your storage accounts."
+          },
+          {
+            "key": "storage_account_enable_queue_logging",
+            "title": "Verify Storage Logging is enabled for Queue Service for 'Read', 'Write', and 'Delete' requests (Automated).",
+            "description": "The Storage Queue service holds messages accessible by clients with storage account access. Server-side logging can record details of successful and failed requests, giving visibility into read, write, and delete operations on the queues."
+          },
+          {
+            "key": "storage_account_disable_cross_tenant_replication",
+            "title": "Verify that 'Cross Tenant Replication' is not enabled (Automated).",
+            "description": "While Cross-Tenant Replication can be useful for data sharing, it introduces significant security risks like unauthorized data access and compliance issues if not managed carefully. Disabling it prevents data from being replicated across tenant boundaries without explicit approval."
+          },
+          {
+            "key": "storage_account_apply_delete_locks",
+            "title": "Verify that Azure Resource Manager Delete locks are applied to Storage Accounts (Manual).",
+            "description": "A 'CannotDelete' lock from Azure Resource Manager helps prevent the accidental or malicious deletion of a storage account. While the account can still be modified, it cannot be deleted until the lock is removed by an authorized user."
+          },
+          {
+            "key": "storage_account_disable_blob_anonymous_access",
+            "title": "Verify that 'Allow Blob Anonymous Access' is 'Disabled' (Automated).",
+            "description": "The 'Allow Blob Anonymous Access' setting determines if blob data can be accessed without authentication. Disabling this provides a more secure storage environment by preventing public read access to blob data."
+          },
+          {
+            "key": "storage_account_encrypt_critical_data_with_cmk",
+            "title": "Verify that Storage for critical data is encrypted with Customer-Managed Keys (CMK) (Manual).",
+            "description": "For sensitive data, enable encryption at rest using Customer-Managed Keys (CMK) instead of relying solely on Microsoft-managed keys."
+          },
+          {
+            "key": "storage_account_allow_trusted_azure_services",
+            "title": "Verify 'Allow Azure services on the trusted services list...' is enabled for Storage Accounts (Automated).",
+            "description": "Certain Azure services operate from networks that cannot be included in network rules. This setting allows a curated list of trusted Azure services to bypass network rules, using strong authentication to access the storage account."
+          },
+          {
+            "key": "storage_account_set_minimum_tls_1_2",
+            "title": "Verify the 'Minimum TLS version' for storage accounts is 'Version 1.2' (Automated).",
+            "description": "Azure Storage sometimes defaults to TLS 1.0, an outdated protocol with known security flaws. It is essential to configure the minimum TLS version to a modern protocol, such as TLS 1.2."
+          },
+          {
+            "key": "storage_account_enable_table_logging",
+            "title": "Verify Storage Logging is enabled for Table Service for 'Read', 'Write', and 'Delete' requests (Automated).",
+            "description": "Azure Table storage is a NoSQL key/attribute store. Server-side logging can record details of both successful and failed requests, allowing visibility into read, write, and delete operations on the tables."
+          },
+          {
+            "key": "files_soft_delete_enabled",
+            "title": "Verify that soft delete for Azure File Shares is enabled (Automated).",
+            "description": "Azure Files includes a soft delete capability for file shares, enabling straightforward data recovery if it's accidentally deleted by a user or an application."
+          },
+          {
+            "key": "files_root_squash_for_nfs_configured",
+            "title": "Verify that root squash is configured for NFS file shares (Automated).",
+            "description": "Permissions for NFS file shares are client-enforced. Root squash is a critical NFS security feature that prevents client machines from gaining unauthorized root access to the server, protecting data and system settings from compromised clients."
+          },
+          {
+            "key": "files_smb_protocol_version_3_1_1",
+            "title": "Verify 'SMB protocol version' is 'SMB 3.1.1' or higher for SMB file shares (Automated).",
+            "description": "Confirm that SMB file shares are configured to utilize the latest supported SMB protocol version. This mitigates risks from older versions that may have vulnerabilities and lack modern security controls."
+          },
+          {
+            "key": "files_smb_channel_encryption_aes_256_gcm",
+            "title": "Verify 'SMB channel encryption' is 'AES-256-GCM' or higher for SMB file shares (Automated).",
+            "description": "To secure data in transit, implement SMB channel encryption using AES-256-GCM for SMB file shares. This provides strong protection against eavesdropping and man-in-the-middle attacks."
+          },
+          {
+            "key": "databox_double_encryption_enabled",
+            "title": "Verify double encryption is used for Azure Data Box in high-security environments (Manual).",
+            "description": "Activating double encryption on an Azure Data Box adds another layer of protection for data during physical shipment. This strengthens confidentiality and ensures data remains secure if the device is lost, stolen, or intercepted."
+          },
+          {
+            "key": "storage_explorer_sas_tokens_expire_within_hour",
+            "title": "Verify that shared access signature (SAS) tokens expire within an hour (Manual).",
+            "description": "SAS tokens grant temporary, limited access to Azure Storage. To minimize security risks, these tokens should have a very short lifespan, ideally no longer than one hour."
+          },
+          {
+            "key": "storage_explorer_latest_version",
+            "title": "Verify that the latest version of Storage Explorer is being used (Manual).",
+            "description": "Verify that all users accessing Azure Storage with Storage Explorer are using the most current version of the software, applying updates promptly to protect against vulnerabilities and leverage new security features."
+          },
+          {
+            "key": "storage_explorer_use_sap_for_sas",
+            "title": "Verify stored access policies (SAP) are used when generating shared access signature (SAS) tokens (Manual).",
+            "description": "When generating shared access signature (SAS) tokens, utilize stored access policies (SAP) for centralized management of permissions, expiration, and revocation. These policies are applicable to blob containers, file shares, queues, and tables."
+          },
+          {
+            "key": "blob_storage_sas_https_only",
+            "title": "Verify 'Allowed Protocols' for SAS tokens is set to 'HTTPS Only' (Manual).",
+            "description": "Shared access signatures (SAS) provide limited access to storage resources. When creating a SAS, you can define the allowed protocols for requests. It is highly recommended to permit only HTTPS requests."
+          },
+          {
+            "key": "blob_storage_sas_tokens_expire_within_hour",
+            "title": "Verify that shared access signature (SAS) tokens expire within an hour (Manual).",
+            "description": "SAS tokens offer restricted, time-bound access to storage resources. To mitigate security risks, SAS tokens should be configured with the shortest possible duration, ideally one hour or less."
+          },
+          {
+            "key": "blob_storage_soft_delete_enabled",
+            "title": "Verify soft delete for blobs is enabled on Blob Storage accounts (Automated).",
+            "description": "Blobs can contain sensitive data. Accidental modification or deletion can lead to data loss. It is recommended to enable soft delete on Azure storage accounts to allow for the recovery of deleted blobs or blob snapshots."
+          },
+          {
+            "key": "blob_storage_use_sap_for_sas",
+            "title": "Verify stored access policies (SAP) are used for generating SAS tokens (Manual).",
+            "description": "For centralized control over permissions, expiration, and revocation, use stored access policies (SAP) when creating shared access signature (SAS) tokens. These policies can be applied to blob containers, file shares, queues, and tables."
+          },
+          {
+            "key": "blob_storage_versioning_enabled",
+            "title": "Verify 'Versioning' is 'Enabled' on Azure Blob Storage accounts (Automated).",
+            "description": "Activating blob versioning ensures that previous versions of objects are automatically saved. This allows for the recovery of earlier blob versions in case of unintended modifications or deletions."
+          },
+          {
+            "key": "blob_storage_locked_immutability_policies",
+            "title": "Verify locked immutability policies are used for containers with critical blob data (Automated).",
+            "description": "Mandate the use of locked immutability policies for any container storing business-critical blob data. This protects the data from being modified or deleted, ensuring its integrity regardless of user actions."
+          },
+          {
+            "key": "backup_vaults_cross_subscription_restore_disabled",
+            "title": "Verify 'Cross Subscription Restore' is 'Disabled' or 'Permanently Disabled' on Backup vaults (Automated).",
+            "description": "Turn off cross-subscription restore for Backup vaults to guarantee that backup data can only be restored within the same subscription, preventing data from being moved to other subscriptions."
+          },
+          {
+            "key": "backup_vaults_encrypted_with_cmk",
+            "title": "Verify backup data in Backup vaults is encrypted with customer-managed keys (CMK) (Automated).",
+            "description": "Backup vaults provide two encryption choices: Microsoft-managed keys for automatic encryption, and customer-managed keys (CMK), which allow organizations to maintain full control over their keys for enhanced security."
+          },
+          {
+            "key": "backup_vaults_infrastructure_encryption_enabled",
+            "title": "Verify 'Use infrastructure encryption for this vault' is enabled on Backup vaults (Automated).",
+            "description": "Alongside customer-managed key encryption, you can enable an additional layer of platform-managed infrastructure encryption. This dual-layer approach provides stronger protection for your backup data."
+          },
+          {
+            "key": "backup_vaults_immutability_enabled",
+            "title": "Verify immutability is enabled for Backup vaults (Automated).",
+            "description": "Immutable vaults protect backup data by preventing any operations that could cause the loss of recovery points. This setting can be locked to make it irreversible, stopping malicious actors from disabling it and deleting backups."
+          },
+          {
+            "key": "backup_vaults_cross_region_restore_enabled",
+            "title": "Verify 'Cross Region Restore' is 'Enabled' on Backup vaults (Automated).",
+            "description": "Cross-region restore allows data to be restored in a secondary Azure region, even while the primary region is online. This enables organizations to perform drills and validate their regional resiliency plans."
+          },
+          {
+            "key": "backup_vaults_soft_delete_enabled",
+            "title": "Verify soft delete is enabled on Backup vaults (Automated).",
+            "description": "Soft delete offers extra protection for Backup vault data. With this feature enabled, deleted backup data can be recovered within the specified retention period."
+          },
+          {
+            "key": "storage_blob_enable_versioning",
+            "title": "Verify that 'Versioning' is set to 'Enabled' on Blob Storage accounts (Automated).",
+            "description": "By enabling blob versioning, previous versions of objects are automatically retained. This makes earlier versions of a blob available for recovery after modifications or deletions."
+          },
+          {
+            "key": "storage_blob_enable_soft_delete",
+            "title": "Verify that soft delete for blobs on Blob Storage accounts is enabled (Automated).",
+            "description": "Blobs in storage accounts might contain sensitive information. Erroneous modification or deletion by a user or application can cause data loss. It is therefore recommended to enable soft delete."
+          },
+          {
+            "key": "lustre_key_encryption_key_is_cmk",
+            "title": "Verify 'Key encryption key' is set to a customer-managed key for Azure Managed Lustre (Automated).",
+            "description": "Activate customer-managed encryption keys (CMEK) for Azure Managed Lustre file systems to improve data security. By using CMEK, organizations can manage their own keys in Azure Key Vault, allowing them to control key rotation and access according to their security policies."
+          }
+        ]
+      },
+      {
+        "key": "analytics_services",
+        "title": "Analytics Services",
+        "description": "This chapter addresses security settings for Azure Analytics Services, with a focus on Azure Databricks to promote secure deployment, data encryption, and robust access control.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "analytics_databricks_sync_entra_id",
+            "title": "Verify users and groups are synced from Microsoft Entra ID to Azure Databricks (Manual).",
+            "description": "For centralized identity management, users and groups in Microsoft Entra ID should be synced with Azure Databricks via SCIM provisioning. This integration automates user and group management in Databricks based on Entra ID, ensuring access controls align with corporate policies and reducing risks from stale permissions or orphaned accounts."
+          },
+          {
+            "key": "analytics_databricks_encrypt_with_cmk",
+            "title": "Verify data is encrypted in Azure Databricks using customer-managed keys (CMK) (Automated).",
+            "description": "Azure Databricks uses TLS 1.2+ to encrypt data in transit for all communications. While data at rest is encrypted by default with Microsoft-managed keys, using customer-managed keys provides an additional layer of control."
+          },
+          {
+            "key": "analytics_databricks_nsg_for_subnets",
+            "title": "Verify Network Security Groups are configured for Databricks subnets (Manual).",
+            "description": "Implement Network Security Groups (NSGs) to manage inbound and outbound traffic for Azure Databricks subnets, allowing only authorized communication. NSGs should be configured with deny rules to block all non-essential traffic."
+          },
+          {
+            "key": "analytics_databricks_configure_unity_catalog",
+            "title": "Verify that Unity Catalog is configured for Azure Databricks (Manual).",
+            "description": "Unity Catalog offers a centralized governance solution for data in Azure Databricks, providing fine-grained access control using Microsoft Entra ID identities. It also improves data lineage and audit logging, making it a vital component for security and governance."
+          },
+          {
+            "key": "analytics_databricks_configure_diagnostic_logs",
+            "title": "Verify diagnostic log delivery is configured for Azure Databricks (Manual).",
+            "description": "Azure Databricks Diagnostic Logging offers valuable insights into system operations, user activities, and security-related events occurring within a Databricks workspace."
+          },
+          {
+            "key": "analytics_databricks_restrict_pat_usage",
+            "title": "Verify usage is restricted and expiry enforced for Databricks personal access tokens (Manual).",
+            "description": "Databricks personal access tokens (PATs) enable API authentication. By default, users can create tokens that do not expire, posing a security risk if they are leaked or not rotated. This control ensures usage is restricted and expiration is enforced."
+          },
+          {
+            "key": "analytics_databricks_encrypt_cluster_traffic",
+            "title": "Verify traffic is encrypted between cluster worker nodes (Manual).",
+            "description": "By default, data traffic between worker nodes in an Azure Databricks cluster is not encrypted. To secure this data, an initialization script can be used to configure clusters to encrypt this traffic using AES 256-bit encryption over a TLS 1.3 connection."
+          },
+          {
+            "key": "analytics_databricks_in_customer_vnet",
+            "title": "Verify Azure Databricks is deployed in a customer-managed virtual network (VNet) (Automated).",
+            "description": "Using a customer-managed Virtual Network (VNet), also known as VNet Injection, ensures that Databricks compute clusters and control planes are securely isolated within the organization's network. This provides greater control over network security policies compared to the default managed VNet."
+          }
+        ]
+      },
+      {
+        "key": "upload_logs",
+        "title": "Upload logs",
+        "description": "This should include all associated traffic associated to the in-scope targets.",
+        "type": "large_upload"
+      },
+      {
+        "key": "executive_summary",
+        "title": "Executive summary",
+        "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+        "type": "executive_summary"
+      }
+    ]
+  }
+}
