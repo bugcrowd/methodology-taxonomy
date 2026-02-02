@@ -1,382 +1,431 @@
 {
-    "metadata": {
-        "title": "GCP Cloud Configuration Review Methodology",
-        "release_date": "2025-10-30T00:00:00+00:00",
-        "description": "Methodology based on Google Cloud Platform Benchmarks",
-        "vrt_version": "1.15.1"
-    },
-    "content": {
-        "steps": [
-            {
-                "key": "identity_and_access_management",
-                "title": "Identity and Access Management",
-                "description": "This section covers security configurations for Google Cloud's Identity and Access Management (IAM), including organizational policies, user management, service accounts, and encryption keys.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "iam_domain_restricted_sharing",
-                        "title": "Verify the 'Domain restricted sharing' Organization Policy is Enforced",
-                        "description": "The 'Domain restricted sharing' organization policy can be used to limit resource sharing to identities belonging to one or more specified organizations. This should be confirmed as enforced to prevent data exfiltration and ensure resources are not shared with unauthorized external entities like personal Gmail accounts.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "iam_no_personal_accounts",
-                        "title": "Verify Corporate Credentials are Used for Cloud Access",
-                        "description": "Personal accounts, such as consumer Gmail accounts, should not be used for managing corporate cloud resources. It should be confirmed that all IAM users are associated with corporate identities (via Google Workspace or Cloud Identity) to ensure proper lifecycle management and accountability.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "iam_mfa_enforced",
-                        "title": "Confirm Multi-Factor Authentication is Enforced for Users",
-                        "description": "Multi-factor authentication (MFA) is a critical security control. It should be verified that MFA is enforced for all non-service account users, especially those with privileged roles, to protect against credential compromise.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "iam_session_control_enforced",
-                        "title": "Verify Session Control is Enforced for Cloud Identity and Workspace Users",
-                        "description": "Session control policies for Cloud Identity or Google Workspace users can mitigate data exfiltration risks by setting limits on session length. It should be confirmed that this feature is enabled and configured appropriately to enforce these session duration limits for all users.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "iam_separation_of_duties",
-                        "title": "Check for Separation of Duties in IAM Role Assignments",
-                        "description": "The principle of separation of duties should be applied to IAM roles to prevent any single user from having excessive control. For example, the user who manages KMS encryption keys should not be the same user who uses those keys to encrypt or decrypt data. Role bindings should be reviewed to confirm this segregation is in place.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "iam_service_account_least_privilege",
-                        "title": "Confirm Service Accounts are Not Granted Overly Broad Roles",
-                        "description": "Service accounts should not be assigned primitive roles like Owner, Editor, or Viewer at the project level. It should be verified that service accounts are granted specific, predefined or custom roles that adhere to the principle of least privilege.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "iam_service_account_key_rotation",
-                        "title": "Verify User-Managed Service Account Keys are Rotated Periodically",
-                        "description": "User-managed service account keys are long-lived credentials that pose a security risk if not managed properly. It should be confirmed that these keys are rotated on a regular schedule (e.g., every 90 days).",
-                        "tools": ""
-                    },
-                    {
-                        "key": "kms_key_rotation",
-                        "title": "Check that Automatic Key Rotation is Configured for KMS Keys",
-                        "description": "Cloud KMS keys should be configured to rotate automatically on a defined schedule. The rotation period should be reviewed to confirm it meets compliance and security requirements (e.g., a maximum of 365 days).",
-                        "tools": ""
-                    },
-                    {
-                        "key": "kms_separation_of_duties",
-                        "title": "Verify Separation of Duties for KMS Key Management",
-                        "description": "To maintain a clear separation of duties, it should be confirmed that IAM users granted administrative permissions for KMS (e.g., `cloudkms.admin`) are not the same users granted permissions to use those keys for cryptographic operations (e.g., `cloudkms.cryptoKeyEncrypterDecrypter`).",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "networking",
-                "title": "Networking",
-                "description": "This section reviews the security posture of Google Cloud networking resources, including VPCs, firewall rules, and DNS configurations.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "network_default_vpc_removed",
-                        "title": "Confirm the Default VPC Network Has Been Removed from Projects",
-                        "description": "The default VPC network is created with permissive firewall rules that can present a security risk. To reduce the project's attack surface, it should be confirmed that the default network has been deleted and replaced with a custom, more secure network configuration.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "network_private_google_access_enabled",
-                        "title": "Confirm Private Google Access is Enabled for VPC Subnets",
-                        "description": "Enabling Private Google Access allows VM instances on a subnet to reach Google APIs and services using an internal IP address rather than a public one. The configuration of all subnets should be reviewed to confirm this is enabled to reduce the public internet exposure of instances.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "network_firewall_rule_logging_enabled",
-                        "title": "Check that Firewall Rule Logging is Enabled",
-                        "description": "VPC Firewall Rule Logging provides visibility into the traffic that is being allowed or denied by your firewall rules. It should be confirmed that this feature is enabled for all non-default firewall rules to support security monitoring and incident response.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "network_restrict_rdp_access",
-                        "title": "Verify Firewall Rules Restrict RDP Access from the Internet",
-                        "description": "Allowing unrestricted access to RDP (TCP port 3389) from any source (0.0.0.0/0) creates a significant security risk. It should be confirmed that no firewall rules permit such access.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "network_restrict_ssh_access",
-                        "title": "Verify Firewall Rules Restrict SSH Access from the Internet",
-                        "description": "Unrestricted ingress from the internet to SSH (TCP port 22) exposes VM instances to brute-force attacks. It should be verified that no firewall rules are configured to allow access from any source (0.0.0.0/0).",
-                        "tools": ""
-                    },
-                    {
-                        "key": "network_dnssec_enabled",
-                        "title": "Confirm DNSSEC is Enabled for Cloud DNS Zones",
-                        "description": "DNSSEC helps protect domains from spoofing and cache poisoning attacks by providing a mechanism to verify the authenticity of DNS data. For any public-facing DNS zones managed in Cloud DNS, it should be confirmed that DNSSEC is enabled.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "network_rsasha1_not_used_for_dnssec",
-                        "title": "Verify RSASHA1 is Not Used for DNSSEC Zone-Signing Keys",
-                        "description": "The RSASHA1 algorithm is no longer considered secure for DNSSEC. For any DNS zones using DNSSEC, the configuration should be reviewed to confirm that a stronger algorithm, such as RSASHA256 or RSASHA512, is used for the zone-signing keys.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "compute_engine",
-                "title": "Compute Engine & VMs",
-                "description": "This section covers security configurations for Google Compute Engine virtual machine instances.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "vm_ip_forwarding_disabled",
-                        "title": "Confirm IP Forwarding is Disabled on VM Instances",
-                        "description": "Unless an instance is specifically intended to function as a router or NAT gateway, IP forwarding should be disabled. This prevents the instance from being used to route traffic it did not originate, which could be a security risk. The configuration for all VM instances should be reviewed to confirm this setting is disabled.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vm_default_service_account_not_used",
-                        "title": "Confirm VM Instances Do Not Use the Default Service Account",
-                        "description": "The default Compute Engine service account has broad, project-level editor permissions, which often violates the principle of least privilege. It should be verified that all VM instances are assigned dedicated, narrowly-scoped service accounts instead.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vm_default_service_account_no_full_access",
-                        "title": "Check that the Default Service Account Does Not Have Full Access to All Cloud APIs",
-                        "description": "The default service account should not be configured with the 'Allow full access to all Cloud APIs' scope. Instead, it should be given granular permissions. The configuration of all VM instances using the default service account should be reviewed to confirm this access scope is not in use.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vm_block_project_wide_ssh_disabled",
-                        "title": "Verify 'Block project-wide SSH keys' is Enabled for VM Instances",
-                        "description": "To prevent the use of common, project-wide SSH keys, which can lead to unauthorized access if a key is compromised, it should be confirmed that all VM instances are configured to block them. This forces the use of instance-specific SSH keys.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vm_serial_port_access_disabled",
-                        "title": "Confirm Serial Port Access is Disabled for VM Instances",
-                        "description": "Access to a VM's serial port can be used for interactive troubleshooting but also presents a security risk if not properly controlled. It should be verified that serial port access is disabled for all instances unless there is an explicit and documented need for it.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vm_shielded_vm_enabled",
-                        "title": "Check that Shielded VM Features are Enabled",
-                        "description": "Shielded VM provides verifiable integrity of Compute Engine instances, helping to defend against boot-level and kernel-level malware and rootkits. It should be confirmed that features like Secure Boot, vTPM, and Integrity Monitoring are enabled.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vm_disk_encryption_cmek",
-                        "title": "Verify VM Disks are Encrypted with Customer-Managed Encryption Keys (CMEK)",
-                        "description": "For enhanced control over data protection, Compute Engine persistent disks should be encrypted with a Customer-Managed Encryption Key (CMEK) from Cloud KMS, rather than the default Google-managed key. The encryption configuration for all disks should be reviewed.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "storage",
-                "title": "Storage",
-                "description": "This section reviews security configurations for Google Cloud Storage.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "storage_bucket_not_public",
-                        "title": "Verify Cloud Storage Buckets Are Not Publicly Accessible",
-                        "description": "Granting public access to a Cloud Storage bucket can result in unintended data exposure. All buckets should be reviewed to confirm that neither `allUsers` nor `allAuthenticatedUsers` are granted permissions in their IAM policies, except where public access is explicitly intended and documented.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "storage_uniform_bucket_access_enabled",
-                        "title": "Verify Uniform Bucket-Level Access is Enabled on Cloud Storage Buckets",
-                        "description": "Uniform bucket-level access simplifies permissions management by disabling object-level ACLs. All permissions are then managed through IAM. It should be confirmed that this setting is enabled on all buckets to maintain a consistent and manageable permissions model.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "storage_bucket_logging_enabled",
-                        "title": "Confirm Access Logging is Enabled for Cloud Storage Buckets",
-                        "description": "Bucket access logs provide a record of all requests made to a bucket, which is crucial for security auditing and incident investigation. It should be verified that logging is enabled for all buckets containing sensitive or critical data.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "storage_bucket_encryption_cmek",
-                        "title": "Check that Cloud Storage Buckets are Encrypted with Customer-Managed Encryption Keys (CMEK)",
-                        "description": "For greater control over data at rest, Cloud Storage buckets should be configured to use a Customer-Managed Encryption Key (CMEK) from Cloud KMS for default encryption. This should be verified for all buckets storing sensitive data.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "database_and_analytics_services",
-                "title": "Database and Analytics Services",
-                "description": "This section covers security best practices for Google's managed data platforms, including Cloud SQL and BigQuery.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "sql_restrict_public_ip",
-                        "title": "Confirm Cloud SQL Instances Restrict Ingress from Any IP Address",
-                        "description": "Cloud SQL instances should not be configured to accept connections from any IP address (0.0.0.0/0). The 'Authorized networks' configuration for each instance should be reviewed to ensure that access is restricted to specific, known IP ranges.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "sql_require_ssl",
-                        "title": "Verify SSL Encryption is Required for Cloud SQL Connections",
-                        "description": "Requiring SSL for connections to a Cloud SQL instance encrypts data in transit. The configuration of each SQL instance should be reviewed to confirm that only SSL connections are allowed.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "sql_automated_backups_enabled",
-                        "title": "Check that Automated Backups are Configured for Cloud SQL Instances",
-                        "description": "Automated backups are essential for data recovery. It should be confirmed that all production Cloud SQL instances have automated backups enabled with an appropriate schedule.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "sql_contained_database_auth_disabled_sqlserver",
-                        "title": "Verify 'Contained Database Authentication' Flag is Disabled for Cloud SQL for SQL Server",
-                        "description": "Contained database authentication allows users to be managed at the database level, which can bypass centralized IAM controls. For SQL Server instances, it should be verified that the `contained database authentication` flag is set to `off`.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "sql_cross_db_ownership_chaining_disabled_sqlserver",
-                        "title": "Verify 'Cross-DB Ownership Chaining' Flag is Disabled for Cloud SQL for SQL Server",
-                        "description": "Cross-database ownership chaining is a legacy feature that can create security risks by allowing implicit access across databases. For SQL Server instances, it should be confirmed that this database flag is set to `off`.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "sql_local_infile_disabled_mysql",
-                        "title": "Verify 'local_infile' Flag is Disabled for Cloud SQL for MySQL",
-                        "description": "The `local_infile` flag in MySQL allows for loading local data, which can be a security risk if an attacker can control the file path. It should be verified that this flag is set to `off` on all Cloud SQL for MySQL instances.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "sql_log_error_verbosity_default_postgres",
-                        "title": "Confirm 'log_error_verbosity' Flag is Not Overly Verbose for Cloud SQL for PostgreSQL",
-                        "description": "The `log_error_verbosity` flag controls the level of detail in error logs. Setting it to `TERSE` or `DEFAULT` is recommended to avoid logging potentially sensitive information. The configuration for all PostgreSQL instances should be reviewed.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "bigquery_public_access_disabled",
-                        "title": "Verify Public Access is Disabled for BigQuery Datasets",
-                        "description": "BigQuery datasets may contain sensitive information and should not be publicly accessible. The IAM policy for each dataset should be reviewed to confirm that it does not grant permissions to `allUsers` or `allAuthenticatedUsers`.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "ai_ml_platforms",
-                "title": "AI & ML Platforms",
-                "description": "This section provides security checks for Google Cloud's AI and Machine Learning services, such as Vertex AI.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "vertexai_no_public_ip",
-                        "title": "Verify Vertex AI Instances Do Not Have Public IP Addresses",
-                        "description": "To reduce the attack surface, Vertex AI instances should not have public IP addresses. Instead, they should be accessible only through their private IP address within a VPC. The configuration of each instance should be reviewed to confirm this setting.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "vertexai_notebooks_encrypted_cmek",
-                        "title": "Check that Vertex AI Notebooks are Encrypted with Customer-Managed Keys (CMEK)",
-                        "description": "For greater control over the encryption of data within AI notebooks, it should be confirmed that Vertex AI notebooks are configured to use a Customer-Managed Encryption Key (CMEK) from Cloud KMS.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "logging_and_monitoring",
-                "title": "Logging and Monitoring",
-                "description": "This section covers configurations for Google Cloud's operations suite, including Cloud Logging, Cloud Monitoring, and Audit Logs.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "logging_all_entries_sink_configured",
-                        "title": "Confirm Log Sinks are Configured for All Log Entries",
-                        "description": "To ensure that all log entries are captured for long-term retention and analysis, log sinks should be configured. The configuration should be reviewed to confirm that a sink is established to export all log entries to a designated destination, such as Cloud Storage, BigQuery, or Pub/Sub.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "logging_audit_logs_not_modified",
-                        "title": "Verify the Default Audit Log Configuration has Not Been Modified",
-                        "description": "Google Cloud's default audit logging configuration is designed to capture critical security information. It should be confirmed that no exclusion filters have been applied to the default sinks that would prevent Data Access or Admin Read audit logs from being recorded.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "logging_storage_bucket_retention_enabled",
-                        "title": "Check that Log Storage Buckets Have Retention Policies and are Not Public",
-                        "description": "The Cloud Storage bucket used as a destination for log sinks should be configured with a retention policy to meet compliance needs. Additionally, it must be confirmed that the bucket is not publicly accessible.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "monitoring_alarm_for_iam_changes",
-                        "title": "Verify an Alarm Exists for IAM Policy Changes",
-                        "description": "A log metric and alert should be configured to detect and notify administrators of any changes to IAM policies within a project. This provides timely awareness of modifications to user permissions.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "monitoring_alarm_for_firewall_changes",
-                        "title": "Verify an Alarm Exists for VPC Firewall Rule Changes",
-                        "description": "Changes to firewall rules can directly impact network security. A log metric and alert should be in place to monitor for the creation, patching, or deletion of firewall rules.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "monitoring_alarm_for_route_changes",
-                        "title": "Verify an Alarm Exists for VPC Route Changes",
-                        "description": "A log metric and alert should be configured to detect the creation or deletion of routes in a VPC's route table. This helps monitor for potentially malicious changes to network traffic paths.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "monitoring_alarm_for_custom_role_changes",
-                        "title": "Verify an Alarm Exists for Custom IAM Role Changes",
-                        "description": "The creation, deletion, or updating of custom IAM roles are sensitive security events. A log metric and alert should be configured to provide notifications for these activities.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "monitoring_alarm_for_sql_instance_changes",
-                        "title": "Verify an Alarm Exists for Cloud SQL Instance Configuration Changes",
-                        "description": "Any configuration change to a Cloud SQL instance should be monitored. A log metric and alert should be established to provide notifications for these events.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "security_operations",
-                "title": "Security Operations",
-                "description": "This section covers the configuration of Google Cloud's centralized security management platform, Security Command Center.",
-                "type": "checklist",
-                "items": [
-                    {
-                        "key": "scc_enabled",
-                        "title": "Confirm Security Command Center is Enabled",
-                        "description": "Security Command Center is a centralized security and risk management platform for Google Cloud. It should be confirmed that this service is enabled at the organization level to provide visibility into assets, vulnerabilities, and threats.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "scc_discovery_notifications_enabled",
-                        "title": "Verify Notifications for Security Command Center Discovery Findings are Enabled",
-                        "description": "Notifications should be configured for findings generated by Security Command Center's asset discovery. This ensures that relevant teams are alerted to changes in the cloud asset inventory.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "scc_vulnerability_notifications_enabled",
-                        "title": "Verify Notifications for Security Command Center Vulnerability Findings are Enabled",
-                        "description": "Security Command Center can identify various vulnerabilities, such as open firewall ports or publicly exposed buckets. It should be confirmed that notifications are enabled for these critical findings to ensure timely remediation.",
-                        "tools": ""
-                    },
-                    {
-                        "key": "scc_error_notifications_enabled",
-                        "title": "Verify Notifications for Security Command Center Error Findings are Enabled",
-                        "description": "Notifications should be configured for findings related to service misconfigurations, such as errors in Cloud Audit Logging. This ensures that operational issues affecting security posture are promptly addressed.",
-                        "tools": ""
-                    }
-                ]
-            },
-            {
-                "key": "upload_logs",
-                "title": "Upload logs",
-                "description": "This should include all associated traffic associated to the in-scope targets.",
-                "type": "large_upload"
-            },
-            {
-                "key": "executive_summary",
-                "title": "Executive summary",
-                "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
-                "type": "executive_summary"
-            }
+  "metadata": {
+    "title": "GCP Cloud Configuration Review Methodology",
+    "release_date": "2025-10-30T00:00:00+00:00",
+    "description": "Methodology based on Google Cloud Platform Benchmarks",
+    "vrt_version": "1.15.1"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "identity_and_access_management",
+        "title": "Identity and Access Management",
+        "description": "This section covers security configurations for Google Cloud's Identity and Access Management (IAM), including organizational policies, user management, service accounts, and encryption keys.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "iam_domain_restricted_sharing",
+            "title": "Verify the Domain restricted sharing Organization Policy is Enforced",
+            "description": "The 'Domain restricted sharing' organization policy can be used to limit resource sharing to identities belonging to one or more specified organizations. This should be confirmed as enforced to prevent data exfiltration and ensure resources are not shared with unauthorized external entities like personal Gmail accounts.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "iam_no_personal_accounts",
+            "title": "Verify Corporate Credentials are Used for Cloud Access",
+            "description": "Personal accounts, such as consumer Gmail accounts, should not be used for managing corporate cloud resources. It should be confirmed that all IAM users are associated with corporate identities (via Google Workspace or Cloud Identity) to ensure proper lifecycle management and accountability.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "iam_mfa_enforced",
+            "title": "Confirm Multi-Factor Authentication is Enforced for Users",
+            "description": "Multi-factor authentication (MFA) is a critical security control. It should be verified that MFA is enforced for all non-service account users, especially those with privileged roles, to protect against credential compromise.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "iam_session_control_enforced",
+            "title": "Verify Session Control is Enforced for Cloud Identity and Workspace Users",
+            "description": "Session control policies for Cloud Identity or Google Workspace users can mitigate data exfiltration risks by setting limits on session length. It should be confirmed that this feature is enabled and configured appropriately to enforce these session duration limits for all users.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "iam_separation_of_duties",
+            "title": "Check for Separation of Duties in IAM Role Assignments",
+            "description": "The principle of separation of duties should be applied to IAM roles to prevent any single user from having excessive control. For example, the user who manages KMS encryption keys should not be the same user who uses those keys to encrypt or decrypt data. Role bindings should be reviewed to confirm this segregation is in place.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "iam_service_account_least_privilege",
+            "title": "Confirm Service Accounts are Not Granted Overly Broad Roles",
+            "description": "Service accounts should not be assigned primitive roles like Owner, Editor, or Viewer at the project level. It should be verified that service accounts are granted specific, predefined or custom roles that adhere to the principle of least privilege.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "iam_service_account_key_rotation",
+            "title": "Verify User-Managed Service Account Keys are Rotated Periodically",
+            "description": "User-managed service account keys are long-lived credentials that pose a security risk if not managed properly. It should be confirmed that these keys are rotated on a regular schedule (e.g., every 90 days).",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "kms_key_rotation",
+            "title": "Check that Automatic Key Rotation is Configured for KMS Keys",
+            "description": "Cloud KMS keys should be configured to rotate automatically on a defined schedule. The rotation period should be reviewed to confirm it meets compliance and security requirements (e.g., a maximum of 365 days).",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "kms_separation_of_duties",
+            "title": "Verify Separation of Duties for KMS Key Management",
+            "description": "To maintain a clear separation of duties, it should be confirmed that IAM users granted administrative permissions for KMS (e.g., `cloudkms.admin`) are not the same users granted permissions to use those keys for cryptographic operations (e.g., `cloudkms.cryptoKeyEncrypterDecrypter`).",
+            "tools": "",
+            "caption": ""
+          }
         ]
-    }
+      },
+      {
+        "key": "networking",
+        "title": "Networking",
+        "description": "This section reviews the security posture of Google Cloud networking resources, including VPCs, firewall rules, and DNS configurations.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "network_default_vpc_removed",
+            "title": "Confirm the Default VPC Network Has Been Removed from Projects",
+            "description": "The default VPC network is created with permissive firewall rules that can present a security risk. To reduce the project's attack surface, it should be confirmed that the default network has been deleted and replaced with a custom, more secure network configuration.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "network_private_google_access_enabled",
+            "title": "Confirm Private Google Access is Enabled for VPC Subnets",
+            "description": "Enabling Private Google Access allows VM instances on a subnet to reach Google APIs and services using an internal IP address rather than a public one. The configuration of all subnets should be reviewed to confirm this is enabled to reduce the public internet exposure of instances.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "network_firewall_rule_logging_enabled",
+            "title": "Check that Firewall Rule Logging is Enabled",
+            "description": "VPC Firewall Rule Logging provides visibility into the traffic that is being allowed or denied by your firewall rules. It should be confirmed that this feature is enabled for all non-default firewall rules to support security monitoring and incident response.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "network_restrict_rdp_access",
+            "title": "Verify Firewall Rules Restrict RDP Access from the Internet",
+            "description": "Allowing unrestricted access to RDP (TCP port 3389) from any source (0.0.0.0/0) creates a significant security risk. It should be confirmed that no firewall rules permit such access.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "network_restrict_ssh_access",
+            "title": "Verify Firewall Rules Restrict SSH Access from the Internet",
+            "description": "Unrestricted ingress from the internet to SSH (TCP port 22) exposes VM instances to brute-force attacks. It should be verified that no firewall rules are configured to allow access from any source (0.0.0.0/0).",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "network_dnssec_enabled",
+            "title": "Confirm DNSSEC is Enabled for Cloud DNS Zones",
+            "description": "DNSSEC helps protect domains from spoofing and cache poisoning attacks by providing a mechanism to verify the authenticity of DNS data. For any public-facing DNS zones managed in Cloud DNS, it should be confirmed that DNSSEC is enabled.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "network_rsasha1_not_used_for_dnssec",
+            "title": "Verify RSASHA1 is Not Used for DNSSEC Zone-Signing Keys",
+            "description": "The RSASHA1 algorithm is no longer considered secure for DNSSEC. For any DNS zones using DNSSEC, the configuration should be reviewed to confirm that a stronger algorithm, such as RSASHA256 or RSASHA512, is used for the zone-signing keys.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "compute_engine",
+        "title": "Compute Engine & VMs",
+        "description": "This section covers security configurations for Google Compute Engine virtual machine instances.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "vm_ip_forwarding_disabled",
+            "title": "Confirm IP Forwarding is Disabled on VM Instances",
+            "description": "Unless an instance is specifically intended to function as a router or NAT gateway, IP forwarding should be disabled. This prevents the instance from being used to route traffic it did not originate, which could be a security risk. The configuration for all VM instances should be reviewed to confirm this setting is disabled.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vm_default_service_account_not_used",
+            "title": "Confirm VM Instances Do Not Use the Default Service Account",
+            "description": "The default Compute Engine service account has broad, project-level editor permissions, which often violates the principle of least privilege. It should be verified that all VM instances are assigned dedicated, narrowly-scoped service accounts instead.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vm_default_service_account_no_full_access",
+            "title": "Check that the Default Service Account Does Not Have Full Access to All Cloud APIs",
+            "description": "The default service account should not be configured with the 'Allow full access to all Cloud APIs' scope. Instead, it should be given granular permissions. The configuration of all VM instances using the default service account should be reviewed to confirm this access scope is not in use.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vm_block_project_wide_ssh_disabled",
+            "title": "Verify Block project-wide SSH keys is Enabled for VM Instances",
+            "description": "To prevent the use of common, project-wide SSH keys, which can lead to unauthorized access if a key is compromised, it should be confirmed that all VM instances are configured to block them. This forces the use of instance-specific SSH keys.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vm_serial_port_access_disabled",
+            "title": "Confirm Serial Port Access is Disabled for VM Instances",
+            "description": "Access to a VM's serial port can be used for interactive troubleshooting but also presents a security risk if not properly controlled. It should be verified that serial port access is disabled for all instances unless there is an explicit and documented need for it.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vm_shielded_vm_enabled",
+            "title": "Check that Shielded VM Features are Enabled",
+            "description": "Shielded VM provides verifiable integrity of Compute Engine instances, helping to defend against boot-level and kernel-level malware and rootkits. It should be confirmed that features like Secure Boot, vTPM, and Integrity Monitoring are enabled.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vm_disk_encryption_cmek",
+            "title": "Verify VM Disks are Encrypted with Customer-Managed Encryption Keys (CMEK)",
+            "description": "For enhanced control over data protection, Compute Engine persistent disks should be encrypted with a Customer-Managed Encryption Key (CMEK) from Cloud KMS, rather than the default Google-managed key. The encryption configuration for all disks should be reviewed.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "storage",
+        "title": "Storage",
+        "description": "This section reviews security configurations for Google Cloud Storage.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "storage_bucket_not_public",
+            "title": "Verify Cloud Storage Buckets Are Not Publicly Accessible",
+            "description": "Granting public access to a Cloud Storage bucket can result in unintended data exposure. All buckets should be reviewed to confirm that neither `allUsers` nor `allAuthenticatedUsers` are granted permissions in their IAM policies, except where public access is explicitly intended and documented.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "storage_uniform_bucket_access_enabled",
+            "title": "Verify Uniform Bucket-Level Access is Enabled on Cloud Storage Buckets",
+            "description": "Uniform bucket-level access simplifies permissions management by disabling object-level ACLs. All permissions are then managed through IAM. It should be confirmed that this setting is enabled on all buckets to maintain a consistent and manageable permissions model.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "storage_bucket_logging_enabled",
+            "title": "Confirm Access Logging is Enabled for Cloud Storage Buckets",
+            "description": "Bucket access logs provide a record of all requests made to a bucket, which is crucial for security auditing and incident investigation. It should be verified that logging is enabled for all buckets containing sensitive or critical data.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "storage_bucket_encryption_cmek",
+            "title": "Check that Cloud Storage Buckets are Encrypted with Customer-Managed Encryption Keys (CMEK)",
+            "description": "For greater control over data at rest, Cloud Storage buckets should be configured to use a Customer-Managed Encryption Key (CMEK) from Cloud KMS for default encryption. This should be verified for all buckets storing sensitive data.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "database_and_analytics_services",
+        "title": "Database and Analytics Services",
+        "description": "This section covers security best practices for Google's managed data platforms, including Cloud SQL and BigQuery.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "sql_restrict_public_ip",
+            "title": "Confirm Cloud SQL Instances Restrict Ingress from Any IP Address",
+            "description": "Cloud SQL instances should not be configured to accept connections from any IP address (0.0.0.0/0). The 'Authorized networks' configuration for each instance should be reviewed to ensure that access is restricted to specific, known IP ranges.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "sql_require_ssl",
+            "title": "Verify SSL Encryption is Required for Cloud SQL Connections",
+            "description": "Requiring SSL for connections to a Cloud SQL instance encrypts data in transit. The configuration of each SQL instance should be reviewed to confirm that only SSL connections are allowed.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "sql_automated_backups_enabled",
+            "title": "Check that Automated Backups are Configured for Cloud SQL Instances",
+            "description": "Automated backups are essential for data recovery. It should be confirmed that all production Cloud SQL instances have automated backups enabled with an appropriate schedule.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "sql_contained_database_auth_disabled_sqlserver",
+            "title": "Verify Contained Database Authentication Flag is Disabled for Cloud SQL for SQL Server",
+            "description": "Contained database authentication allows users to be managed at the database level, which can bypass centralized IAM controls. For SQL Server instances, it should be verified that the `contained database authentication` flag is set to `off`.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "sql_cross_db_ownership_chaining_disabled_sqlserver",
+            "title": "Verify Cross-DB Ownership Chaining Flag is Disabled for Cloud SQL for SQL Server",
+            "description": "Cross-database ownership chaining is a legacy feature that can create security risks by allowing implicit access across databases. For SQL Server instances, it should be confirmed that this database flag is set to `off`.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "sql_local_infile_disabled_mysql",
+            "title": "Verify local infile Flag is Disabled for Cloud SQL for MySQL",
+            "description": "The `local_infile` flag in MySQL allows for loading local data, which can be a security risk if an attacker can control the file path. It should be verified that this flag is set to `off` on all Cloud SQL for MySQL instances.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "sql_log_error_verbosity_default_postgres",
+            "title": "Confirm log error verbosity Flag is Not Overly Verbose for Cloud SQL for PostgreSQL",
+            "description": "The `log_error_verbosity` flag controls the level of detail in error logs. Setting it to `TERSE` or `DEFAULT` is recommended to avoid logging potentially sensitive information. The configuration for all PostgreSQL instances should be reviewed.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "bigquery_public_access_disabled",
+            "title": "Verify Public Access is Disabled for BigQuery Datasets",
+            "description": "BigQuery datasets may contain sensitive information and should not be publicly accessible. The IAM policy for each dataset should be reviewed to confirm that it does not grant permissions to `allUsers` or `allAuthenticatedUsers`.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "ai_ml_platforms",
+        "title": "AI & ML Platforms",
+        "description": "This section provides security checks for Google Cloud's AI and Machine Learning services, such as Vertex AI.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "vertexai_no_public_ip",
+            "title": "Verify Vertex AI Instances Do Not Have Public IP Addresses",
+            "description": "To reduce the attack surface, Vertex AI instances should not have public IP addresses. Instead, they should be accessible only through their private IP address within a VPC. The configuration of each instance should be reviewed to confirm this setting.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "vertexai_notebooks_encrypted_cmek",
+            "title": "Check that Vertex AI Notebooks are Encrypted with Customer-Managed Keys (CMEK)",
+            "description": "For greater control over the encryption of data within AI notebooks, it should be confirmed that Vertex AI notebooks are configured to use a Customer-Managed Encryption Key (CMEK) from Cloud KMS.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "logging_and_monitoring",
+        "title": "Logging and Monitoring",
+        "description": "This section covers configurations for Google Cloud's operations suite, including Cloud Logging, Cloud Monitoring, and Audit Logs.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "logging_all_entries_sink_configured",
+            "title": "Confirm Log Sinks are Configured for All Log Entries",
+            "description": "To ensure that all log entries are captured for long-term retention and analysis, log sinks should be configured. The configuration should be reviewed to confirm that a sink is established to export all log entries to a designated destination, such as Cloud Storage, BigQuery, or Pub/Sub.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "logging_audit_logs_not_modified",
+            "title": "Verify the Default Audit Log Configuration has Not Been Modified",
+            "description": "Google Cloud's default audit logging configuration is designed to capture critical security information. It should be confirmed that no exclusion filters have been applied to the default sinks that would prevent Data Access or Admin Read audit logs from being recorded.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "logging_storage_bucket_retention_enabled",
+            "title": "Check that Log Storage Buckets Have Retention Policies and are Not Public",
+            "description": "The Cloud Storage bucket used as a destination for log sinks should be configured with a retention policy to meet compliance needs. Additionally, it must be confirmed that the bucket is not publicly accessible.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "monitoring_alarm_for_iam_changes",
+            "title": "Verify an Alarm Exists for IAM Policy Changes",
+            "description": "A log metric and alert should be configured to detect and notify administrators of any changes to IAM policies within a project. This provides timely awareness of modifications to user permissions.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "monitoring_alarm_for_firewall_changes",
+            "title": "Verify an Alarm Exists for VPC Firewall Rule Changes",
+            "description": "Changes to firewall rules can directly impact network security. A log metric and alert should be in place to monitor for the creation, patching, or deletion of firewall rules.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "monitoring_alarm_for_route_changes",
+            "title": "Verify an Alarm Exists for VPC Route Changes",
+            "description": "A log metric and alert should be configured to detect the creation or deletion of routes in a VPC's route table. This helps monitor for potentially malicious changes to network traffic paths.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "monitoring_alarm_for_custom_role_changes",
+            "title": "Verify an Alarm Exists for Custom IAM Role Changes",
+            "description": "The creation, deletion, or updating of custom IAM roles are sensitive security events. A log metric and alert should be configured to provide notifications for these activities.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "monitoring_alarm_for_sql_instance_changes",
+            "title": "Verify an Alarm Exists for Cloud SQL Instance Configuration Changes",
+            "description": "Any configuration change to a Cloud SQL instance should be monitored. A log metric and alert should be established to provide notifications for these events.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "security_operations",
+        "title": "Security Operations",
+        "description": "This section covers the configuration of Google Cloud's centralized security management platform, Security Command Center.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "scc_enabled",
+            "title": "Confirm Security Command Center is Enabled",
+            "description": "Security Command Center is a centralized security and risk management platform for Google Cloud. It should be confirmed that this service is enabled at the organization level to provide visibility into assets, vulnerabilities, and threats.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "scc_discovery_notifications_enabled",
+            "title": "Verify Notifications for Security Command Center Discovery Findings are Enabled",
+            "description": "Notifications should be configured for findings generated by Security Command Center's asset discovery. This ensures that relevant teams are alerted to changes in the cloud asset inventory.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "scc_vulnerability_notifications_enabled",
+            "title": "Verify Notifications for Security Command Center Vulnerability Findings are Enabled",
+            "description": "Security Command Center can identify various vulnerabilities, such as open firewall ports or publicly exposed buckets. It should be confirmed that notifications are enabled for these critical findings to ensure timely remediation.",
+            "tools": "",
+            "caption": ""
+          },
+          {
+            "key": "scc_error_notifications_enabled",
+            "title": "Verify Notifications for Security Command Center Error Findings are Enabled",
+            "description": "Notifications should be configured for findings related to service misconfigurations, such as errors in Cloud Audit Logging. This ensures that operational issues affecting security posture are promptly addressed.",
+            "tools": "",
+            "caption": ""
+          }
+        ]
+      },
+      {
+        "key": "upload_logs",
+        "title": "Upload logs",
+        "description": "This should include all associated traffic associated to the in-scope targets.",
+        "type": "large_upload"
+      },
+      {
+        "key": "executive_summary",
+        "title": "Executive summary",
+        "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+        "type": "executive_summary"
+      }
+    ]
+  }
 }
