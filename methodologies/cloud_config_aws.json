@@ -1,0 +1,621 @@
+{
+  "metadata": {
+    "title": "AWS Cloud Configuration Review Methodology",
+    "release_date": "2025-10-30T00:00:00+00:00",
+    "description": "Methodology based on the Amazon Web Services Benchmarks",
+    "vrt_version": "1.15.1"
+  },
+  "content": {
+    "steps": [
+      {
+        "key": "identity_and_access_management",
+        "title": "Identity and Access Management",
+        "description": "This section outlines checks for AWS Identity and Access Management (IAM), focusing on the principle of least privilege, password policies, and the security of the root account.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "iam_root_access_keys_exist",
+            "title": "Confirm that No Access Keys are Associated with the Root Account",
+            "description": "The root account holds the highest level of privilege in an AWS account. For maximum security, access keys should not be associated with this user. It should be verified that no active or inactive access keys exist for the root user to mitigate the risk of a full account compromise.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_root_mfa_enabled",
+            "title": "Verify that Multi-Factor Authentication (MFA) is Activated for the Root Account",
+            "description": "Activating MFA for the root account adds an essential layer of security. This measure should be confirmed as active to protect the most privileged user from unauthorized access.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_password_policy_strong",
+            "title": "Check for a Strong IAM Password Policy",
+            "description": "A strong password policy should be in place for IAM users to increase account resilience against brute-force login attempts. The current policy should be reviewed to confirm it enforces requirements for minimum length, uppercase and lowercase letters, numbers, and symbols.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_password_policy_prevents_reuse",
+            "title": "Verify the IAM Password Policy Prevents Password Reuse",
+            "description": "The IAM password policy can be configured to prevent users from reusing a specified number of previous passwords. This setting should be checked to ensure it is active, which makes it more difficult for an attacker to gain access using a previously compromised password.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_password_policy_expires_passwords",
+            "title": "Confirm the IAM Password Policy Enforces Password Expiration",
+            "description": "The IAM password policy should be reviewed to confirm that it requires users to change their passwords within a defined period (e.g., 90 days or less). Regularly expiring passwords reduces the risk of an old, potentially compromised password remaining active indefinitely.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_mfa_for_console_users",
+            "title": "Verify MFA is Required for All IAM Users with Console Access",
+            "description": "All IAM users that are permitted to authenticate to the AWS Management Console should have MFA enabled. This adds a critical layer of protection for interactive user sessions.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_no_user_attached_policies",
+            "title": "Confirm IAM Policies are Attached to Groups or Roles, Not Directly to Users",
+            "description": "Attaching IAM policies directly to users can complicate access management. The best practice is to attach policies to groups or roles and then assign users to those groups or roles. All user accounts should be reviewed to confirm they do not have policies attached directly.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_access_keys_rotated",
+            "title": "Check that IAM User Access Keys are Rotated Periodically",
+            "description": "Long-lived credentials like access keys present a security risk. A process should be in place to ensure all IAM user access keys are rotated within a defined period, such as every 90 days, to limit the window of opportunity for misuse if a key is compromised.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_support_role_exists",
+            "title": "Verify an IAM Role Exists for Managing Incidents with AWS Support",
+            "description": "To allow authorized users to manage incidents with AWS Support, a dedicated IAM role should be created. This avoids sharing credentials and allows for more granular control over who can interact with AWS Support on the account's behalf.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "iam_remove_inactive_credentials",
+            "title": "Check for Inactive IAM User Credentials",
+            "description": "User credentials, including passwords and access keys, that have not been used for a defined period (e.g., 90 days or more) pose an unnecessary risk. These inactive credentials should be identified and confirmed as disabled or removed.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "networking_and_connectivity",
+        "title": "Networking and Connectivity",
+        "description": "This section covers security best practices for network configurations, including Virtual Private Clouds (VPCs), Security Groups, and network traffic logging.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "network_restrict_ssh_access",
+            "title": "Verify Security Groups Restrict Ingress on Port 22 from Any IP",
+            "description": "Security groups act as a stateful firewall for EC2 instances. Unrestricted ingress access on port 22 (SSH) from any IP address (0.0.0.0/0) significantly increases the risk of brute-force attacks. The configuration of all security groups should be reviewed to confirm that such a rule does not exist.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "network_restrict_rdp_access",
+            "title": "Verify Security Groups Restrict Ingress on Port 3389 from Any IP",
+            "description": "Allowing unrestricted ingress traffic on port 3389 (RDP) from any IP address (0.0.0.0/0) creates a significant security risk. All security groups should be audited to ensure this configuration is not in use, thereby protecting Windows-based instances from external brute-force attacks.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "network_vpc_flow_logs_enabled",
+            "title": "Confirm that VPC Flow Logging is Enabled in All VPCs",
+            "description": "VPC Flow Logs capture information about the IP traffic going to and from network interfaces in your VPC. This data is invaluable for security monitoring and network traffic analysis. It should be verified that flow logging is enabled for all VPCs.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "network_default_security_group_restricts_traffic",
+            "title": "Verify the Default Security Group in every VPC Restricts All Traffic",
+            "description": "The default security group for a VPC should be configured to restrict all inbound and outbound traffic. This follows a least-privilege model, forcing the explicit creation of rules in other, non-default security groups for any required traffic.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "network_route_tables_for_igw_and_vgw",
+            "title": "Check that Route Tables for VPC Peering are Least Access",
+            "description": "When using a VPC peering connection, it is important to review the route tables to ensure they do not allow for more network access than is explicitly required. The routes should be checked to confirm they adhere to the principle of least privilege.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "network_cloudfront_distribution_with_waf",
+            "title": "Confirm CloudFront Distributions are Integrated with AWS WAF",
+            "description": "For any CloudFront distribution, it should be confirmed that AWS Web Application Firewall (WAF) is attached. WAF provides protection against common web exploits that could affect application availability or security.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "compute_platform_security",
+        "title": "Compute Platform Security",
+        "description": "This section details security recommendations for core AWS compute resources like EC2, Lambda, and container services (ECR, ECS, EKS).",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "ec2_ebs_encryption_enabled",
+            "title": "Verify Encryption is Enabled for EBS Volumes",
+            "description": "Encrypting EBS volumes protects data at rest. It should be verified that all EBS volumes, both boot and data, are configured with encryption enabled to safeguard sensitive information. AWS encrypts new EBS volumes by default.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "ec2_imdsv2_required",
+            "title": "Confirm EC2 Instances Require IMDSv2",
+            "description": "The EC2 Instance Metadata Service (IMDS) provides data about an instance. Version 2 (IMDSv2) uses session-oriented requests, which provides enhanced protection against vulnerabilities. It should be verified that instances are configured to require the use of IMDSv2.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "ec2_no_public_amis",
+            "title": "Check that AMIs are Not Publicly Shared",
+            "description": "Amazon Machine Images (AMIs) should not be publicly available unless explicitly intended for public consumption. Sharing AMIs publicly can expose sensitive data or proprietary software configurations. All AMIs should be reviewed to confirm their launch permissions are not set to public.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "lambda_least_privilege_roles",
+            "title": "Verify Lambda Functions Use Least-Privilege IAM Roles",
+            "description": "Each Lambda function should have an execution role with IAM policies that grant only the permissions necessary for the function to operate. The policies attached to Lambda execution roles should be reviewed to ensure they do not grant excessive permissions.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "lambda_function_policies_restrict_public_access",
+            "title": "Confirm Lambda Function Policies Restrict Public Access",
+            "description": "A resource-based policy can be attached to a Lambda function to control access. It should be confirmed that these policies do not grant public or anonymous access, which would allow anyone to invoke the function.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "ecr_repository_scan_on_push",
+            "title": "Verify ECR Repositories are Configured to Scan on Push",
+            "description": "Amazon Elastic Container Registry (ECR) can automatically scan container images for software vulnerabilities upon being pushed to a repository. It should be confirmed that this setting is enabled for all repositories to identify vulnerabilities early in the development lifecycle.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "ecr_repository_tag_immutability",
+            "title": "Confirm Tag Immutability is Enabled for ECR Repositories",
+            "description": "Tag immutability prevents image tags from being overwritten by a different image pushed with the same tag. The status of this setting should be checked to ensure it is configured, which helps prevent tag-related deployment issues and maintains a reliable image history.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "ecs_task_definitions_use_least_privilege",
+            "title": "Verify ECS Task Definitions Use Least-Privilege IAM Roles",
+            "description": "ECS tasks can be assigned an IAM role to interact with other AWS services. It should be confirmed that the policies attached to these task roles grant only the minimum required permissions, adhering to the principle of least privilege.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "eks_endpoint_public_access_restricted",
+            "title": "Check that EKS Cluster Endpoint Public Access is Restricted",
+            "description": "The Kubernetes API server endpoint for an EKS cluster should not be accessible to the public internet. Access should be restricted to specific IP CIDR blocks within the VPC to reduce the cluster's attack surface.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "data_storage_services",
+        "title": "Data Storage Services",
+        "description": "This section covers security configurations for AWS storage services, including S3 for object storage, EFS and FSx for file storage, and AWS Backup for data protection.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "s3_account_block_public_access",
+            "title": "Confirm S3 Block Public Access Setting is Enabled at the Account Level",
+            "description": "The S3 Block Public Access feature provides a centralized way to prevent public access to S3 buckets and objects. It should be confirmed that this setting is enabled at the account level to mitigate the risk of accidental data exposure from misconfigured buckets.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "s3_default_encryption_enabled",
+            "title": "Verify Default Encryption is Enabled for S3 Buckets",
+            "description": "S3 buckets should have default encryption enabled to ensure that all new objects are automatically encrypted when stored. This protects data at rest without requiring encryption to be specified for each object upload.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "s3_versioning_enabled",
+            "title": "Confirm that S3 Bucket Versioning is Enabled",
+            "description": "Versioning keeps multiple variants of an object in the same bucket, which can be used to preserve, retrieve, and restore every version of every object stored. It should be confirmed that versioning is enabled as a protection against accidental or malicious overwrites and deletions.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "s3_access_logging_enabled",
+            "title": "Check that Server Access Logging is Enabled for S3 Buckets",
+            "description": "Server access logging provides detailed records for the requests that are made to an S3 bucket. It should be verified that logging is enabled and directed to a separate, secure bucket to provide an audit trail for access and to support security investigations.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "s3_mfa_delete_enabled",
+            "title": "Verify MFA Delete is Enabled for S3 Buckets",
+            "description": "The MFA Delete feature requires an additional factor of authentication for changing a bucket's versioning state and permanently deleting an object version. It should be confirmed that this setting is enabled to provide a higher level of security against accidental or unauthorized data deletion.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "efs_encryption_at_rest_enabled",
+            "title": "Confirm Encryption for Data at Rest is Enabled for EFS File Systems",
+            "description": "Amazon EFS supports encryption of data at rest to protect sensitive information stored within file systems. It should be verified that encryption is enabled for all EFS file systems.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "fsx_encryption_at_rest_enabled",
+            "title": "Verify Encryption for Data at Rest is Enabled for FSx File Systems",
+            "description": "Amazon FSx for Windows File Server encrypts data at rest using keys managed in AWS KMS. The configuration should be reviewed to confirm that at-rest encryption is active for all file systems.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "storage_gateway_chap_auth_configured",
+            "title": "Check that CHAP Authentication is Configured for Storage Gateway iSCSI Targets",
+            "description": "Challenge-Handshake Authentication Protocol (CHAP) provides authentication for iSCSI targets, protecting against unauthorized access. It should be confirmed that mutual CHAP is configured for any volume attached via iSCSI on a Storage Gateway.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "backup_plan_exists",
+            "title": "Confirm a Backup Plan Exists",
+            "description": "AWS Backup provides a centralized service to manage backups across AWS services. A backup plan defines when and how you want to back up your AWS resources. It should be verified that at least one backup plan is configured and active.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "database_services",
+        "title": "Database Services",
+        "description": "This section provides security checks for various AWS database services, including RDS, DynamoDB, Redshift, and ElastiCache.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "rds_not_publicly_accessible",
+            "title": "Confirm RDS Database Instances Are Not Publicly Accessible",
+            "description": "RDS instances should not be directly accessible from the public internet. The 'Publicly accessible' setting should be reviewed and confirmed as 'No' to ensure database instances are only reachable from within their VPC or authorized networks.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "rds_storage_encryption_enabled",
+            "title": "Verify Storage Encryption is Enabled for RDS Instances",
+            "description": "Encrypting RDS instances protects the underlying storage, automated backups, read replicas, and snapshots. It should be confirmed that encryption at rest is enabled for all RDS database instances.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "rds_iam_authentication_enabled",
+            "title": "Check that IAM Database Authentication is Enabled for RDS Instances",
+            "description": "IAM database authentication allows you to authenticate to your DB instance with an IAM user or role, avoiding the need to manage database credentials separately. It should be verified that this feature is enabled.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "rds_auto_minor_version_upgrade_enabled",
+            "title": "Confirm Automatic Minor Version Upgrades are Enabled for RDS Instances",
+            "description": "The 'Auto minor version upgrade' feature ensures that your RDS instances are automatically updated with the latest minor version patches, which often include security fixes. It should be confirmed that this setting is enabled.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "rds_enhanced_monitoring_enabled",
+            "title": "Verify Enhanced Monitoring is Enabled for RDS Instances",
+            "description": "Enhanced Monitoring provides real-time metrics for the operating system that your DB instance runs on. The data can be directed to CloudWatch Logs for analysis. It should be confirmed that this feature is enabled to gain deeper insights into instance performance and health.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "dynamodb_pitr_enabled",
+            "title": "Check that Point-in-Time Recovery (PITR) is Enabled for DynamoDB Tables",
+            "description": "Point-in-time recovery helps protect your DynamoDB tables from accidental write or delete operations. It should be confirmed that this feature is enabled, as it allows you to restore a table to any point in time during the preceding 35 days.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "redshift_cluster_not_public",
+            "title": "Confirm Redshift Clusters Are Not Publicly Accessible",
+            "description": "Amazon Redshift clusters should not be accessible from the public internet. The cluster's network configuration should be reviewed to confirm that the 'Publicly accessible' option is disabled.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "redshift_cluster_encryption_enabled",
+            "title": "Verify Encryption is Enabled for Redshift Clusters",
+            "description": "Redshift clusters should have encryption at rest enabled to protect the underlying data. This configuration should be confirmed as active for all clusters.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "redshift_audit_logging_enabled",
+            "title": "Check that Audit Logging is Enabled for Redshift Clusters",
+            "description": "Audit logging captures information about connections and user activities in your Redshift cluster. It should be verified that audit logging is enabled to provide a detailed record for security analysis and compliance.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "elasticache_redis_auth_token_enabled",
+            "title": "Verify AUTH Token is Enabled for ElastiCache for Redis Replication Groups",
+            "description": "To secure data in transit and at rest, ElastiCache for Redis clusters should be configured to require an authentication token (password). It should be confirmed that the `AuthToken` parameter is enabled for replication groups.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "end_user_compute_services",
+        "title": "End-User Compute Services",
+        "description": "This section contains security recommendations for AWS End-User Compute services, such as WorkSpaces and AppStream 2.0.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "workspaces_root_volume_encrypted",
+            "title": "Verify Root Volumes of WorkSpaces are Encrypted",
+            "description": "The root volume (C: drive) of an Amazon WorkSpace contains the operating system and user profile data. It should be confirmed that encryption is enabled for this volume to protect data at rest.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "workspaces_user_volumes_encrypted",
+            "title": "Verify User Volumes of WorkSpaces are Encrypted",
+            "description": "The user volume (D: drive) of an Amazon WorkSpace stores user data. To protect this data, it should be verified that encryption is enabled for all user volumes.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "workspaces_internet_access_disabled",
+            "title": "Check that Internet Access is Disabled for WorkSpaces",
+            "description": "Unless there is a specific business requirement, direct internet access from Amazon WorkSpaces should be disabled. This reduces the risk of data exfiltration and exposure to external threats. The directory settings should be reviewed to confirm this.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "appstream_default_internet_access_disabled",
+            "title": "Verify Default Internet Access is Disabled for AppStream 2.0 Fleets and Image Builders",
+            "description": "AppStream 2.0 fleets and image builders should not have default internet access enabled unless explicitly required. This configuration should be reviewed to ensure it is disabled, thereby reducing the attack surface and potential for unauthorized outbound communication.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "appstream_clipboard_redirection_disabled",
+            "title": "Confirm Clipboard Redirection is Disabled for AppStream 2.0 Fleets",
+            "description": "Disabling clipboard redirection between a user's local device and their AppStream 2.0 session helps prevent data leakage. It should be verified that this setting is disabled, allowing data to be copied and pasted only within the remote session.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "appstream_file_transfer_disabled",
+            "title": "Confirm File Transfer is Disabled Between Local Devices and AppStream 2.0",
+            "description": "To prevent unauthorized data transfer, the ability for users to upload or download files between their local device and an AppStream 2.0 session should be disabled. This setting should be reviewed to ensure it is appropriately configured.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "logging_and_audit_trails",
+        "title": "Logging and Audit Trails",
+        "description": "This section focuses on ensuring that comprehensive logging is in place, primarily through AWS CloudTrail, to provide a detailed audit trail of all activities within the AWS account.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "logging_cloudtrail_enabled_in_all_regions",
+            "title": "Confirm CloudTrail is Activated Across All AWS Regions",
+            "description": "AWS CloudTrail provides a record of actions taken by a user, role, or an AWS service. To ensure comprehensive visibility into account activity, it should be verified that a CloudTrail trail is configured to be active in all regions.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "logging_cloudtrail_log_file_validation_enabled",
+            "title": "Verify that CloudTrail Log File Validation is Enabled",
+            "description": "Log file validation provides a means to verify the integrity of CloudTrail log files, ensuring they have not been tampered with after delivery. This setting should be confirmed as enabled for all trails.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "logging_cloudtrail_s3_bucket_not_public",
+            "title": "Check that the S3 Bucket for CloudTrail Logs is Not Publicly Accessible",
+            "description": "The S3 bucket used to store CloudTrail logs contains sensitive audit information and must not be publicly accessible. The bucket's permissions should be reviewed to confirm that all forms of public access are denied.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "logging_cloudtrail_integrated_with_cloudwatch",
+            "title": "Confirm CloudTrail Trails are Integrated with CloudWatch Logs",
+            "description": "Integrating CloudTrail with CloudWatch Logs enables real-time monitoring of API activity and allows for the creation of alarms based on specific log events. This integration should be confirmed as active for all trails.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "logging_cloudtrail_s3_bucket_encrypted_kms",
+            "title": "Verify the CloudTrail S3 Bucket is Encrypted at Rest using KMS",
+            "description": "To protect the confidentiality of log data at rest, the S3 bucket designated for CloudTrail should be configured with server-side encryption using AWS Key Management Service (KMS). This ensures the logs themselves are encrypted.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "logging_cloudtrail_data_events_for_s3",
+            "title": "Confirm CloudTrail Captures S3 Data Events for Business-Critical Buckets",
+            "description": "For S3 buckets containing business-critical data, CloudTrail should be configured to log data events (e.g., GetObject, PutObject). This provides object-level API activity tracking that is essential for security analysis and incident response.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "logging_cloudtrail_data_events_for_lambda",
+            "title": "Verify CloudTrail Captures Lambda Data Events for Business-Critical Functions",
+            "description": "For business-critical Lambda functions, CloudTrail should be configured to log data events, specifically the 'Invoke' API activity. This provides a detailed audit trail of when and by whom Lambda functions are executed.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "monitoring_and_alerting",
+        "title": "Monitoring and Alerting",
+        "description": "This section covers the setup of automated monitoring and alerting on critical security events using AWS CloudWatch Alarms, triggered by CloudTrail log data.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "monitoring_alarm_for_unauthorized_api_calls",
+            "title": "Check for a CloudWatch Alarm on Unauthorized API Calls",
+            "description": "Monitoring CloudTrail logs for unauthorized API calls can help detect malicious activity or misconfigurations. It should be confirmed that a log metric filter is established in CloudWatch and that an alarm is configured to trigger notifications when such events occur.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_mfa_console_signin",
+            "title": "Verify a CloudWatch Alarm Exists for Console Sign-Ins without MFA",
+            "description": "To enforce MFA usage, a CloudWatch alarm should be in place to detect and alert on any AWS Management Console sign-in that does not use multi-factor authentication. This provides a detective control for IAM user security.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_root_account_usage",
+            "title": "Confirm a CloudWatch Alarm is in Place for Root Account Usage",
+            "description": "Usage of the root account should be rare and closely monitored. An alarm should be configured to trigger a notification whenever any API call is made using the root account's credentials.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_iam_policy_changes",
+            "title": "Verify an Alarm Exists for IAM Policy Changes",
+            "description": "Changes to IAM policies can have significant security implications. A CloudWatch alarm should be configured to detect and alert on any API calls that modify IAM policies (e.g., CreatePolicy, DeletePolicy, PutGroupPolicy).",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_cloudtrail_configuration_changes",
+            "title": "Check for an Alarm on CloudTrail Configuration Changes",
+            "description": "To protect the integrity of your audit logs, a CloudWatch alarm should be configured to alert on any changes made to your CloudTrail configuration, such as creating, updating, or deleting trails.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_console_authentication_failures",
+            "title": "Confirm an Alarm Exists for AWS Console Authentication Failures",
+            "description": "Repeated console sign-in failures can indicate a brute-force attempt. A CloudWatch alarm should be in place to monitor for and alert on these events, enabling a timely response.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_disabling_or_deleting_cmks",
+            "title": "Verify an Alarm is Configured for the Disabling or Deletion of Customer-Managed Keys (CMKs)",
+            "description": "The disabling or scheduled deletion of a Customer-Managed Key (CMK) in KMS can render encrypted data unrecoverable. A CloudWatch alarm is essential to provide immediate notification of these critical events.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_s3_bucket_policy_changes",
+            "title": "Check for an Alarm on S3 Bucket Policy Changes",
+            "description": "Changes to S3 bucket policies can inadvertently expose sensitive data. A CloudWatch alarm should be configured to monitor for any API calls that modify bucket policies (e.g., PutBucketPolicy, DeleteBucketPolicy).",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_aws_config_changes",
+            "title": "Confirm an Alarm Exists for AWS Config Configuration Changes",
+            "description": "Changes to the AWS Config service could impact your compliance and configuration auditing capabilities. A CloudWatch alarm should be in place to alert on any modifications to the Config service, such as stopping the recorder or deleting rules.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_security_group_changes",
+            "title": "Verify an Alarm is Configured for Security Group Changes",
+            "description": "Modifications to security groups can alter network ingress and egress rules. To monitor for potentially unauthorized network access changes, a CloudWatch alarm should be set up to detect any API calls that change a security group.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_nacl_changes",
+            "title": "Check for an Alarm on Network Access Control List (NACL) Changes",
+            "description": "Changes to Network ACLs can affect traffic flow at the subnet level. A CloudWatch alarm should be in place to provide alerts on any modifications to NACLs, ensuring visibility into network boundary changes.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_network_gateway_changes",
+            "title": "Confirm an Alarm is Configured for Network Gateway Changes",
+            "description": "Network gateways are critical components for VPC connectivity. A CloudWatch alarm should be configured to alert on any changes to these gateways (e.g., creating, deleting, attaching, or detaching) to detect unexpected network routing modifications.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_route_table_changes",
+            "title": "Verify an Alarm Exists for Route Table Changes",
+            "description": "Changes to route tables can impact how traffic is directed within and outside of your VPC. A CloudWatch alarm should be configured to monitor for and alert on any modifications to VPC route tables.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_vpc_changes",
+            "title": "Check for an Alarm on VPC Changes",
+            "description": "Modifications to a Virtual Private Cloud (VPC) can have broad networking implications. A CloudWatch alarm should be in place to alert on any changes to VPCs, ensuring critical network infrastructure is monitored.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "monitoring_alarm_for_organizations_changes",
+            "title": "Confirm an Alarm Exists for Changes to AWS Organizations",
+            "description": "For accounts that are part of AWS Organizations, changes at the organization level can affect all member accounts. A CloudWatch alarm should be configured to alert on any Organizations API calls (e.g., AcceptHandshake, LeaveOrganization) to monitor for changes in organization structure.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "aws_security_services_configuration",
+        "title": "AWS Security Services Configuration",
+        "description": "This section covers the configuration of key AWS-native security services, including AWS Config, GuardDuty, and Security Hub, which are foundational for governance and threat detection.",
+        "type": "checklist",
+        "items": [
+          {
+            "key": "security_services_config_enabled_in_all_regions",
+            "title": "Verify that AWS Config is Enabled in All Regions",
+            "description": "AWS Config provides a detailed view of the configuration of AWS resources in your account. It should be verified that AWS Config is enabled in all regions to support configuration management, audit, and compliance across your entire AWS footprint.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "security_services_guardduty_enabled",
+            "title": "Confirm that Amazon GuardDuty is Enabled",
+            "description": "Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and unauthorized behavior. It should be confirmed that GuardDuty is enabled in all supported regions to protect your AWS accounts and workloads.",
+            "caption": "",
+            "tools": ""
+          },
+          {
+            "key": "security_services_security_hub_enabled",
+            "title": "Verify that AWS Security Hub is Enabled",
+            "description": "AWS Security Hub provides a comprehensive view of your high-priority security alerts and compliance status across your AWS accounts. It should be confirmed that Security Hub is enabled to aggregate, organize, and prioritize findings from various AWS services and partner products.",
+            "caption": "",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "upload_logs",
+        "title": "Upload logs",
+        "description": "This should include all associated traffic associated to the in-scope targets.",
+        "type": "large_upload"
+      },
+      {
+        "key": "executive_summary",
+        "title": "Executive summary",
+        "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+        "type": "executive_summary"
+      }
+    ]
+  }
+}
