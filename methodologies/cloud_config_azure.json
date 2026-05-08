@@ -726,7 +726,7 @@
           {
             "key": "confirm_private_endpoints_are_used_to_access_azure_key_vault_automated",
             "title": "Confirm Private Endpoints are Used to Access Azure Key Vault (Automated)",
-            "description": "By using private endpoints guarantees traffic to Key Vault traverses encrypted over a private virtual network.",
+            "description": "Using private endpoints guarantees traffic to Key Vault traverses encrypted over a private virtual network.",
             "caption": ""
           },
           {
