@@ -484,7 +484,7 @@
           {
             "key": "confirm_that_allow_blob_anonymous_access_is_configured_as_disabled_automated",
             "title": "Confirm that Allow Blob Anonymous Access is configured as Disabled (Automated)",
-            "description": "The Azure Storage setting \u2018Allow Blob Anonymous Access\u2019 (aka \"allowBlobPublicAccess\") controls whether anonymous access is allowed for blob data in a storage account. When this property is set to True, it enables public read access to blob data, which can be convenient for sharing data but may carry security risks. When set to False, it disallows public access to blob data, providing a more secure storage environment.",
+            "description": "The Azure Storage setting Allow Blob Anonymous Access (aka allowBlobPublicAccess) controls whether anonymous access is allowed for blob data in a storage account. When this property is set to True, it enables public read access to blob data, which can be convenient for sharing data but may carry security risks. When set to False, it disallows public access to blob data, providing a more secure storage environment.",
             "caption": ""
           },
           {
