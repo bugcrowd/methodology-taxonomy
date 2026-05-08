@@ -82,7 +82,7 @@
           {
             "key": "confirm_default_network_access_rule_for_storage_accounts_is_set_to_deny_automated",
             "title": "Confirm Default Network Access Rule for Storage Accounts is Set to Deny (Automated)",
-            "description": "Restricting standard setting access to deny guarantees that only authorized networks can connect to the storage account.",
+            "description": "Restricting standard setting access to Deny guarantees that only authorized networks can connect to the storage account.",
             "caption": ""
           },
           {
