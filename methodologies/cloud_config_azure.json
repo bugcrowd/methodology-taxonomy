@@ -178,7 +178,7 @@
           {
             "key": "confirm_network_access_rules_are_set_to_denybydefault_automated",
             "title": "Confirm Network Access Rules are set to Deny-by-default (Automated)",
-            "description": "Restricting standard setting network access offers a foundational level of security to networked resources. To limit access to selected networks, the standard setting action must be changed.",
+            "description": "Restricting standard setting network access offers a foundational level of security to networked resources. To limit access to selected networks, the standard setting must be changed.",
             "caption": ""
           },
           {
