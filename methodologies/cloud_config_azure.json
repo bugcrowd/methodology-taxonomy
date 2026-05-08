@@ -1432,7 +1432,7 @@
           {
             "key": "confirm_java_version_is_currently_supported_if_in_use_manual",
             "title": "Confirm Java version is currently supported (if in use) (Manual)",
-            "description": "Periodically, older versions of Java may be deprecated and no longer supported. By using a supported version of Java for App Service apps is recommended to avoid potential unpatched vulnerabilities.",
+            "description": "Periodically, older versions of Java may be deprecated and no longer supported. Using a supported version of Java for App Service apps is recommended to avoid potential unpatched vulnerabilities.",
             "caption": ""
           },
           {
