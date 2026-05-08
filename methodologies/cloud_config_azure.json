@@ -1972,7 +1972,7 @@
           {
             "key": "confirm_that_unattached_disks_are_encrypted_with_customer_managed_key_cmk_automated",
             "title": "Confirm that Unattached disks are encrypted with Customer Managed Key (CMK) (Automated)",
-            "description": "Ensure that unattached disks in a subscription are encrypted with a Customer Managed Key (CMK). Managed disks are encrypted by standard setting with Platform-managed keys. By using Customer managed keys may provide an additional level of security or meet an organizations regulatory requirements.",
+            "description": "Ensure that unattached disks in a subscription are encrypted with a Customer Managed Key (CMK). Managed disks are encrypted by standard setting with Platform-managed keys. Using Customer managed keys may provide an additional level of security or meet an organizations regulatory requirements.",
             "caption": ""
           },
           {
