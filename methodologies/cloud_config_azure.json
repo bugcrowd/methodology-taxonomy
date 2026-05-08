@@ -1774,7 +1774,7 @@
           {
             "key": "confirm_basic_authentication_publishing_credentials_are_disabled_automated",
             "title": "Confirm Basic Authentication Publishing Credentials are Disabled (Automated)",
-            "description": "Basic Authentication Publishing Credentials offers the ability to publish\u2014or deploy to\u2014a function app deployment slot without a centralized Identity Provider.",
+            "description": "Basic Authentication Publishing Credentials offers the ability to publish or deploy to a function app deployment slot without a centralized Identity Provider.",
             "caption": ""
           },
           {
