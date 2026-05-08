@@ -1948,7 +1948,7 @@
           {
             "key": "confirm_private_dns_zones_for_private_endpoints_that_connect_to_batch_accounts_are_configured_manual",
             "title": "Confirm private DNS zones for private endpoints that connect to Batch accounts are configured (Manual)",
-            "description": "Private DNS zones for Azure Batch private endpoints provide secure internal name resolution, preventing public internet exposure. When a private endpoint is created for a Batch account, Azure requires a private DNS zone (privatelink.batch.azure.com) to map the Batch service\u2019s domain name to a private IP address within your virtual network (VNet).",
+            "description": "Private DNS zones for Azure Batch private endpoints provide secure internal name resolution, preventing public internet exposure. When a private endpoint is created for a Batch account, Azure requires a private DNS zone (privatelink.batch.azure.com) to map the Batch service domain name to a private IP address within your virtual network (VNet).",
             "caption": ""
           },
           {
