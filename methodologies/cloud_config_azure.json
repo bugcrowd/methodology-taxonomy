@@ -502,7 +502,7 @@
           {
             "key": "confirm_redundancy_is_configured_as_georedundant_storage_grs_on_critical_azure_storage_accounts_automated",
             "title": "Confirm Redundancy is configured as geo-redundant storage (GRS) on critical Azure Storage Accounts (Automated)",
-            "description": "Geo-redundant storage (GRS) in Azure replicates data three times within the primary region using locally redundant storage (LRS) and asynchronously copies it to a secondary region hundreds of miles away. This setup guarantees high availability and resilience by providing 16 nines (99.99999999999999%) durability over a year, safeguarding data against regional outages.",
+            "description": "Geo-redundant storage (GRS) in Azure replicates data three times within the primary region using locally redundant storage (LRS) and asynchronously copies it to a secondary region hundreds of miles away. This setup aims to provide a high level availability and resilience.",
             "caption": ""
           },
           {
