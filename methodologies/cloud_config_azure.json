@@ -1786,7 +1786,7 @@
           {
             "key": "confirm_http_version_is_configured_as_20_if_in_use_automated",
             "title": "Confirm HTTP version is configured as 2.0 (if in use) (Automated)",
-            "description": "Periodically, newer versions are released for HTTP, either due to security flaws or to include additional functionalities. By using the latest HTTP version allows apps to take advantage of security fixes, if any, and/or new functionalities of the newer version.",
+            "description": "Periodically, newer versions are released for HTTP, either due to security flaws or to include additional functionalities. Using the latest HTTP version allows apps to take advantage of security fixes, if any, and/or new functionalities of the newer version.",
             "caption": ""
           },
           {
