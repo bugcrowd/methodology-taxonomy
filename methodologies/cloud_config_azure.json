@@ -22,7 +22,7 @@
           {
             "key": "confirm_smb_protocol_version_is_set_to_smb_311_or_higher_for_smb_file_shares_automated",
             "title": "Confirm SMB protocol version is Set to SMB 3.1.1 or Higher for SMB file shares (Automated)",
-            "description": "By using the latest SMB version prevents the exploitation of known vulnerabilities in older protocols.",
+            "description": "Using the latest SMB version prevents the exploitation of known vulnerabilities in older protocols.",
             "caption": ""
           },
           {
