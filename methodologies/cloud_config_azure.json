@@ -818,7 +818,7 @@
           {
             "key": "confirm_authentication_type_is_set_to_azure_active_directory_only_for_azure_vpn_gateway_pointtosite_configuration_automated",
             "title": "Confirm Authentication type is Set to Azure Active Directory only for Azure VPN Gateway Point-to-Site Configuration (Automated)",
-            "description": "By using Entra ID authentication for VPN connections offers strong security and centralized identity management.",
+            "description": "Using Entra ID authentication for VPN connections offers strong security and centralized identity management.",
             "caption": ""
           },
           {
