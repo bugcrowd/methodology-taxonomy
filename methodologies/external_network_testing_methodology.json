@@ -10,7 +10,7 @@
       {
         "key": "reconnaissance",
         "title": "Reconnaissance",
-        "description": "Passive and active information gathering prior to any direct interaction with in-scope targets. The goal is to build a comprehensive picture of the target organisation's external footprint without triggering alerts.",
+        "description": "Passive and active information gathering prior to any direct interaction with in-scope targets. The goal is to build a comprehensive picture of the target organization's external footprint without triggering alerts.",
         "type": "checklist",
         "caption": "",
         "items": [
