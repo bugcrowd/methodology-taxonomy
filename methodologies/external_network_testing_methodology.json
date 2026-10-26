@@ -1,0 +1,870 @@
+{
+  "metadata": {
+    "title": "Network",
+    "release_date": "2026-10-02T00:00:00+00:00",
+    "description": "Bugcrowd External Network Testing Methodology",
+    "vrt_version": "1.19"
+  }
+  "content": {
+    "steps": [
+      {
+        "key": "reconnaissance",
+        "title": "Reconnaissance",
+        "description": "Passive and active information gathering prior to any direct interaction with in-scope targets. The goal is to build a comprehensive picture of the target organization's external footprint without triggering alerts.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "recon_whois_lookup",
+            "title": "WHOIS Lookup",
+            "caption": "",
+            "description": "Perform WHOIS lookups on all in-scope domains and IP ranges to identify registrant details, name servers, and associated ASNs.",
+            "tools": "whois, ARIN, RIPE NCC, BGP.he.net"
+          },
+          {
+            "key": "recon_dns_records",
+            "title": "DNS Record Enumeration",
+            "caption": "",
+            "description": "Gather all publicly available DNS records (A, AAAA, MX, TXT, CNAME, NS, SOA) for the target domain. Identify mail servers, SPF/DMARC configurations, and any cloud service indicators.",
+            "tools": "dig, nslookup, dnsx, MXToolbox"
+          },
+          {
+            "key": "recon_zone_transfer",
+            "title": "DNS Zone Transfer Attempt",
+            "caption": "",
+            "description": "Attempt a DNS zone transfer (AXFR) against all identified name servers for the in-scope domains. Document whether the server permits zone transfers and record any data returned.",
+            "tools": "dig (AXFR), fierce, dnsrecon"
+          },
+          {
+            "key": "recon_subdomain_enum",
+            "title": "Subdomain Enumeration",
+            "caption": "",
+            "description": "Enumerate subdomains using passive sources (certificate transparency logs, dnsdumpster, VirusTotal, etc.) and active brute-forcing techniques. Document all discovered subdomains including those resolving to internal or cloud infrastructure.",
+            "tools": "Amass, Subfinder, Assetfinder, dnsx, crt.sh, dnsdumpster, VirusTotal"
+          },
+          {
+            "key": "recon_google_dorking",
+            "title": "Google Dorking / Search Engine Reconnaissance",
+            "caption": "",
+            "description": "Use advanced search operators to identify exposed files, login portals, error messages, directory listings, and other sensitive information indexed by search engines.",
+            "tools": "Google, Bing, DorkSearch, GHDB (Exploit-DB Google Hacking Database)"
+          },
+          {
+            "key": "recon_shodan_censys",
+            "title": "Shodan / Censys / FOFA Lookups",
+            "caption": "",
+            "description": "Query Shodan, Censys, and similar internet-wide scanning platforms for all in-scope IP ranges and domains. Note any exposed services, historical banners, SSL certificate data, and previously identified vulnerabilities.",
+            "tools": "Shodan, Censys, FOFA, ZoomEye"
+          },
+          {
+            "key": "recon_leaked_credentials",
+            "title": "Leaked Credentials and Keys",
+            "caption": "",
+            "description": "Search GitHub, GitLab, Pastebin, and similar platforms for credentials, API keys, tokens, or configuration files associated with the target organisation.",
+            "tools": "truffleHog, gitleaks, gitrob, GitHub dorking, IntelX"
+          },
+          {
+            "key": "recon_breach_data",
+            "title": "Historical Breach Data",
+            "caption": "",
+            "description": "Check breach aggregation services for usernames, email addresses, passwords, and other data associated with the target's domains that have appeared in past breaches.",
+            "tools": "HaveIBeenPwned, DeHashed, IntelX, Snusbase"
+          },
+          {
+            "key": "recon_asn_ip_ranges",
+            "title": "ASN and IP Range Identification",
+            "caption": "",
+            "description": "Identify all Autonomous System Numbers (ASNs) owned by or associated with the target. Map out the full IP ranges announced under those ASNs and cross-reference against the agreed scope.",
+            "tools": "BGP.he.net, ARIN/RIPE/APNIC, ASNLookup, Amass"
+          },
+          {
+            "key": "recon_social_media_osint",
+            "title": "Social Media and OSINT",
+            "caption": "",
+            "description": "Review LinkedIn, company websites, job postings, and social media for information that reveals internal technology stacks, software versions, employee names, roles, and organisational structure.",
+            "tools": "Maltego, SpiderFoot, LinkedIn, theHarvester"
+          },
+          {
+            "key": "recon_email_harvesting",
+            "title": "Email Harvesting",
+            "caption": "",
+            "description": "Harvest publicly available email addresses associated with the target domain. Document email naming conventions for use in later brute-forcing or phishing simulations if in scope.",
+            "tools": "theHarvester, Hunter.io, Phonebook.cz"
+          },
+          {
+            "key": "recon_wayback_machine",
+            "title": "Web Archive and Wayback Machine Review",
+            "caption": "",
+            "description": "Review archived versions of the target's web properties. Look for previously exposed endpoints, old login portals, deprecated APIs, and configuration files no longer present on live systems.",
+            "tools": "Wayback Machine (web.archive.org), gau, waybackurls"
+          },
+          {
+            "key": "recon_ssl_cert_analysis",
+            "title": "SSL/TLS Certificate Analysis",
+            "caption": "",
+            "description": "Analyse SSL/TLS certificates associated with the target via certificate transparency logs. Identify additional hostnames, internal domain names, and organisational details disclosed within certificate fields.",
+            "tools": "crt.sh, Censys, certspotter"
+          },
+          {
+            "key": "recon_cloud_storage",
+            "title": "Cloud Storage and Asset Exposure",
+            "caption": "",
+            "description": "Search for publicly exposed cloud storage buckets (AWS S3, Azure Blob, GCP Storage) and other cloud assets associated with the target. Check for misconfigured permissions allowing unauthenticated read or write access.",
+            "tools": "S3Scanner, GrayhatWarfare, CloudBrute, Bucket Finder"
+          }
+        ]
+      },
+      {
+        "key": "enumeration",
+        "title": "Enumeration",
+        "description": "Active enumeration of in-scope hosts, services, and supporting infrastructure. This phase involves direct interaction with target systems and should be performed after reconnaissance is complete. Begin this phase by kicking off broad automated scans across all in-scope targets to establish a baseline before conducting deeper, service-specific enumeration.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "enum_host_discovery",
+            "title": "Host Discovery",
+            "caption": "",
+            "description": "Perform host discovery across all in-scope IP ranges using ICMP, TCP SYN, and UDP probes. Ensure hosts that do not respond to ping sweeps are still included in subsequent scans.",
+            "tools": "Nmap (-sn, -Pn), Masscan, fping"
+          },
+          {
+            "key": "enum_full_port_scan",
+            "title": "Full TCP and UDP Port Scan",
+            "caption": "",
+            "description": "Conduct a full port scan across all 65,535 TCP and UDP ports on all discovered in-scope hosts. Use service version detection and default scripts. Include all scan output in the engagement file store.",
+            "tools": "Nmap (-sV -sC -p- -sU), Masscan, Rustscan"
+          },
+          {
+            "key": "enum_automated_vuln_scan",
+            "title": "Automated Vulnerability Scan",
+            "caption": "",
+            "description": "Kick off an authenticated or unauthenticated vulnerability scan using an industry-standard scanner across all in-scope targets. Review and triage results, discarding false positives and prioritising confirmed findings for manual validation.",
+            "tools": "Nessus, OpenVAS / Greenbone, Qualys, Nexpose"
+          },
+          {
+            "key": "enum_service_version_banner",
+            "title": "Service Version and Banner Grabbing",
+            "caption": "",
+            "description": "Enumerate and document all running services and their version numbers across all in-scope hosts. Capture full banner information where available. Record services communicating over unencrypted protocols (e.g. HTTP, Telnet, FTP, SMTP without STARTTLS).",
+            "tools": "Nmap (-sV), Netcat, Telnet, curl"
+          },
+          {
+            "key": "enum_os_fingerprinting",
+            "title": "Operating System Fingerprinting",
+            "caption": "",
+            "description": "Perform OS fingerprinting on all discovered hosts using both passive (TTL/TCP window analysis) and active techniques. Document OS type, version, and build information where identifiable.",
+            "tools": "Nmap (-O), p0f, Xprobe2"
+          },
+          {
+            "key": "enum_web_server_enum",
+            "title": "Web Server and Technology Enumeration",
+            "caption": "",
+            "description": "Identify all web-facing services including HTTP and HTTPS on standard and non-standard ports. Fingerprint the underlying web server software, frameworks, CMS platforms, and third-party components.",
+            "tools": "WhatWeb, Wappalyzer, curl, Netcraft, BuiltWith"
+          },
+          {
+            "key": "enum_directory_bruteforce",
+            "title": "Directory and File Bruteforcing",
+            "caption": "",
+            "description": "Perform directory and file enumeration against all identified web services using wordlists appropriate to the identified technology stack. Document any discovered hidden directories, backup files, configuration files, or administrative interfaces.",
+            "tools": "ffuf, Gobuster, Dirbuster, Feroxbuster"
+          },
+          {
+            "key": "enum_smb_enumeration",
+            "title": "SMB Enumeration",
+            "caption": "",
+            "description": "Enumerate SMB services on all in-scope hosts. Identify shares, permissions, null session access, signing requirements, and any sensitive data accessible without authentication. Document SMB dialect versions in use.",
+            "tools": "Nmap (smb scripts), CrackMapExec, enum4linux-ng, smbclient, Metasploit"
+          },
+          {
+            "key": "enum_rpc_enumeration",
+            "title": "RPC Enumeration",
+            "caption": "",
+            "description": "Query RPC endpoints on all in-scope hosts to enumerate registered services, user accounts, and domain information. Identify any information disclosed via the RPC endpoint mapper.",
+            "tools": "rpcclient, Impacket (rpcmap.py), Nmap (rpc scripts)"
+          },
+          {
+            "key": "enum_snmp_enumeration",
+            "title": "SNMP Enumeration",
+            "caption": "",
+            "description": "Test all in-scope hosts for SNMP exposure on UDP/161 and UDP/162. Attempt access using default community strings (public, private). Enumerate system information, network interfaces, running processes, installed software, and user accounts where accessible.",
+            "tools": "snmpwalk, snmp-check, onesixtyone, Nmap (snmp scripts)"
+          },
+          {
+            "key": "enum_smtp_enumeration",
+            "title": "SMTP Enumeration",
+            "caption": "",
+            "description": "Enumerate SMTP services for user account disclosure via VRFY, EXPN, and RCPT TO commands. Test for open relay configuration. Document mail server software versions and supported authentication mechanisms.",
+            "tools": "smtp-user-enum, Nmap (smtp scripts), Metasploit, swaks"
+          },
+          {
+            "key": "enum_ldap_enumeration",
+            "title": "LDAP Enumeration",
+            "caption": "",
+            "description": "Enumerate LDAP services where present. Attempt anonymous and authenticated binds to retrieve directory information including user accounts, groups, organisational units, and password policies.",
+            "tools": "ldapsearch, LDAPDomainDump, Nmap (ldap scripts), ADExplorer"
+          },
+          {
+            "key": "enum_ftp_enumeration",
+            "title": "FTP Enumeration",
+            "caption": "",
+            "description": "Test all identified FTP services for anonymous access. Enumerate accessible directories and files. Document any sensitive data available without authentication and assess write permissions.",
+            "tools": "ftp, Nmap (ftp scripts), Metasploit"
+          },
+          {
+            "key": "enum_nfs_enumeration",
+            "title": "NFS Enumeration",
+            "caption": "",
+            "description": "Identify and enumerate NFS exports on all in-scope hosts. Test for misconfigured share permissions allowing unauthenticated mounting. Review accessible data for sensitive content.",
+            "tools": "showmount, Nmap (nfs scripts), rpcinfo"
+          },
+          {
+            "key": "enum_dns_enumeration",
+            "title": "DNS Service Enumeration",
+            "caption": "",
+            "description": "Enumerate DNS services including recursive query support, version disclosure, and cache snooping. Identify any misconfigured records (wildcard DNS, dangling CNAMEs) that may facilitate subdomain takeovers, but do NOT attempt to takeover any identified, only raise the issue.",
+            "tools": "dig, dnsrecon, dnsx, fierce"
+          },
+          {
+            "key": "enum_subdomain_takeover",
+            "title": "Subdomain Takeover Assessment",
+            "caption": "",
+            "description": "Review all discovered subdomains for dangling DNS records pointing to deprovisioned cloud resources or third-party services. Manually review any potential candidates suceptible to the takeover and document confirmed instances. Do NOT attempt to takeover any subdomains identified during this check, only raise the issue.",
+            "tools": "Subjack, Subzy, nuclei (takeover templates)"
+          },
+          {
+            "key": "enum_vpn_gateway",
+            "title": "VPN and Remote Access Gateway Enumeration",
+            "caption": "",
+            "description": "Identify and document all VPN concentrators, SSL VPN gateways, and remote access portals. Enumerate software versions and identify any public-facing authentication interfaces.",
+            "tools": "Nmap, Shodan, ike-scan (for IPSec), curl"
+          },
+          {
+            "key": "enum_api_endpoints",
+            "title": "API Endpoint Enumeration",
+            "caption": "",
+            "description": "Enumerate exposed API endpoints across all in-scope web services. Review any exposed API documentation (Swagger, OpenAPI specs). Identify endpoints that may accept user-controlled input for further testing.",
+            "tools": "ffuf, Burp Suite, Postman, kiterunner"
+          }
+        ]
+      },
+      {
+        "key": "vulnerability_identification",
+        "title": "Vulnerability Identification",
+        "description": "Systematic identification and validation of vulnerabilities across all in-scope services based on enumeration findings. This phase correlates discovered service versions against known vulnerability databases and validates findings manually to eliminate false positives before exploitation is attempted.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "vuln_cve_correlation",
+            "title": "CVE and Exploit Database Correlation",
+            "caption": "",
+            "description": "Cross-reference all identified service versions and software against the National Vulnerability Database (NVD), Exploit-DB, and vendor security advisories. Document all applicable CVEs with their CVSS scores and confirm exploitability against the target configuration.",
+            "tools": "Exploit-DB, NVD (nvd.nist.gov), SearchSploit, Vulners"
+          },
+          {
+            "key": "vuln_scanner_triage",
+            "title": "Vulnerability Scanner Output Triage",
+            "caption": "",
+            "description": "Review and triage all findings from automated scanners. Manually validate critical and high-severity findings to confirm they are not false positives. Discard findings that are not applicable to the target environment.",
+            "tools": "Nessus, OpenVAS, Qualys, Nexpose"
+          },
+          {
+            "key": "vuln_misconfig_identification",
+            "title": "Misconfiguration Identification",
+            "caption": "",
+            "description": "Identify security misconfigurations across all in-scope services including insecure defaults, unnecessary services, overly permissive access controls, missing security headers, and improper TLS configurations.",
+            "tools": ""
+          },
+          {
+            "key": "vuln_ssl_tls_assessment",
+            "title": "SSL/TLS Configuration Assessment",
+            "caption": "",
+            "description": "Assess SSL/TLS configurations on all in-scope services. Identify weak cipher suites, deprecated protocol versions (SSLv3, TLS 1.0, TLS 1.1), self-signed or expired certificates, and known vulnerabilities such as POODLE, BEAST, DROWN, or Heartbleed.",
+            "tools": "testssl.sh, sslyze, Nmap (ssl scripts), SSL Labs"
+          },
+          {
+            "key": "vuln_default_credentials",
+            "title": "Default and Weak Credential Identification",
+            "caption": "",
+            "description": "Test all identified services and administrative interfaces for default or commonly used credentials. Reference vendor documentation and known default credential lists. Document any services accessible with default credentials.",
+            "tools": "DefaultCreds-cheat-sheet, Hydra, Medusa"
+          },
+          {
+            "key": "vuln_unpatched_software",
+            "title": "Unpatched and End-of-Life Software",
+            "caption": "",
+            "description": "Identify software that is running outdated, unpatched, or end-of-life versions with known unpatched vulnerabilities. Cross-reference against vendor support timelines and public patch release histories.",
+            "tools": "Nessus, Retire.js (for JS libraries), vulners Nmap script"
+          },
+          {
+            "key": "vuln_web_vuln_identification",
+            "title": "Web Application Vulnerability Identification",
+            "caption": "",
+            "description": "Identify web application vulnerabilities including SQL Injection, Cross-Site Scripting (XSS), XML Entity Injection (XXE), Server Side Request Forgery (SSRF), Remote Code Execution (RCE), Local/Arbitrary File Inclusion (LFI/AFI), insecure direct object references (IDOR), and security misconfigurations.",
+            "tools": "Burp Suite Pro, OWASP ZAP, Nikto, nuclei"
+          },
+          {
+            "key": "vuln_auth_weaknesses",
+            "title": "Authentication and Authorisation Weaknesses",
+            "caption": "",
+            "description": "Identify weaknesses in authentication mechanisms including missing multi-factor authentication, weak password policies, insecure password reset flows, account enumeration, and broken authorisation controls.",
+            "tools": ""
+          },
+          {
+            "key": "vuln_network_proto_weaknesses",
+            "title": "Network Protocol Weaknesses",
+            "caption": "",
+            "description": "Identify weaknesses in network protocols in use across the environment, such as SMBv1 exposure, NTLMv1 usage, cleartext protocols (Telnet, FTP, HTTP, SMTP without STARTTLS), and unauthenticated NFS or RPC services.",
+            "tools": "Nmap, Wireshark, Responder (passive listening only)"
+          },
+          {
+            "key": "vuln_firewall_acl_review",
+            "title": "Firewall and ACL Bypass Opportunities",
+            "caption": "",
+            "description": "Review the attack surface for potential firewall rule weaknesses or access control list (ACL) misconfigurations that could permit access to services or network segments not intended to be externally reachable.",
+            "tools": ""
+          },
+          {
+            "key": "vuln_dos_potential",
+            "title": "Denial of Service Potential",
+            "caption": "",
+            "description": "Identify services or configurations that may be susceptible to denial of service conditions, including amplification-capable services (DNS, NTP, SNMP), services with no rate limiting, and known DoS CVEs. Note: active DoS testing should only be performed where explicitly in scope and agreed with the client.",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "exploitation",
+        "title": "Exploitation",
+        "description": "Controlled exploitation of confirmed vulnerabilities to demonstrate real-world impact and validate severity ratings. Exploitation of issues which may cause Denial of Service (DoS) in the target component should not be used unless the client states on the record that they understand and accept the risks involved. All exploitation attempts should be documented in full, including commands executed, tools used, and outcomes. Screenshots or screen recordings should be captured as proof of exploitation.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "exploit_known_cves",
+            "title": "Exploit Known CVEs and Public Exploits",
+            "caption": "",
+            "description": "Attempt exploitation of confirmed CVEs using publicly available exploit code, Metasploit modules, or custom scripts. Exploitation of issues which may cause DoS should not be used unless the client states on the record that they understand and accept the risks involved. Document exploit configuration, target details, and outcome. For unsuccessful attempts, record all commands and tooling used.",
+            "tools": "Metasploit, SearchSploit, Exploit-DB, custom PoC scripts"
+          },
+          {
+            "key": "exploit_auth_bypass",
+            "title": "Authentication Bypass",
+            "caption": "",
+            "description": "Attempt to bypass authentication mechanisms on all in-scope services including VPNs, remote access portals, web applications, and administrative interfaces. Test for logic flaws, token manipulation, and known bypass techniques.",
+            "tools": "Burp Suite, custom scripts, Metasploit"
+          },
+          {
+            "key": "exploit_default_creds",
+            "title": "Default and Weak Credential Exploitation",
+            "caption": "",
+            "description": "Exploit any services found to be using default or weak credentials. Document the service, credential used, and level of access obtained.",
+            "tools": "Hydra, Medusa, CrackMapExec, Metasploit"
+          },
+          {
+            "key": "exploit_bruteforce",
+            "title": "Informed Brute-Forcing",
+            "caption": "",
+            "description": "Conduct targeted, informed brute-forcing against services with authentication (SSH, RDP, FTP, VPN, web login portals, etc.) using credential data gathered during reconnaissance. Ensure brute-forcing is performed at a rate that avoids account lockouts unless lockout testing is explicitly in scope. Double check the brief or engagement manager if unsure of the acceptable rates.",
+            "tools": "Hydra, Medusa, CrackMapExec, Burp Suite Intruder"
+          },
+          {
+            "key": "exploit_sqli",
+            "title": "SQL Injection Exploitation",
+            "caption": "",
+            "description": "Attempt exploitation of identified SQL injection vulnerabilities to extract data, bypass authentication, or execute commands. Document the injection point, payload used, and data/access obtained.",
+            "tools": "SQLMap, Burp Suite, manual payloads"
+          },
+          {
+            "key": "exploit_rce",
+            "title": "Remote Code Execution Exploitation",
+            "caption": "",
+            "description": "Attempt exploitation of identified RCE vulnerabilities to achieve command execution on target systems. Exploitation of issues which may cause DoS should not be used unless the client states on the record that they understand and accept the risks involved. Document the vulnerability exploited, payload used, and proof of code execution obtained.",
+            "tools": "Metasploit, custom scripts, Burp Suite"
+          },
+          {
+            "key": "exploit_xxe",
+            "title": "XML Entity Injection (XXE) Exploitation",
+            "caption": "",
+            "description": "Attempt exploitation of identified XXE vulnerabilities to read local files, perform SSRF, or achieve remote code execution where applicable. Document payloads used and data obtained.",
+            "tools": "Burp Suite, manual payloads, XXEinjector"
+          },
+          {
+            "key": "exploit_ssrf",
+            "title": "Server-Side Request Forgery (SSRF) Exploitation",
+            "caption": "",
+            "description": "Attempt exploitation of SSRF vulnerabilities to reach internal services, cloud metadata endpoints (e.g. AWS instance metadata service), or other network resources not directly accessible. Document accessible resources and any sensitive data retrieved.",
+            "tools": "Burp Suite, SSRFmap, manual payloads"
+          },
+          {
+            "key": "exploit_lfi",
+            "title": "Local / Arbitrary File Inclusion (LFI/AFI) Exploitation",
+            "caption": "",
+            "description": "Exploit identified file inclusion vulnerabilities to read sensitive files on the target system. Attempt to escalate LFI to RCE via log poisoning or similar techniques where applicable.",
+            "tools": "Burp Suite, LFISuite, manual payloads"
+          },
+          {
+            "key": "exploit_anonymous_access",
+            "title": "Anonymous and Unauthenticated Service Access",
+            "caption": "",
+            "description": "Exploit services permitting anonymous or unauthenticated access (FTP, NFS, SMB null sessions, LDAP anonymous bind, Elasticsearch, Redis, etc.) to retrieve data or achieve further access. Document all data obtained.",
+            "tools": "ftp, smbclient, ldapsearch, redis-cli, curl"
+          },
+          {
+            "key": "exploit_web_scanner",
+            "title": "Web Application Scanner Exploitation",
+            "caption": "",
+            "description": "Run a comprehensive web application scanner against all in-scope web services. Triage and validate all reported findings, escalating confirmed vulnerabilities into manual exploitation attempts.",
+            "tools": "Burp Suite Pro, OWASP ZAP, Nikto"
+          },
+          {
+            "key": "exploit_sensitive_data_exposure",
+            "title": "Sensitive Data Exposure",
+            "caption": "",
+            "description": "Identify and document any sensitive data publicly accessible on in-scope services, including configuration files, database dumps, credential stores, source code, private keys, and internal documentation available without authentication.",
+            "tools": ""
+          },
+          {
+            "key": "exploit_hidden_endpoints",
+            "title": "Hidden Directories and Endpoints",
+            "caption": "",
+            "description": "Access and document any sensitive hidden directories, administrative panels, backup files, or development endpoints discovered during enumeration. Assess the impact of unauthorised access to these resources.",
+            "tools": "ffuf, Gobuster, Feroxbuster, Burp Suite"
+          }
+        ]
+      },
+      {
+        "key": "privilege_escalation",
+        "title": "Privilege Escalation",
+        "description": "Following initial access, attempt to escalate privileges on compromised systems to gain higher levels of access such as local administrator, SYSTEM, or root. Exploitation of issues which may cause a Denial or Service (DoS) in the component should not be used unless the client states on the record that they understand and accept the risks involved. Document all techniques attempted, tools used, and the level of privilege ultimately achieved.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "privesc_local_enum",
+            "title": "Local Privilege Escalation Enumeration",
+            "caption": "",
+            "description": "Enumerate the compromised host for local privilege escalation opportunities. Identify the current user context, group memberships, and accessible resources.",
+            "tools": "LinPEAS, WinPEAS, LSE (Linux Smart Enumeration), Seatbelt"
+          },
+          {
+            "key": "privesc_sudo_misconfig",
+            "title": "Sudo and SUID/SGID Misconfigurations",
+            "caption": "",
+            "description": "Review sudo rules and SUID/SGID binaries on Linux/Unix systems for misconfigurations that permit privilege escalation. Cross-reference binaries with GTFOBins. Document any exploitable configurations.",
+            "tools": "GTFOBins, LinPEAS, manual enumeration (find / -perm -4000)"
+          },
+          {
+            "key": "privesc_unquoted_service_paths",
+            "title": "Unquoted Service Paths and Weak Service Permissions",
+            "caption": "",
+            "description": "On Windows systems, identify services with unquoted paths or weak permissions that may allow a lower-privileged user to replace or inject a malicious binary. Attempt exploitation where confirmed and document the outcome.",
+            "tools": "WinPEAS, PowerUp, accesschk, sc query"
+          },
+          {
+            "key": "privesc_kernel_exploits",
+            "title": "Kernel and OS Exploits",
+            "caption": "",
+            "description": "Identify the kernel or OS version on compromised hosts and cross-reference against known privilege escalation exploits (e.g. Dirty COW, PrintNightmare, DirtyPipe). Exploitation of issues which may cause a Denial or Service (DoS) in the component should not be used unless the client states on the record that they understand and accept the risks involved. Attempt exploitation where feasible and document results.",
+            "tools": "LES (Linux Exploit Suggester), WES-NG (Windows Exploit Suggester), SearchSploit"
+          },
+          {
+            "key": "privesc_credential_files",
+            "title": "Credential and Configuration File Access",
+            "caption": "",
+            "description": "Search accessible file systems for stored credentials, configuration files, SSH private keys, browser-saved passwords, or application secrets that may facilitate lateral movement or privilege escalation.",
+            "tools": "LinPEAS, WinPEAS, LaZagne, manual grep/find"
+          },
+          {
+            "key": "privesc_token_impersonation",
+            "title": "Token Impersonation and Privilege Abuse",
+            "caption": "",
+            "description": "On Windows systems, attempt token impersonation attacks where the compromised account holds SeImpersonatePrivilege or SeAssignPrimaryTokenPrivilege. Document privileges held and outcome of impersonation attempts.",
+            "tools": "Mimikatz, PrintSpoofer, RoguePotato, SweetPotato, Incognito"
+          },
+          {
+            "key": "privesc_scheduled_tasks_cron",
+            "title": "Scheduled Tasks and Cron Job Abuse",
+            "caption": "",
+            "description": "Review scheduled tasks (Windows) and cron jobs (Linux) for scripts or binaries writable by the current user that are executed in a higher privilege context. Attempt to substitute or modify them to achieve privilege escalation.",
+            "tools": "LinPEAS, WinPEAS, PowerUp, pspy (Linux process monitoring)"
+          },
+          {
+            "key": "privesc_registry_weaknesses",
+            "title": "Registry and Environment Variable Weaknesses",
+            "caption": "",
+            "description": "On Windows systems, check for weak registry key permissions, AutoRun keys, and exploitable environment variable configurations that could allow privilege escalation.",
+            "tools": "WinPEAS, PowerUp, accesschk, Autoruns (Sysinternals)"
+          },
+          {
+            "key": "privesc_password_reuse",
+            "title": "Password Reuse and Local Account Exploitation",
+            "caption": "",
+            "description": "Test obtained credentials against local administrator accounts and service accounts on the compromised host and other in-scope systems. Document any successful re-use of credentials across systems.",
+            "tools": "CrackMapExec, Hydra, Metasploit"
+          }
+        ]
+      },
+      {
+        "key": "post_exploitation",
+        "title": "Post-Exploitation",
+        "description": "Following successful exploitation and privilege escalation, conduct post-exploitation activities to demonstrate the full business impact of the compromise. Exploitation of issues which may cause a Denial or Service (DoS) in the component should not be used unless the client states on the record that they understand and accept the risks involved. This phase focuses on understanding what an attacker could realistically achieve with the level of access obtained.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "postex_situational_awareness",
+            "title": "Situational Awareness",
+            "caption": "",
+            "description": "Gather detailed information about the compromised host and its environment including OS version, installed software, running processes, active network connections, logged-on users, domain membership, and network configuration.",
+            "tools": "Seatbelt, WinPEAS, LinPEAS, built-in OS commands (ipconfig, ifconfig, ps, netstat)"
+          },
+          {
+            "key": "postex_credential_harvesting",
+            "title": "Credential Harvesting",
+            "caption": "",
+            "description": "Attempt to harvest credentials from compromised systems including LSASS memory dumps, SAM/NTDS.dit database extraction, cached domain credentials, browser-stored credentials, and credential manager stores. Document all credentials obtained.",
+            "tools": "Mimikatz, ProcDump, LaZagne, Impacket (secretsdump.py), CrackMapExec"
+          },
+          {
+            "key": "postex_hash_cracking",
+            "title": "Password Hash Cracking",
+            "caption": "",
+            "description": "Attempt offline cracking of any obtained password hashes using appropriate wordlists and rule sets. Document cracked credentials and the hashing algorithm in use.",
+            "tools": "Hashcat, John the Ripper"
+          },
+          {
+            "key": "postex_network_discovery",
+            "title": "Internal Network Discovery",
+            "caption": "",
+            "description": "From compromised hosts, conduct internal network discovery to identify additional hosts, network segments, and services not visible from the external perimeter. Map the internal network topology.",
+            "tools": "Nmap, CrackMapExec, arp-scan, built-in OS commands"
+          },
+          {
+            "key": "postex_sensitive_data_access",
+            "title": "Sensitive Data Access and Review",
+            "caption": "",
+            "description": "Identify and document sensitive data accessible from compromised accounts and systems, including PII, financial data, intellectual property, source code repositories, and internal documentation. Do not exfiltrate real data; record file paths and metadata to demonstrate impact.",
+            "tools": ""
+          },
+          {
+            "key": "postex_active_directory_enum",
+            "title": "Active Directory Enumeration",
+            "caption": "",
+            "description": "If domain-joined systems are compromised, enumerate Active Directory to identify domain users, groups, GPOs, trust relationships, and potential attack paths to domain dominance.",
+            "tools": "BloodHound, SharpHound, PowerView, ADExplorer, ldapsearch"
+          },
+          {
+            "key": "postex_pivoting_setup",
+            "title": "Pivoting and Tunnelling",
+            "caption": "",
+            "description": "Establish pivoting capability through compromised hosts to reach otherwise inaccessible internal network segments. Document the tunnelling mechanism used and the additional attack surface made accessible.",
+            "tools": "Chisel, ligolo-ng, SSH tunnelling, Metasploit (route/socks), proxychains"
+          },
+          {
+            "key": "postex_container_escape",
+            "title": "Container and Virtualisation Escape",
+            "caption": "",
+            "description": "Where compromised systems are containerised (Docker, Kubernetes) or virtualised, assess and attempt escape techniques to reach the underlying host or broader environment. Document the technique and outcome.",
+            "tools": "deepce, CDK (Container Defence Kit), manual techniques"
+          },
+          {
+            "key": "postex_cloud_metadata",
+            "title": "Cloud Metadata and IAM Exploitation",
+            "caption": "",
+            "description": "Where compromised hosts are cloud instances, query the instance metadata service (IMDS) to retrieve IAM role credentials, instance identity documents, and other sensitive configuration data. Assess the permissions granted to the associated IAM role.",
+            "tools": "curl (IMDS endpoints), AWS CLI, Pacu, ScoutSuite"
+          }
+        ]
+      },
+      {
+        "key": "persistence_testing",
+        "title": "Persistence Testing",
+        "description": "Assess the ability to establish persistent access to compromised systems and evaluate whether such persistence would be detected by defensive controls. All persistence mechanisms must be documented and removed at the conclusion of the assessment.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "persist_scheduled_tasks",
+            "title": "Scheduled Task and Cron Job Persistence",
+            "caption": "",
+            "description": "Demonstrate persistence via the creation of scheduled tasks (Windows Task Scheduler) or cron jobs (Linux) that would execute an attacker-controlled payload on a recurring basis. Document the mechanism and verify execution. Remove artefacts at test completion.",
+            "tools": "schtasks (Windows), crontab (Linux), Metasploit persistence modules"
+          },
+          {
+            "key": "persist_registry_autorun",
+            "title": "Registry Autorun and Startup Persistence",
+            "caption": "",
+            "description": "On Windows systems, demonstrate persistence via common registry autorun locations (HKLM/HKCU Run keys, Winlogon, AppInit DLLs, etc.) and startup folder entries. Document the specific key or path used and remove artefacts at test completion.",
+            "tools": "reg.exe, PowerShell, Metasploit, Empire"
+          },
+          {
+            "key": "persist_service_creation",
+            "title": "Malicious Service Creation",
+            "caption": "",
+            "description": "Demonstrate persistence through the creation of a new Windows service or modification of an existing service to execute attacker-controlled code. Document the service configuration and remove artefacts at test completion.",
+            "tools": "sc.exe, PowerShell, Metasploit"
+          },
+          {
+            "key": "persist_ssh_key_implant",
+            "title": "SSH Authorised Key Implantation",
+            "caption": "",
+            "description": "On Linux/Unix systems, demonstrate persistence by adding an attacker-controlled public key to the authorised_keys file of a compromised user account. Verify that key-based authentication succeeds. Remove artefacts at test completion.",
+            "tools": "ssh-keygen, manual file editing"
+          },
+          {
+            "key": "persist_backdoor_account",
+            "title": "Backdoor Account Creation",
+            "caption": "",
+            "description": "Demonstrate the ability to create a local or domain account for persistent access. Note whether the creation of new accounts triggers alerting in the target environment. Remove any created accounts at test completion.",
+            "tools": "net user / useradd, PowerShell, CrackMapExec"
+          },
+          {
+            "key": "persist_webshell",
+            "title": "Web Shell Implantation",
+            "caption": "",
+            "description": "Where web server write access has been demonstrated, deploy a test web shell to confirm persistent command execution capability. Document the path and verify execution. Remove the web shell at test completion.",
+            "tools": "Custom web shells (PHP, ASPX, JSP), Weevely, Metasploit"
+          },
+          {
+            "key": "persist_detection_evasion",
+            "title": "Persistence Detection Evasion Assessment",
+            "caption": "",
+            "description": "Assess whether established persistence mechanisms triggered any alerts or were detected by endpoint security tooling, SIEM, or other monitoring controls. Document detection outcomes to inform defensive recommendations.",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "lateral_movement",
+        "title": "Lateral Movement",
+        "description": "Demonstrate the ability to move from compromised systems to other hosts within the environment, expanding access across the network. Document all techniques attempted, credentials used, and systems reached.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "lateral_pass_the_hash",
+            "title": "Pass-the-Hash and Pass-the-Ticket",
+            "caption": "",
+            "description": "Attempt to use harvested NTLM hashes or Kerberos tickets to authenticate to other in-scope systems without knowing the plaintext password. Document systems successfully accessed.",
+            "tools": "Mimikatz, Impacket, CrackMapExec, Rubeus"
+          },
+          {
+            "key": "lateral_credential_reuse",
+            "title": "Credential Reuse Across Systems",
+            "caption": "",
+            "description": "Test harvested or cracked credentials against other in-scope hosts and services. Document any successful credential reuse, the target system, and the level of access obtained.",
+            "tools": "CrackMapExec, Hydra, Metasploit"
+          },
+          {
+            "key": "lateral_smb_psexec",
+            "title": "SMB and Remote Execution",
+            "caption": "",
+            "description": "Attempt lateral movement via SMB using techniques such as PsExec, SMBExec, or WMIExec where valid credentials or hashes are available. Document target systems reached and access level.",
+            "tools": "Impacket (psexec.py, smbexec.py, wmiexec.py), CrackMapExec, Metasploit"
+          },
+          {
+            "key": "lateral_rdp_movement",
+            "title": "RDP Lateral Movement",
+            "caption": "",
+            "description": "Attempt lateral movement via RDP using obtained credentials. Assess whether RDP is enabled across the environment and whether it is accessible between hosts. Document successful connections.",
+            "tools": "xfreerdp, rdesktop, mstsc"
+          },
+          {
+            "key": "lateral_ssh_movement",
+            "title": "SSH Lateral Movement",
+            "caption": "",
+            "description": "Attempt lateral movement via SSH using obtained credentials, harvested private keys, or SSH agent forwarding. Document systems accessed and the credential mechanism used.",
+            "tools": "ssh, ssh-agent forwarding, Metasploit"
+          },
+          {
+            "key": "lateral_kerberoasting",
+            "title": "Kerberoasting",
+            "caption": "",
+            "description": "If domain access is obtained, request Kerberos service tickets for accounts with SPNs and attempt offline cracking of the encrypted ticket material. Document any cracked service account credentials and their associated privileges.",
+            "tools": "Rubeus, Impacket (GetUserSPNs.py), Hashcat, John the Ripper"
+          },
+          {
+            "key": "lateral_as_rep_roasting",
+            "title": "AS-REP Roasting",
+            "caption": "",
+            "description": "Identify domain accounts with Kerberos pre-authentication disabled and request AS-REP responses for offline cracking. Document any cracked credentials.",
+            "tools": "Rubeus, Impacket (GetNPUsers.py), Hashcat"
+          },
+          {
+            "key": "lateral_dcsync",
+            "title": "DCSync Attack",
+            "caption": "",
+            "description": "Where sufficient domain privileges are obtained, attempt a DCSync attack to replicate password hashes from Active Directory without executing code on the domain controller. Document the credentials retrieved and their associated privileges.",
+            "tools": "Mimikatz (lsadump::dcsync), Impacket (secretsdump.py)"
+          },
+          {
+            "key": "lateral_trust_abuse",
+            "title": "Domain and Forest Trust Abuse",
+            "caption": "",
+            "description": "Identify domain and forest trusts within the environment and assess whether they can be leveraged to expand access to additional domains or forests. Document any trust relationships identified and the access achieved.",
+            "tools": "BloodHound, PowerView, Rubeus, Mimikatz"
+          },
+          {
+            "key": "lateral_network_segment_reach",
+            "title": "Network Segmentation Bypass",
+            "caption": "",
+            "description": "Assess the effectiveness of network segmentation controls by attempting to reach hosts and services in network segments that should not be accessible from the initial point of compromise. Document any segmentation weaknesses identified.",
+            "tools": "Nmap (via pivot), proxychains, Metasploit routing"
+          }
+        ]
+      },
+      {
+        "key": "data_exfiltration_testing",
+        "title": "Data Exfiltration Testing",
+        "description": "Assess the ability to exfiltrate data from the environment through various channels and evaluate whether Data Loss Prevention (DLP) or other monitoring controls would detect or prevent such activity. Use only representative test data; never exfiltrate real customer or sensitive data.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "exfil_dns_tunnelling",
+            "title": "DNS Tunnelling",
+            "caption": "",
+            "description": "Attempt to exfiltrate data using DNS tunnelling techniques. Assess whether DNS-based exfiltration would be detected by monitoring controls. Document the technique and outcome.",
+            "tools": "dnscat2, iodine"
+          },
+          {
+            "key": "exfil_http_https",
+            "title": "HTTP/HTTPS Exfiltration",
+            "caption": "",
+            "description": "Attempt to exfiltrate test data over HTTP and HTTPS to an external controlled endpoint. Assess whether egress filtering or DLP controls inspect and block outbound web traffic. Document the outcome.",
+            "tools": "curl, wget, custom scripts"
+          },
+          {
+            "key": "exfil_smtp_exfiltration",
+            "title": "SMTP Email Exfiltration",
+            "caption": "",
+            "description": "Attempt to exfiltrate test data via email through any accessible SMTP services, including open relays. Document whether outbound email with sensitive content would be blocked or flagged.",
+            "tools": "swaks, sendmail, Metasploit"
+          },
+          {
+            "key": "exfil_ftp_sftp",
+            "title": "FTP/SFTP Exfiltration",
+            "caption": "",
+            "description": "Attempt to transfer test data to an external system via FTP or SFTP. Assess whether outbound file transfer protocols are blocked at the network perimeter. Document results.",
+            "tools": "ftp, sftp, lftp"
+          },
+          {
+            "key": "exfil_cloud_storage_upload",
+            "title": "Cloud Storage Upload",
+            "caption": "",
+            "description": "Attempt to upload test data to external cloud storage services (e.g. AWS S3, Google Drive, Dropbox, OneDrive) from compromised hosts. Assess whether egress controls restrict access to these services.",
+            "tools": "AWS CLI, rclone, curl"
+          },
+          {
+            "key": "exfil_covert_channels",
+            "title": "Covert Channels and Steganography",
+            "caption": "",
+            "description": "Assess the feasibility of data exfiltration via covert channels such as ICMP tunnelling or steganographic encoding within permitted traffic types. Document the technique and whether it would evade monitoring.",
+            "tools": "ptunnel, steghide, custom ICMP scripts"
+          },
+          {
+            "key": "exfil_compressed_encrypted",
+            "title": "Compressed and Encrypted Archive Exfiltration",
+            "caption": "",
+            "description": "Attempt to exfiltrate test data as encrypted and compressed archives to assess whether content inspection controls can identify sensitive data within protected containers.",
+            "tools": "7-Zip, zip, openssl enc"
+          },
+          {
+            "key": "exfil_volume_thresholds",
+            "title": "Data Volume Threshold Testing",
+            "caption": "",
+            "description": "Assess whether exfiltration of large volumes of test data triggers alerts or rate limiting from DLP, network monitoring, or SIEM controls. Document the volume at which detection occurred, if at all.",
+            "tools": ""
+          },
+          {
+            "key": "exfil_dlp_bypass",
+            "title": "DLP Control Bypass Assessment",
+            "caption": "",
+            "description": "Assess the effectiveness of any deployed DLP controls by attempting common bypass techniques such as renaming file extensions, encoding data in non-standard formats, or splitting data across multiple transfers. Document any bypasses identified.",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "cleanup",
+        "title": "Cleanup",
+        "description": "Ensure that all artefacts, tools, accounts, files, and changes introduced during the assessment are identified and removed. The environment should be returned to its pre-engagement state. Document all cleanup actions taken and confirm completion with the client.",
+        "type": "checklist",
+        "caption": "",
+        "items": [
+          {
+            "key": "cleanup_artefact_inventory",
+            "title": "Artefact and Change Inventory Review",
+            "caption": "",
+            "description": "Review all notes and records from the assessment to compile a complete inventory of every artefact introduced, change made, or account created during the engagement, including tools uploaded, payloads deployed, persistence mechanisms established, and accounts created.",
+            "tools": ""
+          },
+          {
+            "key": "cleanup_remove_tools",
+            "title": "Remove Uploaded Tools and Payloads",
+            "caption": "",
+            "description": "Remove all offensive tools, exploit scripts, payloads, and temporary files uploaded or created on target systems during the assessment. Verify removal and document each system and file path cleared.",
+            "tools": ""
+          },
+          {
+            "key": "cleanup_remove_persistence",
+            "title": "Remove Persistence Mechanisms",
+            "caption": "",
+            "description": "Remove all persistence artefacts established during the Persistence Testing phase including scheduled tasks, cron jobs, registry keys, services, web shells, and SSH authorised keys. Verify removal on each affected system.",
+            "tools": "Autoruns (Sysinternals), schtasks, reg delete, crontab, manual verification"
+          },
+          {
+            "key": "cleanup_remove_accounts",
+            "title": "Remove Created Accounts",
+            "caption": "",
+            "description": "Delete all local and domain accounts created during the assessment. Verify account removal and ensure no residual group memberships or access rights remain.",
+            "tools": "net user /delete, userdel, PowerShell, Active Directory Users and Computers"
+          },
+          {
+            "key": "cleanup_restore_configs",
+            "title": "Restore Modified Configurations",
+            "caption": "",
+            "description": "Revert any configuration changes made to target systems or services during the assessment to their original state. Document each change reverted and confirm restoration.",
+            "tools": ""
+          },
+          {
+            "key": "cleanup_clear_logs",
+            "title": "Log Entry Review and Notation",
+            "caption": "",
+            "description": "Review target system logs to identify entries generated by assessment activity. Note relevant log entries for inclusion in the report but do not delete or tamper with logs unless explicitly agreed with the client and within scope.",
+            "tools": "Event Viewer, journalctl, syslog"
+          },
+          {
+            "key": "cleanup_verify_system_stability",
+            "title": "System Stability Verification",
+            "caption": "",
+            "description": "Verify that all systems interacted with during the assessment are stable and functioning normally following cleanup. Confirm with the client that no services were disrupted or left in a degraded state as a result of testing activity.",
+            "tools": ""
+          },
+          {
+            "key": "cleanup_client_confirmation",
+            "title": "Client Cleanup Confirmation",
+            "caption": "",
+            "description": "Provide the client with a written summary of all cleanup actions performed and confirm sign-off that the environment has been returned to its pre-engagement state. Obtain written acknowledgement from the client contact.",
+            "tools": ""
+          }
+        ]
+      },
+      {
+        "key": "upload_logs",
+        "title": "Upload logs",
+        "description": "This should include all associated traffic associated to the in-scope targets.",
+        "type": "large_upload"
+      },
+      {
+        "key": "executive_summary",
+        "title": "Executive summary",
+        "description": "The executive summary should be written with a high-level view of both risk and business impact. It should be concise and clear, therefore it is important to use plain English. This ensures that non-technical readers can gain insight into security concerns outlined in your report.",
+        "type": "executive_summary"
+      }
+    ]
+  }
+}
